@@ -41,7 +41,7 @@ function App() {
   };
 
   const loginEvent = () => {
-    setLogin(true)
+    setLogin(!login)
   };
 
   return (
@@ -50,7 +50,7 @@ function App() {
       (
         <>
           <Title/>
-          <AddSubmission />
+          <AddSubmission triggerEvent={loginEvent}/>
         </>
       )
       }

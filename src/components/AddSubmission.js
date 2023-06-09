@@ -1,27 +1,55 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { db } from "../firebase";
-import { collection, addDoc } from "firebase/firestore";
+import { collection, addDoc, query, where, getDocs } from "firebase/firestore";
 
-export default function AddSubmission() {
+export default function AddSubmission(props) {
   const [uniName, setUniName] = useState("");
   const [course, setCourse] = useState("");
   const [jobTitle, setJobTitle] = useState("");
   const [currentPay, setCurrentPay] = useState("");
   const [city, setCity] = useState("");
   const [graduationYear, setGraduationYear] = useState("");
+  const univercities = ["University of Auckland", "AUT", "The University of  Waikato", "University of Otago	", "Lincoln University", "University of Canterbury", "Victoria University of Wellington", "Massey University"]
+  const degrees = ["Software Engineering", "Mechatronics", "Chemical Engineering", "Mechanical Engineering", "Law", "Accounting", "Social Work", "Civil Engineering", "Psychology", "Business Studies", "Environmental Sciences", "Biology", "Medicine", "Nursing"]
+  const gradYear = ["2014", "2015", "2016", "2017", "2018", "2019", "2020", "2021", "2022"]
+  const cities = ["Northland", "Auckland", "Southland", "Otago", "Canterbury", "West Coast", "Marlborough", "Nelson", "Tasman", "Wellington", "Manawatū-Whanganui", "Taranaki", "Hawke's Bay", "Gisborne", "Bay of Plenty", "Waikato"]
+  const [email, setEmail] = useState("")
 
+  const checkEmailExists = async (email) => {
+    try {
+      const q = query(collection(db, 'testingAuth'), where('email', '==', email));
+      const querySnapshot = await getDocs(q);
+  
+      if (querySnapshot.empty) {
+        return false;
+      }
+      return true;
+    } catch (error) {
+      console.error('Error checking email existence: ', error);
+      return false;
+    }
+  };
+  
+  useEffect(() => {
+    setEmail(localStorage.getItem("email"))
+  }, []);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    const emailExists = await checkEmailExists(email)
 
-    if (uniName !== "" || course !== "" || jobTitle !== "" || currentPay !== "" || city !== "" || graduationYear !== "") {
-      await addDoc(collection(db, "record"), {
+    if(emailExists){
+      window.alert("Submission already received from this email");
+      props.triggerEvent();
+    }else if (uniName !== "" && course !== "" && jobTitle !== "" && currentPay !== "" && city !== "" && graduationYear !== "") {
+      await addDoc(collection(db, "testingAuth"), {
         uniName,
         course,
         jobTitle,
         currentPay,
         city,
         graduationYear,
+        email,
       });
       setUniName("");
       setCourse("");
@@ -29,49 +57,69 @@ export default function AddSubmission() {
       setCurrentPay("");
       setCity("");
       setGraduationYear("");
+
+      localStorage.setItem("email", "");
+      window.alert("Thank you for your submission!");
+      props.triggerEvent();
+    }else{
+      window.alert("Please fill in all feilds");
     }
+
   };
 
   return (
     <div className="container">
       <h2>Sumbit Form</h2>
       <form onSubmit={handleSubmit}>
-        <label>
-          Name of Uni:
-          <input
-            type="text"
-            value={uniName}
-            onChange={(e) => setUniName(e.target.value)}
-          />
-        </label>
+      <label>
+        Name of Uni:
+        <select value={uniName} onChange={(e) => setUniName(e.target.value)}>
+          <option value="">Select a University</option>
+          {univercities.map((item) => (
+            <option key={item} value={item}>
+              {item}
+            </option>
+          ))}
+        </select>
+      </label>
+
         <br />
         <label>
           Course you took:
-          <input
-            type="text"
-            value={course}
-            onChange={(e) => setCourse(e.target.value)}
-          />
+          <select value={course} onChange={(e) => setCourse(e.target.value)}>
+            <option value="">Select a Degree</option>
+            {degrees.map((item) => (
+              <option key={item} value={item}>
+                {item}
+              </option>
+            ))}
+          </select>
         </label>
         <br />
         <label>
           Graduation Year:
-          <input
-            type="text"
-            value={graduationYear}
-            onChange={(e) => setGraduationYear(e.target.value)}
-          />
+          <select value={graduationYear} onChange={(e) => setGraduationYear(e.target.value)}>
+            <option value="">Select a Year</option>
+            {gradYear.map((item) => (
+              <option key={item} value={item}>
+                {item}
+              </option>
+            ))}
+          </select>
         </label>
-        <br />
+        <br />        
         <label>
-          City You Live In Now:
-          <input
-            type="text"
-            value={city}
-            onChange={(e) => setCity(e.target.value)}
-          />
+          Area You Live In Now:
+          <select value={city} onChange={(e) => setCity(e.target.value)}>
+            <option value="">Select an Area</option>
+            {cities.map((item) => (
+              <option key={item} value={item}>
+                {item}
+              </option>
+            ))}
+          </select>
         </label>
-        <br />
+        <br />        
         <label>
           Current Job title:
           <input
@@ -80,17 +128,17 @@ export default function AddSubmission() {
             onChange={(e) => setJobTitle(e.target.value)}
           />
         </label>
-        <br />
+        <br />        
         <label>
-          Current pay:
+          Current Yearly Salary:
           <input
             type="text"
             value={currentPay}
             onChange={(e) => setCurrentPay(e.target.value)}
           />
         </label>
-        <br />
-        <button type="submit">Submit</button>
+        <br />        
+        <button type="submit">Submit!</button>
       </form>
     </div>
   );

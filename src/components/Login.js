@@ -1,67 +1,103 @@
 import googleLogo from '../images/google-logo.png'; // Replace with the path to your Google logo image
 import "../Login.css"
 import React, { useEffect, useState } from 'react';
-import { collection, query, getDocs, doc, getDoc, where } from 'firebase/firestore';
-import { db } from '../firebase'; // Import your Firebase Firestore instance
-
+import { collection, query, getDocs, doc, getDoc, where , onSnapshot} from 'firebase/firestore';
+import { db, auth, provider } from '../firebase'; // Import your Firebase Firestore instance
+import {signInWithPopup} from "firebase/auth"
+import Title from "./Title";
 
 
 const LoginPage = (props) => {
-    const handleClick = () => {
-        props.triggerEvent(); // Invoke the callback function from props
-    };
+    const [data, setData] = useState([]);
 
-    const [uniNames, setUniNames] = useState([]);
-    const [selectedUniName, setSelectedUniName] = useState('');
+    // Sign in. Set local storage email to "email"
+    // if value is successful, trigger event
+    const handleClick = (e) => {
+      e.preventDefault(); 
+      signInWithPopup(auth, provider)
+        .then((data) => {
+          localStorage.setItem("email", data.user.email);
+          props.triggerEvent();
+        })
+        .catch((error) => {
+          console.error("Error signing in: ", error);
+        });
+    };
+    
   
     useEffect(() => {
-      const fetchUniNames = async () => {
-        try {
-          const q = query(collection(db, 'record')); // Replace 'todos' with the actual collection name
-          const querySnapshot = await getDocs(q);
-          const uniqueUniNames = [];
-          querySnapshot.forEach((doc) => {
-            const data = doc.data();
-            const { uniName } = data;
+      // Create a Firestore query for the "record" collection
+      const q = query(collection(db, 'record'));
   
-            if (uniName && !uniqueUniNames.includes(uniName)) {
-              uniqueUniNames.push(uniName);
-            }
-          });
-          setUniNames(uniqueUniNames);
-        } catch (error) {
-          console.error('Error fetching uni names: ', error);
-        }
+      // Subscribe to real-time updates using onSnapshot
+      const unsubscribe = onSnapshot(q, (querySnapshot) => {
+        const records = querySnapshot.docs.map((doc) => doc.data());
+  
+        // Group records by uniName and calculate average currentPay
+        const groupedData = records.reduce((acc, record) => {
+          if (!acc[record.uniName]) {
+            acc[record.uniName] = {
+              uniName: record.uniName,
+              currentPaySum: Number(record.currentPay),
+              count: 1,
+            };
+          } else {
+            acc[record.uniName].currentPaySum += Number(record.currentPay);
+            acc[record.uniName].count += 1;
+          }
+          return acc;
+        }, {});
+        // Calculate average currentPay for each uniName
+        const averages = Object.values(groupedData).map((group) => ({
+          uniName: group.uniName,
+          averageCurrentPay: parseInt(group.currentPaySum / group.count),
+        }));
+  
+        // Sort averages by currentPay in descending order
+        const sortedAverages = averages.sort(
+          (a, b) => b.averageCurrentPay - a.averageCurrentPay
+        );
+  
+        setData(sortedAverages);
+      });
+  
+      // Unsubscribe from the query when the component unmounts
+      return () => {
+        unsubscribe();
       };
-  
-      fetchUniNames();
-    }, []);
-  
-    const handleUniNameChange = (event) => {
-      setSelectedUniName(event.target.value);
-    };
-  
+    }, []);  
 
     return (
-    <div className="container">
-      <h1>Rate My Uni</h1>
+      <div className="container">
+      <h1 className="title">Rate My Uni</h1>
       <form className="login-form">
         <button className="google-button" onClick={handleClick}>
-          <img src={googleLogo} alt="Google Logo" className="google-logo" />
-          Login with Google
+        <img src={googleLogo} alt="Google Logo" className="google-logo" />
+          Login And Rate With Google
         </button>
       </form>
 
-      <h2>Select Uni</h2>
-      <label htmlFor="uniName">Select Uni Name:</label>
-      <select id="uniName" value={selectedUniName} onChange={handleUniNameChange}>
-        <option value="">-- Select Uni Name --</option>
-        {uniNames.map((uniName) => (
-          <option key={uniName} value={uniName}>
-            {uniName}
-          </option>
-        ))}
-      </select>
+      <div className="query-results">
+        <h2>University Rankings by Average Pay</h2>
+        <table>
+          <thead>
+            <tr>
+              <th>Index</th>
+              <th>University Name</th>
+              <th>Average Pay</th>
+            </tr>
+          </thead>
+          <tbody>
+            {data.map((item, index) => (
+              <tr key={item.uniName}>
+                <td>{index + 1}</td>
+                <td>{item.uniName}</td>
+                <td>{item.averageCurrentPay}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
     </div>
   );
 };
