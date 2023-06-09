@@ -66,15 +66,21 @@ export default function AddSubmission(props) {
     }else{
       window.alert("Please fill in all feilds");
     }
-
   };
+
+  function returnToMain(){
+    localStorage.setItem("email", "");
+    props.triggerEvent();
+  }
 
   return (
     <div className="container">
+      <h1>Rate My Uni</h1>
+
       <h2>Sumbit Form</h2>
       <form onSubmit={handleSubmit}>
       <label>
-        Name of Uni:
+        Name of Uni: <br></br>
         <select value={uniName} onChange={(e) => setUniName(e.target.value)}>
           <option value="">Select a University</option>
           {univercities.map((item) => (
@@ -87,7 +93,7 @@ export default function AddSubmission(props) {
 
         <br />
         <label>
-          Course you took:
+          Course you took:<br></br>
           <select value={course} onChange={(e) => setCourse(e.target.value)}>
             <option value="">Select a Degree</option>
             {degrees.map((item) => (
@@ -99,7 +105,7 @@ export default function AddSubmission(props) {
         </label>
         <br />
         <label>
-          Graduation Year:
+          Graduation Year:<br></br>
           <select value={graduationYear} onChange={(e) => setGraduationYear(e.target.value)}>
             <option value="">Select a Year</option>
             {gradYear.map((item) => (
@@ -111,7 +117,7 @@ export default function AddSubmission(props) {
         </label>
         <br />        
         <label>
-          Area You Live In Now:
+          Area You Live In Now:<br></br>
           <select value={city} onChange={(e) => setCity(e.target.value)}>
             <option value="">Select an Area</option>
             {cities.map((item) => (
@@ -141,6 +147,7 @@ export default function AddSubmission(props) {
         </label>
         <br />        
         <button type="submit">Submit!</button>
+        <button onClick={returnToMain}>Back</button>
       </form>
     </div>
   );

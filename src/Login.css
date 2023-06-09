@@ -1,18 +1,24 @@
 .container {
-    max-width: 400px;
+    max-width: 90vw;
     margin: 0 auto;
     padding: 20px;
     text-align: center;
-    background-color: #f5f5f5;
+    background-color: #fff;
     border-radius: 5px;
   }
   
   h1 {
     margin-bottom: 20px;
   }
-  
+  .header{
+    height: 70px;
+  }
+  .title{
+    float: left;
+
+  }
   .login-form {
-    display: flex;
+    float: right;
     flex-direction: column;
     align-items: center;
   }
@@ -36,8 +42,8 @@
   }
   
   .google-logo {
-    width: 20px;
-    height: 20px;
+    width: 50px;
+    height: 50px;
     margin-right: 10px;
   }
   .query-results {
@@ -59,4 +65,16 @@
   th {
     background-color: #f5f5f5;
   }
-  
+  @media (max-width: 600px) {
+    .button-text {
+      display: none;
+    }
+    .google-logo{
+      margin: 0px;
+    }
+    .google-button{
+      width: 50px;
+      height: 50px;
+      padding: 0px;
+    }
+  }

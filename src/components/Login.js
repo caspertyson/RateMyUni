@@ -4,7 +4,6 @@ import React, { useEffect, useState } from 'react';
 import { collection, query, getDocs, doc, getDoc, where , onSnapshot} from 'firebase/firestore';
 import { db, auth, provider } from '../firebase'; // Import your Firebase Firestore instance
 import {signInWithPopup} from "firebase/auth"
-import Title from "./Title";
 
 
 const LoginPage = (props) => {
@@ -13,6 +12,8 @@ const LoginPage = (props) => {
     // Sign in. Set local storage email to "email"
     // if value is successful, trigger event
     const handleClick = (e) => {
+      // props.triggerEvent();
+
       e.preventDefault(); 
       signInWithPopup(auth, provider)
         .then((data) => {
@@ -69,20 +70,22 @@ const LoginPage = (props) => {
 
     return (
       <div className="container">
-      <h1 className="title">Rate My Uni</h1>
-      <form className="login-form">
-        <button className="google-button" onClick={handleClick}>
-        <img src={googleLogo} alt="Google Logo" className="google-logo" />
-          Login And Rate With Google
-        </button>
-      </form>
+      <div className='header'>
+        <h1 className="title">Rate My Uni</h1>
+        <form className="login-form">
+          <button className="google-button" onClick={handleClick}>
+          <img src={googleLogo} alt="Google Logo" className="google-logo" />
+          <span className="button-text">Login And Rate </span>
+          </button>
+        </form>
+      </div>
 
       <div className="query-results">
         <h2>New Zealand University <br></br> Rankings by Average Pay</h2>
         <table>
           <thead>
             <tr>
-              <th>Index</th>
+              <th>#</th>
               <th>University Name</th>
               <th>Average Pay</th>
             </tr>

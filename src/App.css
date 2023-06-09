@@ -1,5 +1,5 @@
 .container {
-  max-width: 400px;
+  max-width: 70vw;
   margin: 0 auto;
   padding: 20px;
   background-color: #f5f5f5;
@@ -33,11 +33,14 @@ input {
 
 button {
   padding: 10px 40px; /* Changed padding to make the button wider */
+  width: 200px;
+  margin: 10px;
   background-color: #007bff;
   color: #fff;
   border: none;
   border-radius: 3px;
   cursor: pointer;
+  font-weight:900;
 }
 
 button:hover {
@@ -49,4 +52,8 @@ button:hover {
   margin: 30px 0;
   font-family: "Poppins", sans-serif;
   font-weight: 700;
+}
+select{
+  margin-top: 5px;
+  padding: 5px;
 }

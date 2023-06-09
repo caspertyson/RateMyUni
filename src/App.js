@@ -1,7 +1,6 @@
 import logo from "./logo.svg";
 import "./App.css";
 import React from "react";
-import Title from "./components/Title";
 import AddSubmission from "./components/AddSubmission";
 import Login from "./components/Login";
 import {
@@ -49,7 +48,6 @@ function App() {
       {!login ? (<Login triggerEvent={loginEvent}/>) : 
       (
         <>
-          <Title/>
           <AddSubmission triggerEvent={loginEvent}/>
         </>
       )
