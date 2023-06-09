@@ -87,7 +87,7 @@ const LoginPage = (props) => {
             <tr>
               <th>#</th>
               <th>University Name</th>
-              <th>Average Pay</th>
+              <th>Average Pay - Currently dummy data</th>
             </tr>
           </thead>
           <tbody>
