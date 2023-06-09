@@ -78,7 +78,7 @@ const LoginPage = (props) => {
       </form>
 
       <div className="query-results">
-        <h2>University Rankings by Average Pay</h2>
+        <h2>New Zealand University <br></br> Rankings by Average Pay</h2>
         <table>
           <thead>
             <tr>

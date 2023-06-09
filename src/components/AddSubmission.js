@@ -35,6 +35,7 @@ export default function AddSubmission(props) {
   }, []);
 
   const handleSubmit = async (e) => {
+    const date = new Date()
     e.preventDefault();
     const emailExists = await checkEmailExists(email)
 
@@ -50,6 +51,7 @@ export default function AddSubmission(props) {
         city,
         graduationYear,
         email,
+        date,
       });
       setUniName("");
       setCourse("");
