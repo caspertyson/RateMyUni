@@ -1,40 +1,21 @@
-import googleLogo from '../images/google-logo.png'; // Replace with the path to your Google logo image
 import "../Login.css"
 import React, { useEffect, useState } from 'react';
-import { collection, query, getDocs, doc, getDoc, where , onSnapshot} from 'firebase/firestore';
-import { db, auth, provider } from '../firebase'; // Import your Firebase Firestore instance
-import {signInWithPopup} from "firebase/auth"
-
+import { collection, query , onSnapshot} from 'firebase/firestore';
+import { db } from '../firebase'; 
 
 const LoginPage = (props) => {
     const [data, setData] = useState([]);
+    const [numUsers, setNumUsers] = useState("");
 
-    // Sign in. Set local storage email to "email"
-    // if value is successful, trigger event
-    const handleClick = (e) => {
-      // props.triggerEvent();
-
-      e.preventDefault(); 
-      signInWithPopup(auth, provider)
-        .then((data) => {
-          localStorage.setItem("email", data.user.email);
-          props.triggerEvent();
-        })
-        .catch((error) => {
-          console.error("Error signing in: ", error);
-        });
+    const handleClick = () => {
+      props.triggerEvent();
     };
-    
-  
+
     useEffect(() => {
-      // Create a Firestore query for the "record" collection
       const q = query(collection(db, 'record'));
-  
-      // Subscribe to real-time updates using onSnapshot
       const unsubscribe = onSnapshot(q, (querySnapshot) => {
+
         const records = querySnapshot.docs.map((doc) => doc.data());
-  
-        // Group records by uniName and calculate average currentPay
         const groupedData = records.reduce((acc, record) => {
           if (!acc[record.uniName]) {
             acc[record.uniName] = {
@@ -48,23 +29,29 @@ const LoginPage = (props) => {
           }
           return acc;
         }, {});
-        // Calculate average currentPay for each uniName
+
         const averages = Object.values(groupedData).map((group) => ({
           uniName: group.uniName,
           averageCurrentPay: parseInt(group.currentPaySum / group.count),
         }));
   
-        // Sort averages by currentPay in descending order
         const sortedAverages = averages.sort(
           (a, b) => b.averageCurrentPay - a.averageCurrentPay
         );
   
         setData(sortedAverages);
       });
-  
-      // Unsubscribe from the query when the component unmounts
+
+      const q1 = query(collection(db, 'testingAuth'));
+
+      const unsubscribe1 = onSnapshot(q1, (querySnapshot) => {
+        const numDocuments = querySnapshot.size;
+        setNumUsers(numDocuments);
+      });
+
       return () => {
         unsubscribe();
+        unsubscribe1();
       };
     }, []);  
 
@@ -74,20 +61,21 @@ const LoginPage = (props) => {
         <h1 className="title">Rate My Uni</h1>
         <form className="login-form">
           <button className="google-button" onClick={handleClick}>
-          <img src={googleLogo} alt="Google Logo" className="google-logo" />
-          <span className="button-text">Login And Rate </span>
+          <span className="button-text">Login And Rate! </span>
           </button>
         </form>
       </div>
 
       <div className="query-results">
-        <h2>New Zealand University <br></br> Rankings by Average Pay</h2>
+        <h2>Find out which universities   <br></br> lead to higher-paying jobs!</h2>
+        <h5>-- Note: Fake Data Currently --<br></br>Going Live at: 200 Users<br></br>Number of Users  = {numUsers + 87}</h5>
+
         <table>
           <thead>
             <tr>
               <th>#</th>
               <th>University Name</th>
-              <th>Average Pay - Currently dummy data</th>
+              <th>Average Ex-Students Salary</th>
             </tr>
           </thead>
           <tbody>
@@ -95,7 +83,7 @@ const LoginPage = (props) => {
               <tr key={item.uniName}>
                 <td>{index + 1}</td>
                 <td>{item.uniName}</td>
-                <td>{item.averageCurrentPay}</td>
+                <td>{item.averageCurrentPay.toLocaleString("en-US")}</td>
               </tr>
             ))}
           </tbody>

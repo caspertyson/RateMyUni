@@ -1,56 +1,45 @@
-import logo from "./logo.svg";
 import "./App.css";
 import React from "react";
 import AddSubmission from "./components/AddSubmission";
 import Login from "./components/Login";
-import {
-  collection,
-  query,
-  onSnapshot,
-  doc,
-  updateDoc,
-  deleteDoc,
-} from "firebase/firestore";
-import { db } from "./firebase";
+import Email from "./components/Email"
+import { getAuth, isSignInWithEmailLink, signInWithEmailLink } from "firebase/auth";
 
 function App() {
-  const [todos, setTodos] = React.useState([]);
   const [login, setLogin] = React.useState(false);
+  const [userEmail, setUserEmail] = React.useState(false)
 
   React.useEffect(() => {
-    const q = query(collection(db, "todos"));
-    const unsub = onSnapshot(q, (querySnapshot) => {
-      let todosArray = [];
-      querySnapshot.forEach((doc) => {
-        todosArray.push({ ...doc.data(), id: doc.id });
-      });
-      setTodos(todosArray);
-    });
-    return () => unsub();
+    const auth = getAuth();
+    if (isSignInWithEmailLink(auth, window.location.href)) {
+      let email = window.localStorage.getItem('emailForSignIn');
+      if (!email) {
+        email = window.prompt('Please provide your email for confirmation');
+        window.localStorage.setItem('emailForSignIn', email)
+      }
+      signInWithEmailLink(auth, email, window.location.href)
+        .then((result) => {
+          console.log("sign in with link from email success!")
+          setUserEmail(true)
+        })
+        .catch((error) => {
+          window.alert("Link is not valid, try again")
+          console.log(error)
+        });
+    }
   }, []);
-
-  const handleEdit = async (todo, title) => {
-    await updateDoc(doc(db, "todos", todo.id), { title: title });
-  };
-  const toggleComplete = async (todo) => {
-    await updateDoc(doc(db, "todos", todo.id), { completed: !todo.completed });
-  };
-  const handleDelete = async (id) => {
-    await deleteDoc(doc(db, "todos", id));
-  };
 
   const loginEvent = () => {
     setLogin(!login)
   };
-
+  const addedSubmission = () => {
+    setUserEmail(false)
+  }
   return (
-    <div className="App">
-      {!login ? (<Login triggerEvent={loginEvent}/>) : 
-      (
-        <>
-          <AddSubmission triggerEvent={loginEvent}/>
-        </>
-      )
+    <div className="App">      
+      {userEmail ? <AddSubmission triggerEvent={addedSubmission}/>
+      : !login ? (<Login triggerEvent={loginEvent}/>) : 
+      (<Email triggerEvent={loginEvent}/>)
       }
     </div>
   );

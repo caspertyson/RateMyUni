@@ -1,0 +1,48 @@
+
+  #emailh2 {
+    text-align: center;
+    padding: 50px;
+
+  }
+  
+  #emailInput {
+    margin-bottom: 10px;
+  }
+  
+  #emailButton {
+    margin-top: 20px;
+    margin-left: 0;
+  }
+  .main{
+    width: 50%;
+    margin: auto;
+    text-align: center;
+  }
+  .emailContainer{
+    height: 100vh;
+  }
+
+  @media (max-width: 828px) {
+    .main{
+      margin: auto;
+      width: 80%;
+      text-align: center;
+    }
+  }
+  @media (max-width: 828px) and (-webkit-device-pixel-ratio: 2) {
+    .main{
+      margin: auto;
+      margin-top: 200px;
+      width: 90%;
+      text-align: center;
+    }
+    #emailInput{
+      height: 40px;
+      border-radius: 10px;
+    }
+    #emailButton {
+      height: 40px;
+      border-radius: 10px;
+    }
+  
+  }
