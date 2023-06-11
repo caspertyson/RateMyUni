@@ -2,6 +2,7 @@ import "../Login.css"
 import React, { useEffect, useState } from 'react';
 import { collection, query , onSnapshot} from 'firebase/firestore';
 import { db } from '../firebase'; 
+import unihat from '../images/uni_hat.png'
 
 const LoginPage = (props) => {
     const [data, setData] = useState([]);
@@ -58,10 +59,10 @@ const LoginPage = (props) => {
     return (
       <div className="container">
       <div className='header'>
-        <h1 className="title">Rate My Uni</h1>
+        <h1 className="title">Rate My Uni <span><img id="unihat" src={unihat}></img></span></h1>
         <form className="login-form">
           <button className="google-button" onClick={handleClick}>
-          <span className="button-text">Login And Rate! </span>
+          <span className="button-text">Start Survey! </span>
           </button>
         </form>
       </div>
