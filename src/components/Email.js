@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import "../Email.css"
 import { getAuth, sendSignInLinkToEmail } from "firebase/auth";
+import unihat from '../images/uni_hat.png'
 
 const LoginWithEmail = (props) => {
   const [email, setEmail] = useState('');
@@ -29,15 +30,18 @@ const LoginWithEmail = (props) => {
 
   return (
     <div id='emailContainer'>
-      <h2 id='emailh2'>Login Using Email</h2>
+      <div className='header'>
+        <h1 className="title">Rate My Uni <span><img id="unihat" src={unihat}></img></span></h1>
+      </div>
       <div className='main'>
+        <h2 id='emailTitel'>Login With Email</h2>
         <input id='emailInput'
             type="text"
             placeholder="example@example.com"
             value={email}
             onChange={handleChange}
         /><div></div>
-        <button id='emailButton' onClick={handleButtonClick}>Get login link</button>
+        <button id='emailButton' onClick={handleButtonClick}>Get Login Link</button>
       </div>
     </div>
   );
