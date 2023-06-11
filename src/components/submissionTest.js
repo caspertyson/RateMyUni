@@ -129,7 +129,8 @@ export default function AddSubmission(props) {
       <h4></h4>
       <h5>Share your expiences completely anonymously</h5>
       <form onSubmit={handleSubmit}>
-      <label>
+
+      {/* <label>
         Name of Uni (required): <br></br>
         <select value={uniName} onChange={(e) => setUniName(e.target.value)}>
           <option value="">Select a University</option>
@@ -139,7 +140,9 @@ export default function AddSubmission(props) {
             </option>
           ))}
         </select>
-      </label>
+      </label> */}
+
+
         <br />
         <label>
           Course you took (required):<br></br>

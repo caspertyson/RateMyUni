@@ -34,14 +34,14 @@ const LoginWithEmail = (props) => {
         <h1 className="title">Rate My Uni <span><img id="unihat" src={unihat}></img></span></h1>
       </div>
       <div className='main'>
-        <h2 id='emailTitel'>Login With Email</h2>
+        <h2 id='emailTitel'>Complete With Email</h2>
         <input id='emailInput'
             type="text"
             placeholder="example@example.com"
             value={email}
             onChange={handleChange}
         /><div></div>
-        <button id='emailButton' onClick={handleButtonClick}>Get Login Link</button>
+        <button id='emailButton' onClick={handleButtonClick}>Get Survey Link</button>
       </div>
     </div>
   );

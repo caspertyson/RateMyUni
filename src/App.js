@@ -3,6 +3,7 @@ import React from "react";
 import AddSubmission from "./components/AddSubmission";
 import Login from "./components/Login";
 import Email from "./components/Email"
+import Test from "./components/submissionTest"
 import { getAuth, isSignInWithEmailLink, signInWithEmailLink } from "firebase/auth";
 
 function App() {

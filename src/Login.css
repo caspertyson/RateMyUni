@@ -6,7 +6,12 @@
     background-color: #fff;
     border-radius: 5px;
   }
-  
+  .startSurvey{
+    width: 80%;
+    font-size: larger;
+    margin-bottom: 20px;
+    border-radius: 10px;
+  }
   h1 {
     margin-bottom: 20px;
     margin-left: 50px;
@@ -102,6 +107,10 @@
       font-size: 0px;
       margin-top: 25px;
     }
+    .startSurvey{
+      width: 95%;
+    }
+  
   }
   @media (max-width: 800px) and (-webkit-device-pixel-ratio: 2) {
     table{
@@ -114,4 +123,8 @@
       font-size: 0px;
       margin-top: 25px;
     }
+    .startSurvey{
+      width: 95%;
+    }
+
   }

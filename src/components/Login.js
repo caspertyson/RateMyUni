@@ -13,7 +13,7 @@ const LoginPage = (props) => {
     };
 
     useEffect(() => {
-      const q = query(collection(db, 'record'));
+      const q = query(collection(db, 'testingAuth'));
       const unsubscribe = onSnapshot(q, (querySnapshot) => {
 
         const records = querySnapshot.docs.map((doc) => doc.data());
@@ -21,11 +21,11 @@ const LoginPage = (props) => {
           if (!acc[record.uniName]) {
             acc[record.uniName] = {
               uniName: record.uniName,
-              currentPaySum: Number(record.currentPay),
+              overallScore: Number(record.overall),
               count: 1,
             };
           } else {
-            acc[record.uniName].currentPaySum += Number(record.currentPay);
+            acc[record.uniName].overallScore += Number(record.overall);
             acc[record.uniName].count += 1;
           }
           return acc;
@@ -33,11 +33,12 @@ const LoginPage = (props) => {
 
         const averages = Object.values(groupedData).map((group) => ({
           uniName: group.uniName,
-          averageCurrentPay: parseInt(group.currentPaySum / group.count),
+          averageOverallScore: Math.round((group.overallScore / group.count) * 10) / 10,
+          count: group.count
         }));
   
         const sortedAverages = averages.sort(
-          (a, b) => b.averageCurrentPay - a.averageCurrentPay
+          (a, b) => b.averageOverallScore - a.averageOverallScore
         );
   
         setData(sortedAverages);
@@ -66,17 +67,19 @@ const LoginPage = (props) => {
           </button>
         </form>
       </div>
-
       <div className="query-results">
-        <h2>Find out which universities   <br></br> lead to higher-paying jobs!</h2>
-        <h5>-- Note: Fake Data Currently --<br></br>Going Live at: 200 Users<br></br>Number of Users  = {numUsers + 87}</h5>
+        <h2>Your resource for real University reviews  <br></br> </h2>
+        <button className="startSurvey" onClick={handleClick}>
+          <span className="button-text">Start Survey! </span>
+          </button>
 
         <table>
           <thead>
             <tr>
               <th>#</th>
               <th>University Name</th>
-              <th>Average Ex-Students Salary</th>
+              <th>Average Score / 5</th>
+              <th>Number Of Ratings</th>
             </tr>
           </thead>
           <tbody>
@@ -84,7 +87,8 @@ const LoginPage = (props) => {
               <tr key={item.uniName}>
                 <td>{index + 1}</td>
                 <td>{item.uniName}</td>
-                <td>{item.averageCurrentPay.toLocaleString("en-US")}</td>
+                <td>{item.averageOverallScore.toLocaleString("en-US")}</td>
+                <td>{item.count}</td>
               </tr>
             ))}
           </tbody>
