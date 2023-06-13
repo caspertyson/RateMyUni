@@ -73,7 +73,7 @@ export default function AddSubmission(props) {
   };
   
   useEffect(() => {
-    setEmail(localStorage.getItem("emailForSignIn"))
+    setEmail(localStorage.getItem("emailForSignIn").toLocaleLowerCase())
   }, []);
 
   const handleSubmit = async (e) => {
@@ -81,12 +81,12 @@ export default function AddSubmission(props) {
     e.preventDefault();
     const emailExists = await checkEmailExists(email)
 
-    if(emailExists){
-      window.alert("Submission already received from this email");
-      localStorage.setItem("emailForSignIn", "");
-      window.location.replace("https://ratemyuni.co.nz/");
-    }
-    else if (uniName !== "" && course !== "" && overall !== "" && consent !== "") {
+      if(emailExists){
+        window.alert("Submission already received from this email");
+        localStorage.setItem("emailForSignIn", "");
+        window.location.replace("https://ratemyuni.co.nz/");
+      }
+     else if (uniName !== "" && course !== "" && overall !== "" && consent !== false) {
       await addDoc(collection(db, "testingAuth"), {
         uniName,
         course,
