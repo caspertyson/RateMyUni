@@ -6,11 +6,65 @@
     background-color: #fff;
     border-radius: 5px;
   }
+  #uni{
+    color: rgba(255, 0, 0, 0.718);
+  }
   .startSurvey{
     width: 80%;
     font-size: larger;
     margin-bottom: 20px;
     border-radius: 10px;
+  }
+  #Modules{
+    background-color: #f9f8f8f6;
+ }
+  #secondMod{
+    background-color: #f9f8f8f6;
+    margin: auto;
+    height: 50vh;
+    padding: 20px;
+    width: 60%;
+
+  }
+  #secondModTxt{
+    margin-top: 20px;
+
+    float: right;
+    width: 200px;    
+  }
+  #secondModImg{
+    float: left;
+    background-color: #ebebebf6;
+    border-radius: 50px;
+    padding: 50px;
+
+  }
+  #firstMod{
+    padding: 20px;
+    height: 50vh;
+    background-color: #f9f8f8f6;
+    margin: auto;
+    width: 60%;
+
+  }
+  #firstModTxt{
+    margin-top: 20px;
+    float: left;
+    width: 200px;    
+  }
+  #firstModImg{
+    float: right;
+    left: 0px;
+    background-color: #ebebebf6;
+    border-radius: 50px;
+    padding: 50px;
+
+  }
+  #reviewImg{
+    width: 200px;
+  }
+  #second-button{
+
   }
   h1 {
     margin-bottom: 20px;
@@ -30,7 +84,7 @@
   }
   .title{
     float: left;
-
+    font-weight: bolder;
   }
   .login-form {
     float: right;
@@ -70,10 +124,9 @@
     height: 50px;
     margin-right: 10px;
   }
-  .query-results {
+  .main-button {
     padding-top: 20px;
     background-color: #f9f8f8f6;
-    height: 100vh;
   }
   table {
     margin: auto;
@@ -110,21 +163,30 @@
     .startSurvey{
       width: 95%;
     }
-  
-  }
-  @media (max-width: 800px) and (-webkit-device-pixel-ratio: 2) {
-    table{
-      width: 95%;
+    #secondMod{
+        width: 90%;
+        height: 550px;
     }
-    h5{
-      width: 95%;
+    #firstMod{
+        width: 90%;
+        height: 550px;
     }
-    .title {
-      font-size: 0px;
-      margin-top: 25px;
+    #firstModImg{
+        float: none;
+        margin: auto;
     }
-    .startSurvey{
-      width: 95%;
+    #firstModTxt{
+        float: none;
+        margin: auto;
+    }
+    #secondModImg{
+        float: none;
+        margin: auto;
+    }
+    #secondModTxt{
+        float: none;
+        margin: auto;
     }
 
+  
   }

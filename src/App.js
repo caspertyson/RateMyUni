@@ -4,6 +4,8 @@ import AddSubmission from "./components/AddSubmission";
 import Login from "./components/Login";
 import Email from "./components/Email"
 import Test from "./components/submissionTest"
+
+import Main from "./components/Main"
 import { getAuth, isSignInWithEmailLink, signInWithEmailLink } from "firebase/auth";
 
 function App() {
@@ -39,7 +41,7 @@ function App() {
   return (
     <div className="App">      
       {userEmail ? <AddSubmission triggerEvent={addedSubmission}/>
-      : !login ? (<Login triggerEvent={loginEvent}/>) : 
+      : !login ? (<Main triggerEvent={loginEvent}/>) : 
       (<Email triggerEvent={loginEvent}/>)
       }
     </div>

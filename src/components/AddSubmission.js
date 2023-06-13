@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { db } from "../firebase";
 import { collection, addDoc, query, where, getDocs } from "firebase/firestore";
+import "../Submission.css"
 
 export default function AddSubmission(props) {
   const [uniName, setUniName] = useState("");
@@ -55,6 +56,7 @@ export default function AddSubmission(props) {
   const ratings = [1, 2, 3, 4, 5]
   const [email, setEmail] = useState("")
   const [liveNotification, setLiveNotification] = useState("")
+  const [consent, setConsent] = useState(false)
 
   const checkEmailExists = async (email) => {
     try {
@@ -84,7 +86,7 @@ export default function AddSubmission(props) {
       localStorage.setItem("emailForSignIn", "");
       window.location.replace("https://ratemyuni.co.nz/");
     }
-    else if (uniName !== "" && course !== "" && overall !== "") {
+    else if (uniName !== "" && course !== "" && overall !== "" && consent !== "") {
       await addDoc(collection(db, "testingAuth"), {
         uniName,
         course,
@@ -98,6 +100,7 @@ export default function AddSubmission(props) {
         email,
         liveNotification,
         date,
+        consent,
       });
       setUniName("");
       setCourse("");
@@ -109,12 +112,13 @@ export default function AddSubmission(props) {
       setOneOnOneTime("");
       setNotes("");
       setLiveNotification(false)
+      setConsent(false)
 
       localStorage.setItem("emailForSignIn", "");
       window.alert("Thank you for your submission! You will be re-directed to the main page now.");
       window.location.replace("https://ratemyuni.co.nz/");
     }else{
-      window.alert("Please fill in all fields");
+      window.alert("Please fill in the required fields");
     }
   };
 
@@ -130,7 +134,7 @@ export default function AddSubmission(props) {
       <h5>Share your expiences completely anonymously</h5>
       <form onSubmit={handleSubmit}>
       <label>
-        Name of Uni (required): <br></br>
+        Name of Uni <span id="required">* required</span>: <br></br>
         <select value={uniName} onChange={(e) => setUniName(e.target.value)}>
           <option value="">Select a University</option>
           {univercities.map((item) => (
@@ -142,7 +146,7 @@ export default function AddSubmission(props) {
       </label>
         <br />
         <label>
-          Course you took (required):<br></br>
+          Course you took <span id="required">* required</span>:<br></br>
           <select value={course} onChange={(e) => setCourse(e.target.value)}>
             <option value="">Select a Degree</option>
             {degrees.map((item) => (
@@ -154,7 +158,7 @@ export default function AddSubmission(props) {
         </label>
         <br />
         <label>
-          Overall Experience (required):<br></br>
+          Overall Experience <span id="required">* required</span>:<br></br>
           <select value={overall} onChange={(e) => setOverall(e.target.value)}>
             <option value="">Select A Rating</option>
             {ratings.map((item) => (
@@ -236,6 +240,9 @@ export default function AddSubmission(props) {
         <br />        
         <label for="vehicle1"> Send me an email once the results are live?</label>
         <input type="checkbox" id="checkboxEmail" onChange={(e) => setLiveNotification(e.target.value)}/>
+        <br />
+        <label for="vehicle1"> I consent to participate in this survey? <span id="required">* required</span></label>
+        <input type="checkbox" id="checkboxEmail" onChange={(e) => setConsent(e.target.value)}/>
         <br />
         <button type="submit">Submit!</button>
         <button type="button" onClick={returnToMain}>Back</button>
