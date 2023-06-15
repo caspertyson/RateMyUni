@@ -287,8 +287,27 @@
     padding-top: 15px;
     padding-bottom: 5px;
   }
-
+  #goBackButton{
+    margin-top: 20px;
+    margin-left: 0;
+    height: 40px;
+    border-radius: 10px;
+    font-size:medium;
+    width: auto;
+    background-color: grey;
+  }
+  
   @media (max-width: 828px) {
+    #submissionElements{
+      width: 90%;
+    }  
+    #submissionElements select{
+      width: 80vw;
+    }  
+
+    #lastNotes{
+      width: 90%;
+    }
     #unihat{
       display: none;
       height: 0px;

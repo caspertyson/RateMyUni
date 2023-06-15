@@ -14,6 +14,11 @@ body{
     margin-bottom: 10px;
     height: 30px;
     border-radius: 10px;
+    font-size: larger;
+    width: 90%;
+}
+#emailError{
+  color: red;
 }
 
   #emailButton {
@@ -51,22 +56,6 @@ body{
   }
 
   @media (max-width: 828px) {
-    .main{
-      margin: auto;
-      margin-top: 200px;
-      width: 90%;
-      text-align: center;
-    }
-    #emailInput{
-      height: 40px;
-      border-radius: 10px;
-    }
-    #emailButton {
-      height: 40px;
-      border-radius: 10px;
-    }
-  }
-  @media (max-width: 828px) and (-webkit-device-pixel-ratio: 2) {
     .main{
       margin: auto;
       margin-top: 200px;

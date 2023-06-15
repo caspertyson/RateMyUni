@@ -22,14 +22,14 @@ const LoginPage = (props) => {
       <div className='header'>
         <h1 className="title">Rate My <span id="uni">Uni</span> <span><img id="unihat" src={unihat}></img></span></h1>
         <form className="login-form">
-          <button className="google-button" onClick={handleClick}>
+          <button type="button" className="google-button" onClick={handleClick}>
           <span className="button-text">Start Survey! </span>
           </button>
         </form>
       </div>
       <div className="main-button">
         <h2>Your resource for real University reviews  <br></br> </h2>
-        <button className="startSurvey" onClick={handleClick}>
+        <button type="button" className="startSurvey" onClick={handleClick}>
           <span className="button-text">Start 1 min survey to see what other students say! </span>
           </button>
       </div>
@@ -58,7 +58,7 @@ const LoginPage = (props) => {
           </div>
         </div>
         <div className="second-button">
-        <button className="startSurvey" onClick={handleClick}>
+        <button type="button" className="startSurvey" onClick={handleClick}>
           <span className="button-text">Start 1 min survey to see what other students say! </span>
           </button>
         </div>

@@ -8,14 +8,14 @@ import Rating from '@mui/material/Rating';
 export default function AddSubmission(props) {
   const [uniName, setUniName] = useState("");
   const [course, setCourse] = useState("");
-  const [friends, setFriends] = useState("");
-  const [difficulty, setDifficulty] = useState("");
-  const [materialQuality, setMaterialQuality] = useState("");
-  const [jobChances, setJobChances] = useState("");
-  const [oneOnOneTime, setOneOnOneTime] = useState("");
+  const [friends, setFriends] = useState(0);
+  const [difficulty, setDifficulty] = useState(0);
+  const [materialQuality, setMaterialQuality] = useState(0);
+  const [jobChances, setJobChances] = useState(0);
+  const [oneOnOneTime, setOneOnOneTime] = useState(0);
   const [notes, setNotes] = useState("")
 
-  const univercities = ["University of Auckland", "AUT", "The University of  Waikato", "University of Otago	", "Lincoln University", "University of Canterbury", "Victoria University of Wellington", "Massey University"]
+  const univercities = ["Auckland", "AUT", "Waikato", "Otago", "Lincoln", "Canterbury", "Wellington", "Massey"]
   const degrees = [
     "Bachelor of Arts (BA)",
     "Bachelor of Science (BSc)",
@@ -84,8 +84,9 @@ export default function AddSubmission(props) {
         localStorage.setItem("emailForSignIn", "");
         window.location.replace("https://ratemyuni.co.nz/");
       }
-      if (uniName !== "" && course !== "" && overall !== "" && friends !== "" && difficulty !== "" && 
+      else if (uniName !== "" && course !== "" && overall !== "" && friends !== "" && difficulty !== "" && 
         materialQuality !== "" && jobChances !== "" && oneOnOneTime !== "" && email !== "" && date !== "") {
+      document.getElementsByClassName("AddSubmissionButtons").disabled = true
       await addDoc(collection(db, "testingAuth"), {
         uniName,
         course,
@@ -99,13 +100,15 @@ export default function AddSubmission(props) {
         email,
         date,
       });
+      console.log("happeneded")
+      
       setUniName("");
       setCourse("");
-      setFriends("");
-      setDifficulty("");
-      setMaterialQuality("");
-      setJobChances("");
-      setOneOnOneTime("");
+      setFriends(0);
+      setDifficulty(0);
+      setMaterialQuality(0);
+      setJobChances(0);
+      setOneOnOneTime(0);
       setNotes("");
 
       localStorage.setItem("emailForSignIn", "");
@@ -187,9 +190,9 @@ export default function AddSubmission(props) {
                     precision={1} />
               <br />
               <label>
-            6. Notes for other students (please add at least a sentence):
+            6. A few words for other students:
               </label>
-              <textarea maxlength="500" id="lastNotes" value={notes} onChange={(e) => 
+              <textarea maxLength="500" id="lastNotes" value={notes} onChange={(e) => 
                 setNotes(e.target.value)}></textarea>
               <br></br>
               <label>

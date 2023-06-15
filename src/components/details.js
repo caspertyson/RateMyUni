@@ -13,7 +13,7 @@ const DetailComponent = ({ message, onRowClick, triggerEvent }) => {
   const[average, setAverages] = useState([])
 
   const calculateAverage = (array, property) => {
-    const values = array.map((item) => parseFloat(item[property].replace(',', '.')));
+    const values = array.map((item) => parseFloat(item[property]));
     const sum = values.reduce((acc, val) => acc + val, 0);
     const average = sum / values.length;
     return average;
@@ -59,7 +59,7 @@ const DetailComponent = ({ message, onRowClick, triggerEvent }) => {
         <div className='header'>
         <h1 className="title">Rate My <span id="uniLogin">Uni</span> <span id="unihat"><img id="unihat" src={unihat}></img></span></h1>
         <form className="login-form">
-            <button className="review-button" onClick={handleClick}>
+            <button type="button" className="review-button" onClick={handleClick}>
             <span className="button-text">Write a review </span>
             </button>
         </form>
@@ -71,7 +71,7 @@ const DetailComponent = ({ message, onRowClick, triggerEvent }) => {
 
         <div id="UniDetails">
             <div id='divButtonReturnToRankings'>
-              <button id="returnToRankings" onClick={handleRowClick}> Return to Rankings</button>
+              <button type="button" id="returnToRankings" onClick={handleRowClick}> Return to Rankings</button>
             </div>
             <div>
               <div id="overallAverageScore">

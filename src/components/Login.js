@@ -59,18 +59,14 @@ const LoginPage = ({triggerEvent, onRowClick}) => {
         );
   
         setData(sortedAverages);
-      });
 
-      const q1 = query(collection(db, 'testingAuth'));
-
-      const unsubscribe1 = onSnapshot(q1, (querySnapshot) => {
         const numDocuments = querySnapshot.size;
         setNumUsers(numDocuments);
+  
       });
 
       return () => {
         unsubscribe();
-        unsubscribe1();
       };
     }, []);  
 
@@ -79,7 +75,7 @@ const LoginPage = ({triggerEvent, onRowClick}) => {
       <div className='header'>
         <h1 className="title">Rate My <span id="uniLogin">Uni</span> <span id="unihat"><img id="unihat" src={unihat}></img></span></h1>
         <form className="login-form">
-          <button className="review-button" onClick={handleClick}>
+          <button type="button" className="review-button" onClick={handleClick}>
           <span className="button-text">Write a review </span>
           </button>
         </form>

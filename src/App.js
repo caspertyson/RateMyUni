@@ -22,7 +22,7 @@ function App() {
     if (isSignInWithEmailLink(auth, window.location.href)) {
       let email = window.localStorage.getItem('emailForSignIn');
       if (!email) {
-        email = window.prompt('Please provide your email for confirmation');
+        email = window.prompt('Please type in your email for confirmation');
         window.localStorage.setItem('emailForSignIn', email)
       }
       signInWithEmailLink(auth, email, window.location.href)
@@ -56,6 +56,7 @@ function App() {
       userEmail ? <AddSubmission triggerEvent={addedSubmission}/>:
       !showUni ? <Login triggerEvent={loginEvent} onRowClick={handleRowClick}/>
       : <DetailComponent message={selectedRow} onRowClick={handleRowClick} triggerEvent={loginEvent}/>}
+      {/* <AddSubmission triggerEvent={addedSubmission}/> */}
     </div>
   );
 }
