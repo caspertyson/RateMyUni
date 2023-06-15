@@ -207,12 +207,13 @@
     margin: auto;
     margin-top: 30px;
   }
+
   th,
   #table td {
     padding: 7px;
     padding-bottom: 20px;
     padding-top: 20px;
-    text-align: left;
+    text-align: center;
     font-size: medium;
     font-weight: 300;
   }
@@ -245,6 +246,7 @@
 
   .ratingContainer{
     position: relative;
+    align-items:end;
   }
   #numRatings{
     position: absolute;
@@ -400,6 +402,10 @@
     }
     #uniRow{
       width: 150px;
+    }
+    tr,
+    #table td{
+      text-align: left;
     }
   
   }
