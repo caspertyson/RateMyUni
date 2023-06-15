@@ -31,9 +31,22 @@ body{
     margin-top: 200px;
 
   }
+  #thankYou{
+    margin-top: 90px;
+    text-align: center;
+  }
+  #thankYou h1{
+    margin-left: 0px;
+  }
+
+  #thankYou h3{
+    color: grey;
+  }
+
 
   .emailContainer{
     height: 100vh;
+    width: 100%;
 
   }
 

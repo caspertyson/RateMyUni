@@ -129,124 +129,132 @@ export default function AddSubmission(props) {
 
   return (
     <div className="container">
-      <h2>Join Our Community</h2>
-      <h4></h4>
-      <h5>Share your expiences completely anonymously</h5>
-      <form onSubmit={handleSubmit}>
-      <label>
-        Name of Uni <span id="required">* required</span>: <br></br>
-        <select value={uniName} onChange={(e) => setUniName(e.target.value)}>
-          <option value="">Select a University</option>
-          {univercities.map((item) => (
-            <option key={item} value={item}>
-              {item}
-            </option>
-          ))}
-        </select>
-      </label>
-        <br />
-        <label>
-          Course you took <span id="required">* required</span>:<br></br>
-          <select value={course} onChange={(e) => setCourse(e.target.value)}>
-            <option value="">Select a Degree</option>
-            {degrees.map((item) => (
-              <option key={item} value={item}>
-                {item}
-              </option>
-            ))}
-          </select>
-        </label>
-        <br />
-        <label>
-          Overall Experience <span id="required">* required</span>:<br></br>
-          <select value={overall} onChange={(e) => setOverall(e.target.value)}>
-            <option value="">Select A Rating</option>
-            {ratings.map((item) => (
-              <option key={item} value={item}>
-                {item}
-              </option>
-            ))}
-          </select>
-        </label>
-        <br />        
-        <label>
-          Ease of making friends:<br></br>
-          <select value={friends} onChange={(e) => setFriends(e.target.value)}>
-            <option value="">Select A Rating</option>
-            {ratings.map((item) => (
-              <option key={item} value={item}>
-                {item}
-              </option>
-            ))}
-          </select>
-        </label>
-        <br />        
-        <label>
-          Degree difficulty:<br></br>
-          <select value={difficulty} onChange={(e) => setDifficulty(e.target.value)}>
-            <option value="">Select A Rating</option>
-            {ratings.map((item) => (
-              <option key={item} value={item}>
-                {item}
-              </option>
-            ))}
-          </select>
-        </label>
-        <br />        
-        <label>
-          Quality of Teaching Material:<br></br>
-          <select value={materialQuality} onChange={(e) => setMaterialQuality(e.target.value)}>
-            <option value="">Select A Rating</option>
-            {ratings.map((item) => (
-              <option key={item} value={item}>
-                {item}
-              </option>
-            ))}
-          </select>
-        </label>
-        <br />        
-        <label>
-          Chances of getting a job related to your degree:<br></br>
-          <select value={jobChances} onChange={(e) => setJobChances(e.target.value)}>
-            <option value="">Select A Rating</option>
-            {ratings.map((item) => (
-              <option key={item} value={item}>
-                {item}
-              </option>
-            ))}
-          </select>
-        </label>
-        <br />        
-        <label>
-          One on One with tutor/lecturer:<br></br>
-          <select value={oneOnOneTime} onChange={(e) => setOneOnOneTime(e.target.value)}>
-            <option value="">Select A Rating</option>
-            {ratings.map((item) => (
-              <option key={item} value={item}>
-                {item}
-              </option>
-            ))}
-          </select>
-        </label>
-        <br />        
-        <label>
-          Other Notes:
-          <input
-            type="text"
-            value={notes}
-            onChange={(e) => setNotes(e.target.value)}
-          />
-        </label>
-        <br />        
-        <label for="vehicle1"> Send me an email once the results are live?</label>
-        <input type="checkbox" id="checkboxEmail" onChange={(e) => setLiveNotification(e.target.value)}/>
-        <br />
-        <label for="vehicle1"> I consent to participate in this survey? <span id="required">* required</span></label>
-        <input type="checkbox" id="checkboxEmail" onChange={(e) => setConsent(e.target.value)}/>
-        <br />
-        <button type="submit">Submit!</button>
-        <button type="button" onClick={returnToMain}>Back</button>
-      </form>
+      <div id="submissionElements">
+        <h2 id="titleSubmission">Rate Your University</h2>
+        <br></br>
+        <p>We've always disliked the "official" university rankings - they seem to give very general perspectives, but may not align with individual needs.</p>
+        <p>What about real reviews from real students...?</p>
+        <br></br>
+        <div id='submissionForm'>
+          <form onSubmit={handleSubmit}>
+          <label>
+            Name of Uni <span id="required">* required</span>: <br></br>
+            <select value={uniName} onChange={(e) => setUniName(e.target.value)}>
+              <option value="">Select a University</option>
+              {univercities.map((item) => (
+                <option key={item} value={item}>
+                  {item}
+                </option>
+              ))}
+            </select>
+          </label>
+            <br />
+            <label>
+              Course you took <span id="required">* required</span>:<br></br>
+              <select value={course} onChange={(e) => setCourse(e.target.value)}>
+                <option value="">Select a Degree</option>
+                {degrees.map((item) => (
+                  <option key={item} value={item}>
+                    {item}
+                  </option>
+                ))}
+              </select>
+            </label>
+            <br />
+            <label>
+              Overall Experience <span id="required">* required</span>:<br></br>
+              <select value={overall} onChange={(e) => setOverall(e.target.value)}>
+                <option value="">Select A Rating</option>
+                {ratings.map((item) => (
+                  <option key={item} value={item}>
+                    {item}
+                  </option>
+                ))}
+              </select>
+            </label>
+            <br />        
+            <label>
+              Ease of making friends:<br></br>
+              <select value={friends} onChange={(e) => setFriends(e.target.value)}>
+                <option value="">Select A Rating</option>
+                {ratings.map((item) => (
+                  <option key={item} value={item}>
+                    {item}
+                  </option>
+                ))}
+              </select>
+            </label>
+            <br />        
+            <label>
+              Degree difficulty:<br></br>
+              <select value={difficulty} onChange={(e) => setDifficulty(e.target.value)}>
+                <option value="">Select A Rating</option>
+                {ratings.map((item) => (
+                  <option key={item} value={item}>
+                    {item}
+                  </option>
+                ))}
+              </select>
+            </label>
+            <br />        
+            <label>
+              Quality of Teaching Material:<br></br>
+              <select value={materialQuality} onChange={(e) => setMaterialQuality(e.target.value)}>
+                <option value="">Select A Rating</option>
+                {ratings.map((item) => (
+                  <option key={item} value={item}>
+                    {item}
+                  </option>
+                ))}
+              </select>
+            </label>
+            <br />        
+            <label>
+              Chances of getting a job related to your degree:<br></br>
+              <select value={jobChances} onChange={(e) => setJobChances(e.target.value)}>
+                <option value="">Select A Rating</option>
+                {ratings.map((item) => (
+                  <option key={item} value={item}>
+                    {item}
+                  </option>
+                ))}
+              </select>
+            </label>
+            <br />        
+            <label>
+              One on One with tutor/lecturer:<br></br>
+              <select value={oneOnOneTime} onChange={(e) => setOneOnOneTime(e.target.value)}>
+                <option value="">Select A Rating</option>
+                {ratings.map((item) => (
+                  <option key={item} value={item}>
+                    {item}
+                  </option>
+                ))}
+              </select>
+            </label>
+            <br />        
+            <label>
+              Other Notes:
+              <input
+                type="text"
+                value={notes}
+                onChange={(e) => setNotes(e.target.value)}
+              />
+            </label>
+            <br />        
+            <label for="vehicle1"> Send me an email once the results are live?</label>
+            <input type="checkbox" id="checkboxEmail" onChange={(e) => setLiveNotification(e.target.value)}/>
+            <br />
+            <label for="vehicle1"> I consent to participate in this survey? <span id="required">* required</span></label>
+            <input type="checkbox" id="checkboxEmail" onChange={(e) => setConsent(e.target.value)}/>
+            <br />
+            <button type="submit">Submit!</button>
+            <button type="button" onClick={returnToMain}>Back</button>
+          </form>
+
+        </div>
+
+      </div>
     </div>
   );
 }

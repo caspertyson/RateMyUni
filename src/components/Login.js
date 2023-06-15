@@ -3,13 +3,30 @@ import React, { useEffect, useState } from 'react';
 import { collection, query , onSnapshot} from 'firebase/firestore';
 import { db } from '../firebase'; 
 import unihat from '../images/uni_hat.png'
+import uniImage from '../images/University.jpg'
+import Canterbury from "../images/UC.png"
+import Waikato from "../images/Waikato.png"
+import Auckland from "../images/auckland.png"
+import Wellington from "../images/wellington.png"
+import Otago from "../images/Otago.png"
+import Lincoln from "../images/lincoln.png"
+import AUT from "../images/aut.png"
+import Rating from '@mui/material/Rating';
+import SvgIcon from '@mui/material/SvgIcon';
+import Kiwi from "./svg"
+import SchoolIcon from '@mui/icons-material/School';
 
-const LoginPage = (props) => {
+const LoginPage = ({triggerEvent, onRowClick}) => {
     const [data, setData] = useState([]);
     const [numUsers, setNumUsers] = useState("");
+    const [selectedRow, setSelectedRow] = useState(null);    
 
+    const handleRowClick = (rowData) => {
+      onRowClick(rowData);
+    };
+    
     const handleClick = () => {
-      props.triggerEvent();
+      triggerEvent();
     };
 
     useEffect(() => {
@@ -60,35 +77,40 @@ const LoginPage = (props) => {
     return (
       <div className="container">
       <div className='header'>
-        <h1 className="title">Rate My Uni <span><img id="unihat" src={unihat}></img></span></h1>
+        <h1 className="title">Rate My <span id="uniLogin">Uni</span> <span id="unihat"><img id="unihat" src={unihat}></img></span></h1>
         <form className="login-form">
-          <button className="google-button" onClick={handleClick}>
-          <span className="button-text">Start Survey! </span>
+          <button className="review-button" onClick={handleClick}>
+          <span className="button-text">Write a review </span>
           </button>
         </form>
       </div>
+      <div id="banner">
+        <img id="uniImage" src={uniImage}></img>
+        <div id="bannerText"><span id="NZ">New Zealand</span> Universities</div>
+      </div>
+      
       <div className="query-results">
-        <h2>Your resource for real University reviews  <br></br> </h2>
-        <button className="startSurvey" onClick={handleClick}>
-          <span className="button-text">Start Survey! </span>
-          </button>
-
-        <table>
-          <thead>
-            <tr>
-              <th>#</th>
-              <th>University Name</th>
-              <th>Average Score / 5</th>
-              <th>Number Of Ratings</th>
-            </tr>
-          </thead>
+        <table id="table">
           <tbody>
             {data.map((item, index) => (
-              <tr key={item.uniName}>
-                <td>{index + 1}</td>
-                <td>{item.uniName}</td>
-                <td>{item.averageOverallScore.toLocaleString("en-US")}</td>
-                <td>{item.count}</td>
+              <tr key={item.uniName} onClick={() => handleRowClick(item)}>
+                <td id="index">{index + 1}</td>
+                <td id="uniRow">
+                  {item.uniName === "Canterbury" && <img className="emblem" src={Canterbury} alt="Uni1" />}
+                  {item.uniName === "Waikato" && <img className="emblem" src={Waikato} alt="Uni1" />}
+                  {item.uniName === "Auckland" && <img className="emblem" src={Auckland} alt="Uni1" />}
+                  {item.uniName === "Wellington" && <img className="emblem" src={Wellington} alt="Uni1" />}
+                  {item.uniName === "Otago" && <img className="emblem" src={Otago} alt="Uni1" />}
+                  {item.uniName === "Lincoln" &&  <img className="emblem" src={Lincoln} alt="Uni1" />}
+                  {item.uniName === "AUT" && <img className="emblem" src={AUT} alt="Uni1" />}
+                  <span id="uniName">{item.uniName}</span>
+                </td>
+                <td className="ratingContainer"><Rating name="size-small" size="small"
+                  icon={<SchoolIcon fontSize="5px"/>}
+                  emptyIcon={<SchoolIcon fontSize="5px"/>}
+                  value={parseFloat(item.averageOverallScore.toLocaleString("en-US"))} precision={0.1} readOnly/>
+                  <span id="numRatings">{item.count}{item.count > 1 ? "\treviews" : "\treview"}</span>
+                </td>
               </tr>
             ))}
           </tbody>

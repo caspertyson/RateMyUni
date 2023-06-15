@@ -149,7 +149,7 @@
   tr:hover {
     background-color: #f2f2f2;
   }
-  @media (max-width: 828px) {
+  /* @media (max-width: 828px) {
     table{
       width: 95%;
     }
@@ -189,4 +189,4 @@
     }
 
   
-  }
+  } */

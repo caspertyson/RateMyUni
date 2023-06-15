@@ -3,15 +3,16 @@ import "../Email.css"
 import { getAuth, sendSignInLinkToEmail } from "firebase/auth";
 import unihat from '../images/uni_hat.png'
 
-const LoginWithEmail = (props) => {
+const LoginWithEmail = () => {
   const [email, setEmail] = useState('');
-
+  const [finished, setFinished] = useState(false)
+  const inputElement = document.getElementById("emailInput")
   const handleChange = (e) => {
     setEmail(e.target.value);
   };
 
   const actionCodeSettings = {
-    url: 'https://ratemyuni.co.nz/',
+    url: 'http://localhost:3000/',
     handleCodeInApp: true,
   };
   const auth = getAuth();
@@ -24,8 +25,8 @@ const LoginWithEmail = (props) => {
     .catch((error) => {
         console.log(error)
     });
-    window.alert("Email Sent to: " + email)
-    props.triggerEvent();
+    inputElement.value = ""
+    setFinished(true)
   };
 
   return (
@@ -33,16 +34,23 @@ const LoginWithEmail = (props) => {
       <div className='header'>
         <h1 className="title">Rate My Uni <span><img id="unihat" src={unihat}></img></span></h1>
       </div>
+      {finished ? 
+      <div id='thankYou'>
+        <h1>Thank you!</h1><br></br>
+        <h3>Follow the link sent to your email <br></br><br></br>for your one time sign-in</h3>
+      </div> :
+        
       <div className='main'>
-        <h2 id='emailTitel'>Complete With Email</h2>
+        <h2 id='emailTitel'>One time sign in with email</h2>
         <input id='emailInput'
             type="text"
             placeholder="example@example.com"
             value={email}
             onChange={handleChange}
         /><div></div>
-        <button id='emailButton' onClick={handleButtonClick}>Get Survey Link</button>
+        <button id='emailButton' onClick={handleButtonClick}>Get  Link</button>
       </div>
+}
     </div>
   );
 };

@@ -1,10 +1,39 @@
 .container {
-    max-width: 100vw;
+    width: 100vw;
     margin: 0;
     padding: 0;
     text-align: center;
     background-color: #fff;
     border-radius: 5px;
+  }
+  #titleSubmission{
+    color: #0077ffc8;
+    padding-top: 50px;
+    font-size: 30px;
+  }
+  #index{
+    font-weight: bolder;
+  }
+  #submissionElements{
+    width: 450px;
+    margin: auto;
+    text-align: left;
+    font-family: verdana, sans-serif;
+    font-weight: 100;
+  }
+  #submissionElements p{
+    font-size: large;
+    line-height: 25px;
+  }
+  #submissionForm{
+    margin-top: 20px;
+    text-align: center;
+  }
+
+  .emblem{
+    width: 20px;
+    height: 20px;
+    margin-right: 8px;
   }
   .startSurvey{
     width: 80%;
@@ -30,7 +59,6 @@
   }
   .title{
     float: left;
-
   }
   .login-form {
     float: right;
@@ -45,12 +73,12 @@
     padding: 0px;
     margin-left: 10px;
   }
-  .google-button {
+  .review-button {
     display: flex;
     align-items: center;
     justify-content: center;
     padding: 10px;
-    background-color: #007bff;
+    background-color: #0077ffc8;
     color: #fff;
     border-radius: 10px;
     cursor: pointer;
@@ -61,33 +89,78 @@
     
   }
   
-  .google-button:hover {
-    background-color: #006adb;
+  .review-button:hover {
+    background-color: #075ec1c2;
+  }
+  #uniLogin{
+    color: rgba(227, 83, 50, 0.631);
+  }
+  #banner{
+    position: relative;
+    height: 300px;
+  }
+  #uniImage{
+    height: 300px;
+    width: 100vw;
+    object-fit: cover;
+    object-position: 50% 25%;
+    z-index: 1;
+  }
+  #banner::after {
+    position: absolute;
+    content: "";
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    z-index: 2;
+    background-image: linear-gradient(to bottom, transparent, black); /* Update the gradient colors */
+    opacity: 0.5; /* Adjust the opacity of the gradient overlay */
   }
   
-  .google-logo {
-    width: 50px;
-    height: 50px;
-    margin-right: 10px;
+
+  #bannerText{
+    position: absolute;
+    bottom: 40px;
+    color: white;
+    font-size: 16px; /* Adjust the font size */
+    transform: translateX(-50%);
+    left: 50%;
+    width: 100%;
+    z-index: 3;
+    font-size:40px;
   }
+
+  #NZ{
+    font-size:50px;
+    font-weight: bold;
+  }
+
   .query-results {
     padding-top: 20px;
     background-color: #f9f8f8f6;
-    height: 100vh;
+    height: 50vh;
+    width: 100%;
   }
-  table {
-    margin: auto;
-    width: 80%;
+  #table {
+    width: 90%;
     border-collapse: collapse;
+    padding: 0px;
+    margin: auto;
+    margin-top: 30px;
   }
   th,
-  td {
-    padding: 10px;
+  #table td {
+    padding: 7px;
+    padding-bottom: 20px;
+    padding-top: 20px;
     text-align: left;
+    font-size: medium;
   }
-  th {
+  #table th {
     border-bottom: 1px solid #e7e3e3f6;
-    border-top: 1px solid #e7e3e3f6;
+    border-top: none;
+    font-size: large;
   }
   tr{
     border-radius: 5px;
@@ -96,35 +169,151 @@
   tr:hover {
     background-color: #f2f2f2;
   }
+
+  #returnToRankings{
+    width: 300px;
+    margin-top: 20px;
+    border-radius: 10px;
+    font-size: larger;
+    background-color: #0077ffc8;
+  }
+  #returnToRankings:hover {
+    background-color: #075ec1c2;
+  }
+
+  .ratingContainer{
+    position: relative;
+  }
+  #numRatings{
+    position: absolute;
+    color: grey;
+    padding-left: 10px;
+    margin-top: 2px;
+    font-size: 12px;
+    font-weight: bold;
+  }
+  #uniName{
+    position: relative;
+    margin-bottom: 5px;
+  }
+  .review{
+    background-color: rgb(206, 206, 206);
+    color: white;
+    width: 80%;
+    margin: auto;
+    border-radius: 10px;
+    padding: 20px;
+    margin-bottom: 20px;
+    text-align: left;
+    font-weight: 500;
+  }
+  .review label{
+    color: black;
+  }
+  .review .notes{
+    padding-top: 10px;
+    padding-bottom: 10px;
+  }
+  .userIndividualRating{
+    padding-left: 30px;
+  }
+  .otherRatings{
+    padding-top: 5px;
+    font-weight: 700;
+  }
+  .ratingsStars{
+    text-align: center;
+  }
+  #divButtonReturnToRankings{
+    width: 80%;
+    margin: auto;
+  }
+  #divButtonReturnToRankings button{
+    margin-left: 0px;
+    width: 100%;
+  }
+  #overallAverageScore{
+    width: 80%;
+    margin: auto;
+  }
+  #averageScoreDetails{
+    padding: 20px;
+    text-align: left;
+    width: 80vw;
+    margin: auto;
+  }
+  #UniDetails{
+    text-align: left;
+  }  
+  #browseRatings{
+    text-align: center;
+  }
+  .averagesUni{
+    padding-top: 5px;
+    padding-bottom:5px;
+  }
+  .courseChoice{
+    font-weight: bolder;
+    padding-top: 15px;
+    padding-bottom: 5px;
+  }
+
   @media (max-width: 828px) {
-    table{
+    #unihat{
+      display: none;
+      height: 0px;
+      width: 0px;
+    }
+    .title{
+      width: 200px;
+      margin-left: 5px;
+      margin-right: 0px;
+      padding-right: 0px;
+    }
+    .login-form{
+      width: 130px;
+      padding: 0px;
+      margin-right: 0px; 
+      margin-left: 0px;
+      padding-left: 0px;
+      left: 0px;
+    }  
+    .google-button{
+      padding: 0px;
+    }
+    #banner{
+      height: 200px;
+    }
+    #uniImage{
+      height: 200px;
+    }
+    #banner::after{
+      height: 100%;
+      position: absolute;
+      left: 0;
+      content: "";
+      width: 100%;
+      background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.9));
+    }
+    #index{
+      font-weight: bolder;
+    }
+    #table {
       width: 95%;
     }
-    h5{
-      width: 95%;
+    #NZ{
+      font-size: 35px;
     }
-    .title {
-      font-size: 0px;
-      margin-top: 25px;
+    #bannerText{
+      font-size: 20px;
+      bottom: 20px;
     }
-    .startSurvey{
-      width: 95%;
+    #uniRow{
+      width: 150px;
+    }
+    #submissionElements{
+      width: 90%;
     }
   
   }
-  @media (max-width: 800px) and (-webkit-device-pixel-ratio: 2) {
-    table{
-      width: 95%;
-    }
-    h5{
-      width: 95%;
-    }
-    .title {
-      font-size: 0px;
-      margin-top: 25px;
-    }
-    .startSurvey{
-      width: 95%;
-    }
 
-  }
