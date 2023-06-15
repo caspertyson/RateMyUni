@@ -15,6 +15,7 @@ import Rating from '@mui/material/Rating';
 import SvgIcon from '@mui/material/SvgIcon';
 import Kiwi from "./svg"
 import SchoolIcon from '@mui/icons-material/School';
+import rightArrow from "../images/rightArrow.png"
 
 const LoginPage = ({triggerEvent, onRowClick}) => {
     const [data, setData] = useState([]);
@@ -73,7 +74,7 @@ const LoginPage = ({triggerEvent, onRowClick}) => {
     return (
       <div className="container">
       <div className='header'>
-        <h1 className="title">Rate My <span id="uniLogin">Uni</span> <span id="unihat"><img id="unihat" src={unihat}></img></span></h1>
+        <h1 className="title">RateMy<span id="uniLogin">Uni</span><span id="conz">.co.nz</span></h1>
         <form className="login-form">
           <button type="button" className="review-button" onClick={handleClick}>
           <span className="button-text">Write a review </span>
@@ -105,12 +106,18 @@ const LoginPage = ({triggerEvent, onRowClick}) => {
                   icon={<SchoolIcon fontSize="5px"/>}
                   emptyIcon={<SchoolIcon fontSize="5px"/>}
                   value={parseFloat(item.averageOverallScore.toLocaleString("en-US"))} precision={0.1} readOnly/>
-                  <span id="numRatings">{item.count}{item.count > 1 ? "\treviews" : "\treview"}</span>
+                  <span id="numRatings">{"(" + item.count + ")"}</span><span><img id="rightArrow" src={rightArrow}></img></span>
                 </td>
               </tr>
             ))}
           </tbody>
         </table>
+        <footer>
+        <div id="footer">
+          <h1 className="title">RateMy<span id="uniLogin">Uni</span><span id="conz">.co.nz</span></h1>
+        </div>
+
+        </footer>
       </div>
     </div>
   );

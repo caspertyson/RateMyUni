@@ -8,6 +8,7 @@ import FourOhFour from "./components/404"
 import Main from "./components/Main"
 import DetailComponent from "./components/details"
 import TestKiwis from "./components/testKiwis"
+import Image from "./components/image"
 
 import { getAuth, isSignInWithEmailLink, signInWithEmailLink } from "firebase/auth";
 

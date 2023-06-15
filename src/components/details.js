@@ -57,7 +57,7 @@ const DetailComponent = ({ message, onRowClick, triggerEvent }) => {
   return (
     <div className="container">
         <div className='header'>
-        <h1 className="title">Rate My <span id="uniLogin">Uni</span> <span id="unihat"><img id="unihat" src={unihat}></img></span></h1>
+        <h1 className="title">RateMy<span id="uniLogin">Uni</span><span id="conz">.co.nz</span></h1>
         <form className="login-form">
             <button type="button" className="review-button" onClick={handleClick}>
             <span className="button-text">Write a review </span>
@@ -156,6 +156,13 @@ const DetailComponent = ({ message, onRowClick, triggerEvent }) => {
 
             </div>
         </div>
+        <footer>
+        <div id="footer">
+          <h1 className="title">RateMy<span id="uniLogin">Uni</span><span id="conz">.co.nz</span></h1>
+        </div>
+
+        </footer>
+
     </div>
   );
 };

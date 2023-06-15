@@ -1,5 +1,5 @@
 import React from 'react';
-import image from '../../public/screenshot.png';
+import image from '../../public/screenshot.jpeg';
 
 const App = () => {
   return (

@@ -49,28 +49,33 @@ const LoginWithEmail = ({triggerEvent}) => {
   return (
     <div id='emailContainer'>
       <div className='header'>
-        <h1 className="title">Rate My Uni <span><img id="unihat" src={unihat}></img></span></h1>
+      <h1 className="title">RateMy<span id="uniLogin">Uni</span><span id="conz">.co.nz</span></h1>
       </div>
       {finished ? 
-      <div id='thankYou'>
-        <h1>Thank you!</h1><br></br>
-        <h3>Follow the link sent to your email <br></br><br></br>for your one time sign-in</h3>
-      </div> :
-
-      <div className='main'>
-        <h2 id='emailTitel'>One time sign in with email</h2>
-        <input id='emailInput'
-            autoCapitalize='none'
-            type="text"
-            placeholder="example@example.com"
-            value={email}
-            onChange={handleChange}
-        />{!isValidEmail && <p id='emailError'>Please enter a valid email address.</p>}
-        <div></div>
-        <button type="button" id='goBackButton' onClick={goBack}>Go Back</button>
-        <button type="button" id='emailButton' onClick={handleButtonClick}>Get  Link</button>
-      </div>
-}
+        <div id='thankYou'>
+          <h1>Thank you!</h1><br></br>
+          <h3>Follow the link sent to your email <br></br><br></br>for your one time sign-in</h3>
+        </div> 
+        :
+        <div className='main'>
+          <h2 id='emailTitel'>One time sign in with email</h2>
+          <input id='emailInput'
+              autoCapitalize='none'
+              type="text"
+              placeholder="example@example.com"
+              value={email}
+              onChange={handleChange}
+          />{!isValidEmail && <p id='emailError'>Please enter a valid email address.</p>}
+          <div></div>
+          <button type="button" id='goBackButton' onClick={goBack}>Go Back</button>
+          <button type="button" id='emailButton' onClick={handleButtonClick}>Get  Link</button>
+        </div>
+      }
+      <footer>
+        <div id="footer">
+          <h1 className="title">RateMy<span id="uniLogin">Uni</span><span id="conz">.co.nz</span></h1>
+        </div>
+      </footer>
     </div>
   );
 };

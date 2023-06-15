@@ -6,10 +6,30 @@
     background-color: #fff;
     border-radius: 5px;
   }
+
+  #footer{
+    text-align: center;
+    width: 50vw;
+    padding: 0px;
+    margin: auto;
+    padding-top: 10px;
+  }
+  footer{
+    background-color: #e8ebebf6;
+    margin-bottom: 0px;
+    padding-bottom: 0px;
+    height: 100px;
+    margin-top: 50px;
+  }
   #titleSubmission{
     color: #0077ffc8;
     padding-top: 50px;
     font-size: 30px;
+  }
+  #conz{
+    font-size: large;
+    padding: 0px;
+    margin: 0px;
   }
   #index{
     font-weight: bolder;
@@ -37,8 +57,8 @@
     align-items: start;
   }
   .AddSubmissionButtons{
-    border-radius: 5px;
-    width: 120px;
+    border-radius: 3px;
+    width: 130px;
     margin: auto;
     margin-top: 80px;
     margin-bottom: 100px;
@@ -60,9 +80,14 @@
   }
 
   .emblem{
-    width: 20px;
-    height: 20px;
-    margin-right: 8px;
+    width: 40px;
+    height: 40px;
+    margin-right: 20px;
+  }
+  #rightArrow{
+    height: 15px;
+    width: 30px;
+    margin-left: 50px;
   }
   .startSurvey{
     width: 80%;
@@ -88,6 +113,8 @@
   }
   .title{
     float: left;
+    padding-right: 0px;
+    margin-right: 0px;
   }
   .login-form {
     float: right;
@@ -123,6 +150,8 @@
   }
   #uniLogin{
     color: rgba(227, 83, 50, 0.631);
+    margin-right: 0px;
+    padding-right: 0px;
   }
   #banner{
     position: relative;
@@ -185,6 +214,7 @@
     padding-top: 20px;
     text-align: left;
     font-size: medium;
+    font-weight: 300;
   }
   #table th {
     border-bottom: 1px solid #e7e3e3f6;
@@ -192,11 +222,14 @@
     font-size: large;
   }
   tr{
-    border-radius: 5px;
+    border-radius: 30px;
     font-size: larger;
+    transition: box-shadow .3s;
   }
   tr:hover {
     background-color: #f2f2f2;
+    box-shadow: 0 0 8px rgba(33,33,33,.2); 
+
   }
 
   #returnToRankings{
@@ -222,15 +255,16 @@
     font-weight: bold;
   }
   #uniName{
-    position: relative;
-    margin-bottom: 5px;
+    position: absolute;
+    margin-top: 10px;
+    margin-left: 20px;
   }
   .review{
-    background-color: rgb(206, 206, 206);
+    background-color: rgb(179, 178, 178);
     color: white;
     width: 80%;
     margin: auto;
-    border-radius: 10px;
+    border-radius: 20px;
     padding: 20px;
     margin-bottom: 20px;
     text-align: left;
@@ -294,7 +328,14 @@
     border-radius: 10px;
     font-size:medium;
     width: auto;
-    background-color: grey;
+    color: black;
+    background-color: #f9f8f8f0;
+    transition: box-shadow .3s;
+  }
+  #goBackButton:hover{
+    background-color: rgb(108, 107, 107);
+    color: white;
+    box-shadow: 0 0 12px rgba(33,33,33,.2); 
   }
   
   @media (max-width: 828px) {

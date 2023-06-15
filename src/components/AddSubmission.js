@@ -222,6 +222,11 @@ export default function AddSubmission(props) {
           </form>
         </div>
       </div>
+      <footer>
+        <div id="footer">
+          <h1 className="title">RateMy<span id="uniLogin">Uni</span><span id="conz">.co.nz</span></h1>
+        </div>
+        </footer>
     </div>
   );
 }
