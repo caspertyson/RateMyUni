@@ -52,11 +52,10 @@ function App() {
   
   return (
     <div className="App">      
-      <AddSubmission triggerEvent={addedSubmission}/>
-      {/* {login ? <Email />:
+      {login ? <Email triggerEvent={loginEvent}/>:
       userEmail ? <AddSubmission triggerEvent={addedSubmission}/>:
       !showUni ? <Login triggerEvent={loginEvent} onRowClick={handleRowClick}/>
-      : <DetailComponent message={selectedRow} onRowClick={handleRowClick} triggerEvent={loginEvent}/>} */}
+      : <DetailComponent message={selectedRow} onRowClick={handleRowClick} triggerEvent={loginEvent}/>}
     </div>
   );
 }

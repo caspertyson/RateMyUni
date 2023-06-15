@@ -21,13 +21,42 @@
     font-family: verdana, sans-serif;
     font-weight: 100;
   }
-  #submissionElements p{
+  #submissionElements p, label{
     font-size: large;
     line-height: 25px;
+    font-weight: 100;
+    text-align: left;
   }
-  #submissionForm{
+  #submissionElements label{
+    padding-bottom: 2px;
+    padding-top: 5px;
+  }
+  #submissionForm form{
     margin-top: 20px;
-    text-align: center;
+    text-align: left;
+    align-items: start;
+  }
+  .AddSubmissionButtons{
+    border-radius: 5px;
+    width: 120px;
+    margin: auto;
+    margin-top: 80px;
+    margin-bottom: 100px;
+    height: 50px;
+    font-size: larger;
+
+  }
+  #submissionElements select{
+    padding: 15px;
+    border-radius: 7px;
+    margin-top: 10px;
+    width: 400px;
+  }
+  #lastNotes{
+    border-radius: 5px;
+    height: 200px;
+    width: 400px;
+    text-rendering: auto;
   }
 
   .emblem{
@@ -209,6 +238,7 @@
   }
   .review label{
     color: black;
+    font-weight: bold;
   }
   .review .notes{
     padding-top: 10px;
@@ -310,9 +340,6 @@
     }
     #uniRow{
       width: 150px;
-    }
-    #submissionElements{
-      width: 90%;
     }
   
   }

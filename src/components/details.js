@@ -8,7 +8,7 @@ import "../Login.css"
 import Rating from '@mui/material/Rating';
 import SchoolIcon from '@mui/icons-material/School';
 
-const DetailComponent = ({ message, onRowClick, props }) => {
+const DetailComponent = ({ message, onRowClick, triggerEvent }) => {
   const [queryData, setQueryData] = useState([]);
   const[average, setAverages] = useState([])
 
@@ -23,7 +23,7 @@ const DetailComponent = ({ message, onRowClick, props }) => {
     onRowClick();
   };
   const handleClick = () => {
-    props.triggerEvent();
+    triggerEvent();
   };
   useEffect(() => {
     const ref = collection(db, 'testingAuth');

@@ -3,16 +3,20 @@ import "../Email.css"
 import { getAuth, sendSignInLinkToEmail } from "firebase/auth";
 import unihat from '../images/uni_hat.png'
 
-const LoginWithEmail = () => {
+const LoginWithEmail = ({triggerEvent}) => {
   const [email, setEmail] = useState('');
   const [finished, setFinished] = useState(false)
   const inputElement = document.getElementById("emailInput")
+
   const handleChange = (e) => {
     setEmail(e.target.value);
   };
+  const goBack = () => {
+    triggerEvent()
+  }
 
   const actionCodeSettings = {
-    url: 'http://localhost:3000/',
+    url: 'https://ratemyuni.co.nz/',
     handleCodeInApp: true,
   };
   const auth = getAuth();
@@ -49,6 +53,7 @@ const LoginWithEmail = () => {
             onChange={handleChange}
         /><div></div>
         <button id='emailButton' onClick={handleButtonClick}>Get  Link</button>
+        <button id='emailButton' onClick={goBack}>Go Back</button>
       </div>
 }
     </div>

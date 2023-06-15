@@ -2,11 +2,12 @@ import React, { useState, useEffect } from "react";
 import { db } from "../firebase";
 import { collection, addDoc, query, where, getDocs } from "firebase/firestore";
 import "../Submission.css"
+import SchoolIcon from '@mui/icons-material/School';
+import Rating from '@mui/material/Rating';
 
 export default function AddSubmission(props) {
   const [uniName, setUniName] = useState("");
   const [course, setCourse] = useState("");
-  const [overall, setOverall] = useState("");
   const [friends, setFriends] = useState("");
   const [difficulty, setDifficulty] = useState("");
   const [materialQuality, setMaterialQuality] = useState("");
@@ -53,10 +54,7 @@ export default function AddSubmission(props) {
     "Doctor of Musical Arts (DMA)",
     "Doctor of Information Technology (DIT)"
 ]
-  const ratings = [1, 2, 3, 4, 5]
   const [email, setEmail] = useState("")
-  const [liveNotification, setLiveNotification] = useState("")
-  const [consent, setConsent] = useState(false)
 
   const checkEmailExists = async (email) => {
     try {
@@ -80,13 +78,14 @@ export default function AddSubmission(props) {
     const date = new Date()
     e.preventDefault();
     const emailExists = await checkEmailExists(email)
-
+    const overall = Math.round(((difficulty + oneOnOneTime + jobChances + materialQuality + friends) / 5) * 10) /10;
       if(emailExists){
         window.alert("Submission already received from this email");
         localStorage.setItem("emailForSignIn", "");
         window.location.replace("https://ratemyuni.co.nz/");
       }
-     else if (uniName !== "" && course !== "" && overall !== "" && consent !== false) {
+      if (uniName !== "" && course !== "" && overall !== "" && friends !== "" && difficulty !== "" && 
+        materialQuality !== "" && jobChances !== "" && oneOnOneTime !== "" && email !== "" && date !== "") {
       await addDoc(collection(db, "testingAuth"), {
         uniName,
         course,
@@ -98,21 +97,16 @@ export default function AddSubmission(props) {
         oneOnOneTime,
         notes,
         email,
-        liveNotification,
         date,
-        consent,
       });
       setUniName("");
       setCourse("");
-      setOverall("");
       setFriends("");
       setDifficulty("");
       setMaterialQuality("");
       setJobChances("");
       setOneOnOneTime("");
       setNotes("");
-      setLiveNotification(false)
-      setConsent(false)
 
       localStorage.setItem("emailForSignIn", "");
       window.alert("Thank you for your submission! You will be re-directed to the main page now.");
@@ -121,11 +115,6 @@ export default function AddSubmission(props) {
       window.alert("Please fill in the required fields");
     }
   };
-
-  function returnToMain(){
-    localStorage.setItem("emailForSignIn", "");
-    window.location.replace("https://ratemyuni.co.nz/");
-  }
 
   return (
     <div className="container">
@@ -138,7 +127,73 @@ export default function AddSubmission(props) {
         <div id='submissionForm'>
           <form onSubmit={handleSubmit}>
           <label>
-            Name of Uni <span id="required">* required</span>: <br></br>
+            1. What was the quality of lecture materials like?
+          </label>
+          <Rating name="size-large" size="large"
+                  icon={<SchoolIcon style={{ fontSize: "40px" }}/>}
+                  emptyIcon={<SchoolIcon style={{ fontSize: "40px" }}/>}
+                  value={materialQuality} 
+                  onChange={(event, newValue) => {
+                    setMaterialQuality(newValue);
+                  }}
+                  precision={1} />
+            <br />
+            <label>
+            2. How easy was it to meet new people at uni?
+            </label>
+            <Rating name="size-large" size="large"
+                    icon={<SchoolIcon style={{ fontSize: "40px" }}/>}
+                    emptyIcon={<SchoolIcon style={{ fontSize: "40px" }}/>}
+                    value={friends} 
+                    onChange={(event, newValue) => {
+                      setFriends(newValue);
+                    }}
+                    precision={1} />
+              <br />
+              <label>
+            3. What was the one on one time with tutors/lecturers like?
+            </label>
+            <Rating name="size-large" size="large"
+                    icon={<SchoolIcon style={{ fontSize: "40px" }}/>}
+                    emptyIcon={<SchoolIcon style={{ fontSize: "40px" }}/>}
+                    value={oneOnOneTime} 
+                    onChange={(event, newValue) => {
+                      setOneOnOneTime(newValue);
+                    }}
+                    precision={1} />
+              <br />
+              <label>
+            4. What are the chances of you landing a job related to your studies?
+            </label>
+            <Rating name="size-large" size="large"
+                    icon={<SchoolIcon style={{ fontSize: "40px" }}/>}
+                    emptyIcon={<SchoolIcon style={{ fontSize: "40px" }}/>}
+                    value={jobChances} 
+                    onChange={(event, newValue) => {
+                      setJobChances(newValue);
+                    }}
+                    precision={1} />
+              <br />
+              <label>
+            5. What was the difficulty of your studies like?
+            </label>
+            <Rating name="size-large" size="large"
+                    icon={<SchoolIcon style={{ fontSize: "40px" }}/>}
+                    emptyIcon={<SchoolIcon style={{ fontSize: "40px" }}/>}
+                    value={difficulty} 
+                    onChange={(event, newValue) => {
+                      setDifficulty(newValue);
+                    }}
+                    precision={1} />
+              <br />
+              <label>
+            6. Notes for other students (please add at least a sentence):
+              </label>
+              <textarea maxlength="500" id="lastNotes" value={notes} onChange={(e) => 
+                setNotes(e.target.value)}></textarea>
+              <br></br>
+              <label>
+            7. Name of Uni <br></br>
             <select value={uniName} onChange={(e) => setUniName(e.target.value)}>
               <option value="">Select a University</option>
               {univercities.map((item) => (
@@ -150,7 +205,7 @@ export default function AddSubmission(props) {
           </label>
             <br />
             <label>
-              Course you took <span id="required">* required</span>:<br></br>
+              8. Course you took<br></br>
               <select value={course} onChange={(e) => setCourse(e.target.value)}>
                 <option value="">Select a Degree</option>
                 {degrees.map((item) => (
@@ -160,100 +215,9 @@ export default function AddSubmission(props) {
                 ))}
               </select>
             </label>
-            <br />
-            <label>
-              Overall Experience <span id="required">* required</span>:<br></br>
-              <select value={overall} onChange={(e) => setOverall(e.target.value)}>
-                <option value="">Select A Rating</option>
-                {ratings.map((item) => (
-                  <option key={item} value={item}>
-                    {item}
-                  </option>
-                ))}
-              </select>
-            </label>
-            <br />        
-            <label>
-              Ease of making friends:<br></br>
-              <select value={friends} onChange={(e) => setFriends(e.target.value)}>
-                <option value="">Select A Rating</option>
-                {ratings.map((item) => (
-                  <option key={item} value={item}>
-                    {item}
-                  </option>
-                ))}
-              </select>
-            </label>
-            <br />        
-            <label>
-              Degree difficulty:<br></br>
-              <select value={difficulty} onChange={(e) => setDifficulty(e.target.value)}>
-                <option value="">Select A Rating</option>
-                {ratings.map((item) => (
-                  <option key={item} value={item}>
-                    {item}
-                  </option>
-                ))}
-              </select>
-            </label>
-            <br />        
-            <label>
-              Quality of Teaching Material:<br></br>
-              <select value={materialQuality} onChange={(e) => setMaterialQuality(e.target.value)}>
-                <option value="">Select A Rating</option>
-                {ratings.map((item) => (
-                  <option key={item} value={item}>
-                    {item}
-                  </option>
-                ))}
-              </select>
-            </label>
-            <br />        
-            <label>
-              Chances of getting a job related to your degree:<br></br>
-              <select value={jobChances} onChange={(e) => setJobChances(e.target.value)}>
-                <option value="">Select A Rating</option>
-                {ratings.map((item) => (
-                  <option key={item} value={item}>
-                    {item}
-                  </option>
-                ))}
-              </select>
-            </label>
-            <br />        
-            <label>
-              One on One with tutor/lecturer:<br></br>
-              <select value={oneOnOneTime} onChange={(e) => setOneOnOneTime(e.target.value)}>
-                <option value="">Select A Rating</option>
-                {ratings.map((item) => (
-                  <option key={item} value={item}>
-                    {item}
-                  </option>
-                ))}
-              </select>
-            </label>
-            <br />        
-            <label>
-              Other Notes:
-              <input
-                type="text"
-                value={notes}
-                onChange={(e) => setNotes(e.target.value)}
-              />
-            </label>
-            <br />        
-            <label for="vehicle1"> Send me an email once the results are live?</label>
-            <input type="checkbox" id="checkboxEmail" onChange={(e) => setLiveNotification(e.target.value)}/>
-            <br />
-            <label for="vehicle1"> I consent to participate in this survey? <span id="required">* required</span></label>
-            <input type="checkbox" id="checkboxEmail" onChange={(e) => setConsent(e.target.value)}/>
-            <br />
-            <button type="submit">Submit!</button>
-            <button type="button" onClick={returnToMain}>Back</button>
+              <button className="AddSubmissionButtons" type="submit">Done</button>
           </form>
-
         </div>
-
       </div>
     </div>
   );
