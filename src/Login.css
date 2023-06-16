@@ -14,6 +14,9 @@
     margin: auto;
     padding-top: 10px;
   }
+  footer .title{
+    float: none;
+  }
   footer{
     background-color: #e8ebebf6;
     margin-bottom: 0px;
@@ -88,6 +91,8 @@
     height: 15px;
     width: 30px;
     margin-left: 50px;
+    padding-bottom: 4px;
+
   }
   .startSurvey{
     width: 80%;
@@ -142,12 +147,27 @@
     font-weight: bold;
     width: 150px;
     margin-right: 50px;
-    
   }
-  
-  .review-button:hover {
+    .review-button:hover {
     background-color: #075ec1c2;
   }
+
+  #writeReview{
+    background-color: #0077ffc8;
+    color: #fff;
+    border-radius: 10px;
+    cursor: pointer;
+    font-weight: bolder;
+    padding: 10px;
+    width: 100%;
+    margin: auto;
+    margin-top: 50px;
+    font-size: larger;
+  }
+  #writeReview:hover{
+    background-color: #075ec1c2
+  }
+  
   #uniLogin{
     color: rgba(227, 83, 50, 0.631);
     margin-right: 0px;
@@ -262,8 +282,8 @@
     margin-left: 20px;
   }
   .review{
-    background-color: rgb(179, 178, 178);
-    color: white;
+    background-color: rgb(237, 236, 236);
+    color: rgb(125, 124, 124);
     width: 80%;
     margin: auto;
     border-radius: 20px;
@@ -307,6 +327,7 @@
     text-align: left;
     width: 80vw;
     margin: auto;
+    line-height: 30px;
   }
   #UniDetails{
     text-align: left;
@@ -406,6 +427,13 @@
     tr,
     #table td{
       text-align: left;
+    }
+    #numRatings{
+      padding-left: 5px;
+    }
+    #rightArrow{
+      padding-left: 0px;
+      margin-left: 30px;
     }
   
   }

@@ -68,49 +68,56 @@ const DetailComponent = ({ message, onRowClick, triggerEvent }) => {
         <img id="uniImage" src={uniImage}></img>
         <div id="bannerText"><div id="NZ">{message.uniName}</div> <div>Reviews</div></div>
         </div>
-
         <div id="UniDetails">
             <div id='divButtonReturnToRankings'>
               <button type="button" id="returnToRankings" onClick={handleRowClick}> Return to Rankings</button>
             </div>
             <div>
               <div id="overallAverageScore">
-                <h2>{message.uniName} Average Score</h2>
+                <h2>{message.uniName} Average Score </h2>
                 <Rating name="size-large" size="large"
-                  icon={<SchoolIcon fontSize="20px"/>}
-                  emptyIcon={<SchoolIcon fontSize="20px"/>}
+                  icon={<SchoolIcon style={{ fontSize: "50px" }}/>}
+                  emptyIcon={<SchoolIcon style={{ fontSize: "50px" }}/>}
+                  // sx={{color: "#FFDF00"}}
                   value={parseFloat(message.averageOverallScore.toLocaleString("en-US"))} precision={0.1} readOnly/>            
               </div>
               <div id='averageScoreDetails'>
                 <h3>{message.uniName} Score Details</h3>
                   
-                  <div className='averagesUni'>Course Difficulty: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span className='ratingAverageDetailsStars'><Rating name="size-small" size="small"
-                      icon={<SchoolIcon fontSize="20px"/>}
-                      emptyIcon={<SchoolIcon fontSize="20px"/>}
+                  <div className='averagesUni'>Course difficulty:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span className='ratingAverageDetailsStars'><Rating name="size-small" size="small"
+                      icon={<SchoolIcon style={{ fontSize: "30px" }}/>}
+                      emptyIcon={<SchoolIcon style={{ fontSize: "30px" }}/>}
+                      // sx={{color: "#FFDF00"}}
                       value={parseFloat(average.difficulty)} precision={0.1} readOnly/></span></div>
                   
-                  <div className='averagesUni'>Meeting New People: <span className='ratingAverageDetailsStars'><Rating name="size-small" size="small"
-                      icon={<SchoolIcon fontSize="20px"/>}
-                      emptyIcon={<SchoolIcon fontSize="20px"/>}
+                  <div className='averagesUni'>Ease of meeting new people: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span className='ratingAverageDetailsStars'><Rating name="size-small" size="small"
+                      icon={<SchoolIcon style={{ fontSize: "30px" }}/>}
+                      emptyIcon={<SchoolIcon style={{ fontSize: "30px" }}/>}
+                      // sx={{color: "#FFDF00"}}
                       value={parseFloat(average.friends)} precision={0.1} readOnly/></span></div>
                   
-                  <div className='averagesUni'>Job Chances: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span className='ratingAverageDetailsStars'><Rating name="size-small" size="small"
-                      icon={<SchoolIcon fontSize="20px"/>}
-                      emptyIcon={<SchoolIcon fontSize="20px"/>}
+                  <div className='averagesUni'>Job chances with degree: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span className='ratingAverageDetailsStars'><Rating name="size-small" size="small"
+                      icon={<SchoolIcon style={{ fontSize: "30px" }}/>}
+                      emptyIcon={<SchoolIcon style={{ fontSize: "30px" }}/>}
+                      // sx={{color: "#FFDF00"}}
                       value={parseFloat(average.jobChances)} precision={0.1} readOnly/></span></div>
                   
-                  <div className='averagesUni'>Material Quality: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<Rating name="size-small" size="small"
-                      icon={<SchoolIcon fontSize="20px"/>}
-                      emptyIcon={<SchoolIcon fontSize="20px"/>}
+                  <div className='averagesUni'>Lecture material quality: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<Rating name="size-small" size="small"
+                      icon={<SchoolIcon style={{ fontSize: "30px" }}/>}
+                      emptyIcon={<SchoolIcon style={{ fontSize: "30px" }}/>}
+                      // sx={{color: "#FFDF00"}}
                       value={parseFloat(average.materialQuality)} precision={0.1} readOnly/></div>
 
-                  <div className='averagesUni'>One On One Time: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<Rating name="size-small" size="small"
-                      icon={<SchoolIcon fontSize="20px"/>}
-                      emptyIcon={<SchoolIcon fontSize="20px"/>}
+                  <div className='averagesUni'>One on one time with lecturers/tutors: <Rating name="size-small" size="small"
+                      icon={<SchoolIcon style={{ fontSize: "30px" }}/>}
+                      emptyIcon={<SchoolIcon style={{ fontSize: "30px" }}/>}
+                      // sx={{color: "#FFDF00"}}
                       value={parseFloat(average.oneOnOneTime)} precision={0.1} readOnly/></div>
+                  <button id="writeReview" type="button" onClick={handleClick}>Write a review</button>
+
               </div>
               <div id='browseRatings'>
-                <h3 >Student Reviews</h3>
+                <h3 >Student Reviews ({message.count})</h3>
                 <div>
                   {queryData.map((item, index) => (
                     <div className="review" key={index}>
@@ -123,33 +130,42 @@ const DetailComponent = ({ message, onRowClick, triggerEvent }) => {
                         <div className='courseChoice'> {item.course}</div>
 
                       <div className='notes'>{item.notes}</div>
-                      <div className='otherRatings'>Course Difficulty: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span className='ratingsStars'><Rating name="size-small" size="small"
+                      <div className='otherRatings'>Course difficulty: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span className='ratingsStars'><Rating name="size-small" size="small"
                         icon={<SchoolIcon fontSize="20px"/>}
                         emptyIcon={<SchoolIcon fontSize="20px"/>}
+                        // sx={{color: "#FFDF00"}}
                         value={parseFloat(item.difficulty.toLocaleString("en-US"))} precision={0.1} readOnly/></span>
                       </div>
-                      <div className='otherRatings'>Meeting New People: <span className='ratingsStars'><Rating name="size-small" size="small"
+                      <div className='otherRatings'>Ease of meeting new people: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span className='ratingsStars'><Rating name="size-small" size="small"
                         icon={<SchoolIcon fontSize="20px"/>}
                         emptyIcon={<SchoolIcon fontSize="20px"/>}
+                        // sx={{color: "#FFDF00"}}
                         value={parseFloat(item.friends.toLocaleString("en-US"))} precision={0.1} readOnly/></span>
                       </div>
-                      <div className='otherRatings'>Job Chances: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span className='ratingsStars'><Rating name="size-small" size="small"
+                      <div className='otherRatings'>Job chances with degree: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span className='ratingsStars'><Rating name="size-small" size="small"
                         icon={<SchoolIcon fontSize="20px"/>}
                         emptyIcon={<SchoolIcon fontSize="20px"/>}
+                        // sx={{color: "#FFDF00"}}
                         value={parseFloat(item.jobChances.toLocaleString("en-US"))} precision={0.1} readOnly/></span>
                       </div>
-                      <div className='otherRatings'>Material Quality: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span className='ratingsStars'><Rating name="size-small" size="small"
+                      <div className='otherRatings'>Lecture material quality: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span className='ratingsStars'><Rating name="size-small" size="small"
                         icon={<SchoolIcon fontSize="20px"/>}
                         emptyIcon={<SchoolIcon fontSize="20px"/>}
+                        // sx={{color: "#FFDF00"}}
                         value={parseFloat(item.materialQuality.toLocaleString("en-US"))} precision={0.1} readOnly/></span>
                       </div>
-                      <div className='otherRatings'>One On One Time: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span className='ratingsStars'><Rating name="size-small" size="small"
+                      <div className='otherRatings'>One on one time with lecturers/tutors: <span className='ratingsStars'><Rating name="size-small" size="small"
                         icon={<SchoolIcon fontSize="20px"/>}
                         emptyIcon={<SchoolIcon fontSize="20px"/>}
+                        // sx={{color: "#FFDF00"}}
                         value={parseFloat(item.oneOnOneTime.toLocaleString("en-US"))} precision={0.1} readOnly/></span>
                       </div>
                     </div>
                   ))}
+                <div id='divButtonReturnToRankings'>
+                  <button type="button" id="returnToRankings" onClick={handleRowClick}> Return to Rankings</button>
+                </div>
+
                 </div>
 
               </div>

@@ -102,9 +102,10 @@ const LoginPage = ({triggerEvent, onRowClick}) => {
                   {item.uniName === "AUT" && <img className="emblem" src={AUT} alt="Uni1" />}
                   <span id="uniName">{item.uniName}</span>
                 </td>
-                <td className="ratingContainer"><Rating name="size-small" size="small"
+                <td className="ratingContainer"><Rating name="size-medium" size="medium"
                   icon={<SchoolIcon fontSize="5px"/>}
                   emptyIcon={<SchoolIcon fontSize="5px"/>}
+                  // sx={{color: "#FFDF00"}}
                   value={parseFloat(item.averageOverallScore.toLocaleString("en-US"))} precision={0.1} readOnly/>
                   <span id="numRatings">{"(" + item.count + ")"}</span><span><img id="rightArrow" src={rightArrow}></img></span>
                 </td>
@@ -116,7 +117,6 @@ const LoginPage = ({triggerEvent, onRowClick}) => {
         <div id="footer">
           <h1 className="title">RateMy<span id="uniLogin">Uni</span><span id="conz">.co.nz</span></h1>
         </div>
-
         </footer>
       </div>
     </div>

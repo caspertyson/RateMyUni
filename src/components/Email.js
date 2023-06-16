@@ -71,8 +71,8 @@ const LoginWithEmail = ({triggerEvent}) => {
           <button type="button" id='emailButton' onClick={handleButtonClick}>Get  Link</button>
         </div>
       }
-      <footer>
-        <div id="footer">
+      <footer id='emailFooter'>
+        <div id="emailFooterDiv">
           <h1 className="title">RateMy<span id="uniLogin">Uni</span><span id="conz">.co.nz</span></h1>
         </div>
       </footer>

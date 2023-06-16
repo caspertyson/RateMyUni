@@ -4,7 +4,21 @@ body{
   background-color:#f9f8f8f6;
 
 }
-  #emailTitel {
+#emailFooterDiv{
+  text-align: center;
+  width: 50vw;
+  padding: 0px;
+  margin: auto;
+  padding-top: 10px;
+}
+#emailFooter{
+  background-color: #e8ebebf6;
+  margin-bottom: 0px;
+  padding-bottom: 0px;
+  height: 100px;
+  margin-top: 50px;
+}
+#emailTitel {
     text-align: center;
     padding-bottom: 25px;
     margin-top: 0px;
@@ -34,11 +48,13 @@ body{
     margin: auto;
     text-align: center;
     margin-top: 200px;
-    height: 50vh;
+    height: 70vh;
   }
   #thankYou{
     margin-top: 90px;
     text-align: center;
+    height: 80vh;
+
   }
   #thankYou h1{
     margin-left: 0px;
