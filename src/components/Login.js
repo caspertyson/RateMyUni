@@ -1,6 +1,6 @@
 import "../Login.css"
 import React, { useEffect, useState } from 'react';
-import { collection, query , onSnapshot} from 'firebase/firestore';
+import { collection, query , where,onSnapshot} from 'firebase/firestore';
 import { db } from '../firebase'; 
 import unihat from '../images/uni_hat.png'
 import uniImage from '../images/University.jpg'
@@ -17,7 +17,7 @@ import Kiwi from "./svg"
 import SchoolIcon from '@mui/icons-material/School';
 import rightArrow from "../images/rightArrow.png"
 
-const LoginPage = ({triggerEvent, onRowClick}) => {
+const LoginPage = ({login, triggerEvent, onRowClick}) => {
     const [data, setData] = useState([]);
     const [numUsers, setNumUsers] = useState("");
     const [selectedRow, setSelectedRow] = useState(null);    
@@ -29,9 +29,12 @@ const LoginPage = ({triggerEvent, onRowClick}) => {
     const handleClick = () => {
       triggerEvent();
     };
+    const onLogin = () => {
+      login()
+    }
 
     useEffect(() => {
-      const q = query(collection(db, 'testingAuth'));
+      const q = query(collection(db, 'testingAuth'), where('approved', '==', true));
       const unsubscribe = onSnapshot(q, (querySnapshot) => {
 
         const records = querySnapshot.docs.map((doc) => doc.data());
@@ -116,6 +119,7 @@ const LoginPage = ({triggerEvent, onRowClick}) => {
         <footer>
         <div id="footer">
           <h1 className="title">RateMy<span id="uniLogin">Uni</span><span id="conz">.co.nz</span></h1>
+          <a onClick={onLogin} id="LoginReviews">Admin</a>
         </div>
         </footer>
       </div>

@@ -18,7 +18,7 @@ const DetailComponent = ({ message, onRowClick, triggerEvent }) => {
     const average = sum / values.length;
     return average;
   };
-    
+
   const handleRowClick = () => {
     onRowClick();
   };
@@ -27,7 +27,7 @@ const DetailComponent = ({ message, onRowClick, triggerEvent }) => {
   };
   useEffect(() => {
     const ref = collection(db, 'testingAuth');
-    const q = query(ref, where('uniName', '==', message.uniName));
+    const q = query(ref, where('uniName', '==', message.uniName), where('approved', '==', true));
     
     getDocs(q)
       .then((querySnapshot) => {

@@ -5,7 +5,7 @@ import "../Submission.css"
 import SchoolIcon from '@mui/icons-material/School';
 import Rating from '@mui/material/Rating';
 
-export default function AddSubmission(props) {
+export default function AddSubmission({triggerEvent}) {
   const [uniName, setUniName] = useState("");
   const [course, setCourse] = useState("");
   const [friends, setFriends] = useState(0);
@@ -14,6 +14,7 @@ export default function AddSubmission(props) {
   const [jobChances, setJobChances] = useState(0);
   const [oneOnOneTime, setOneOnOneTime] = useState(0);
   const [notes, setNotes] = useState("")
+  const [isValidEmail, setIsValidEmail] = useState(true);
 
   const univercities = ["Auckland", "AUT", "Waikato", "Otago", "Lincoln", "Canterbury", "Wellington", "Massey"]
   const degrees = [
@@ -56,6 +57,22 @@ export default function AddSubmission(props) {
 ]
   const [email, setEmail] = useState("")
 
+  const goBack = () => {
+    triggerEvent()
+  }
+
+  const handleChange = (e) => {
+    setEmail(e.target.value);
+    setIsValidEmail(true); // Reset validation on each change
+  };
+  const validateEmail = (email) => {
+    // Regular expression for email validation
+    const emailPattern = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
+    return emailPattern.test(email);
+  };
+
+
+
   const checkEmailExists = async (email) => {
     try {
       const q = query(collection(db, 'testingAuth'), where('email', '==', email));
@@ -77,15 +94,25 @@ export default function AddSubmission(props) {
   const handleSubmit = async (e) => {
     const date = new Date()
     e.preventDefault();
+    if (!validateEmail(email)) {
+      setIsValidEmail(false);
+      return;
+    }
+
     const emailExists = await checkEmailExists(email)
     const overall = Math.round(((difficulty + oneOnOneTime + jobChances + materialQuality + friends) / 5) * 10) /10;
+    const approved = false;
+
+    if (uniName !== "" && course !== "" && overall !== "" && friends !== "" && difficulty !== "" && 
+      materialQuality !== "" && jobChances !== "" && oneOnOneTime !== "" && email !== "" && date !== "") {
+    
       if(emailExists){
         window.alert("Submission already received from this email");
         localStorage.setItem("emailForSignIn", "");
         window.location.replace("https://ratemyuni.co.nz/");
-      }
-      else if (uniName !== "" && course !== "" && overall !== "" && friends !== "" && difficulty !== "" && 
-        materialQuality !== "" && jobChances !== "" && oneOnOneTime !== "" && email !== "" && date !== "") {
+        return;
+      } 
+    
       document.getElementsByClassName("AddSubmissionButtons").disabled = true
       await addDoc(collection(db, "testingAuth"), {
         uniName,
@@ -99,6 +126,7 @@ export default function AddSubmission(props) {
         notes,
         email,
         date,
+        approved
       });
       console.log("happeneded")
       
@@ -197,7 +225,7 @@ export default function AddSubmission(props) {
               <br></br>
               <label>
             7. Name of Uni <br></br>
-            <select value={uniName} onChange={(e) => setUniName(e.target.value)}>
+            <select id="selectUniDegree" value={uniName} onChange={(e) => setUniName(e.target.value)}>
               <option value="">Select a University</option>
               {univercities.map((item) => (
                 <option key={item} value={item}>
@@ -209,7 +237,7 @@ export default function AddSubmission(props) {
             <br />
             <label>
               8. Course you took<br></br>
-              <select value={course} onChange={(e) => setCourse(e.target.value)}>
+              <select id="selectUniDegree" value={course} onChange={(e) => setCourse(e.target.value)}>
                 <option value="">Select a Degree</option>
                 {degrees.map((item) => (
                   <option key={item} value={item}>
@@ -218,7 +246,22 @@ export default function AddSubmission(props) {
                 ))}
               </select>
             </label>
+            <br />
+              <label>
+            9. Your Email:
+              </label>
+              <input id='emailInput'
+                  autoCapitalize='none'
+                  type="text"
+                  placeholder="example@example.com"
+                  value={email}
+                  onChange={handleChange}
+              />{!isValidEmail && <p id='emailError'>Please enter a valid email address.</p>}
+
+            <div id="submissionSubmitButton">
               <button className="AddSubmissionButtons" type="submit">Done</button>
+              <button className="BackButton" onClick={goBack} type="button">Back</button>
+            </div>
           </form>
         </div>
       </div>

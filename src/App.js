@@ -9,14 +9,15 @@ import Main from "./components/Main"
 import DetailComponent from "./components/details"
 import TestKiwis from "./components/testKiwis"
 import Image from "./components/image"
-
+import ReviewReviews from "./components/ReviewReviews"
 import { getAuth, isSignInWithEmailLink, signInWithEmailLink } from "firebase/auth";
 
 function App() {
-  const [login, setLogin] = React.useState(false);
+  const [addSub, setAddSub] = React.useState(false);
   const [userEmail, setUserEmail] = React.useState(false)
   const [selectedRow, setSelectedRow] = React.useState(null);
   const [showUni, setShowUni] = React.useState(false)
+  const [login, setLogin] = React.useState(false)
 
   React.useEffect(() => {
     const auth = getAuth();
@@ -38,8 +39,8 @@ function App() {
     }
   }, []);
 
-  const loginEvent = () => {
-    setLogin(!login)
+  const triggerAddSub = () => {
+    setAddSub(!addSub)
   };
   const addedSubmission = () => {
     setUserEmail(false)
@@ -50,14 +51,21 @@ function App() {
     }
     setShowUni(!showUni)
   };
+  const showLogin = () => {
+    setLogin(!login)
+  }
   
   return (
     <div className="App">      
-      {login ? <Email triggerEvent={loginEvent}/>:
+      {/* {login ? <Email triggerEvent={loginEvent}/>:
       userEmail ? <AddSubmission triggerEvent={addedSubmission}/>:
       !showUni ? <Login triggerEvent={loginEvent} onRowClick={handleRowClick}/>
-      : <DetailComponent message={selectedRow} onRowClick={handleRowClick} triggerEvent={loginEvent}/>}
+      : <DetailComponent message={selectedRow} onRowClick={handleRowClick} triggerEvent={loginEvent}/>} */}
       {/* <AddSubmission triggerEvent={addedSubmission}/> */}
+      {login? <ReviewReviews triggerEvent={showLogin}/>
+      :addSub ? <AddSubmission triggerEvent={triggerAddSub}/>:
+      !showUni ? <Login login={showLogin} triggerEvent={triggerAddSub} onRowClick={handleRowClick}/>
+      : <DetailComponent message={selectedRow} onRowClick={handleRowClick} triggerEvent={triggerAddSub}/>}
     </div>
   );
 }

@@ -21,7 +21,7 @@
     background-color: #e8ebebf6;
     margin-bottom: 0px;
     padding-bottom: 0px;
-    height: 100px;
+    height: 150px;
     margin-top: 50px;
   }
   #titleSubmission{
@@ -36,6 +36,10 @@
   }
   #index{
     font-weight: bolder;
+  }
+  #LoginReviews{
+    font-style: italic;
+    color: rgb(69, 69, 69);
   }
   #submissionElements{
     width: 450px;
@@ -67,13 +71,22 @@
     margin-bottom: 100px;
     height: 50px;
     font-size: larger;
-
+    float: right;
+    position: relative;
+  }
+  #submissionSubmitButton{
+    margin: left;
+    width: 80%;
   }
   #submissionElements select{
     padding: 15px;
     border-radius: 7px;
     margin-top: 10px;
     width: 400px;
+  }
+  #selectUniDegree{
+    color: rgb(103, 103, 103);
+    font-size: large;
   }
   #lastNotes{
     border-radius: 5px;
@@ -359,6 +372,29 @@
     background-color: rgb(108, 107, 107);
     color: white;
     box-shadow: 0 0 12px rgba(33,33,33,.2); 
+  }
+  .BackButton{
+    border-radius: 3px;
+    width: 130px;
+    margin: auto;
+    margin-top: 80px;
+    margin-bottom: 100px;
+    height: 50px;
+    font-size: larger;
+    float: left;
+    position: relative;
+    color: black;
+    background-color: white;
+
+  }
+  .BackButton:hover{
+    background-color: rgb(108, 107, 107);
+    color: white;
+    box-shadow: 0 0 12px rgba(33,33,33,.2); 
+
+  }
+  #approveContainer{
+    margin-top: 50px;
   }
   
   @media (max-width: 828px) {
