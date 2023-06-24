@@ -155,10 +155,6 @@ export default function AddSubmission({triggerEvent}) {
       </div>
       <div id="submissionElements">
         <h2 id="titleSubmission">Rate Your University</h2>
-        <br></br>
-        <p>We've always disliked the "official" university rankings - they seem to give very general perspectives, but may not align with individual needs.</p>
-        <p>What about real reviews from real students...?</p>
-        <br></br>
         <div id='submissionForm'>
           <form onSubmit={handleSubmit}>
           <label>

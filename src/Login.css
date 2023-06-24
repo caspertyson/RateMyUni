@@ -63,7 +63,7 @@
     align-items: start;
   }
   .AddSubmissionButtons{
-    border-radius: 3px;
+    border-radius: 10px;
     width: 130px;
     margin: auto;
     margin-top: 80px;
@@ -72,6 +72,7 @@
     font-size: larger;
     float: right;
     position: relative;
+    background-color: #0077ffc8;
   }
   #submissionSubmitButton{
     margin: left;
@@ -402,7 +403,7 @@
     box-shadow: 0 0 12px rgba(33,33,33,.2); 
   }
   .BackButton{
-    border-radius: 3px;
+    border-radius: 10px;
     width: 130px;
     margin: auto;
     margin-top: 80px;
