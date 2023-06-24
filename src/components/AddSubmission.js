@@ -75,7 +75,7 @@ export default function AddSubmission({triggerEvent}) {
 
   const checkEmailExists = async (email) => {
     try {
-      const q = query(collection(db, 'testingAuth'), where('email', '==', email));
+      const q = query(collection(db, 'reviews'), where('email', '==', email));
       const querySnapshot = await getDocs(q);
       if (querySnapshot.empty) {
         return false;
@@ -88,7 +88,8 @@ export default function AddSubmission({triggerEvent}) {
   };
   
   useEffect(() => {
-    setEmail(localStorage.getItem("emailForSignIn").toLocaleLowerCase())
+    //setEmail(localStorage.getItem("emailForSignIn").toLocaleLowerCase())
+    window.scrollTo(0, 0)
   }, []);
 
   const handleSubmit = async (e) => {
@@ -114,7 +115,7 @@ export default function AddSubmission({triggerEvent}) {
       } 
     
       document.getElementsByClassName("AddSubmissionButtons").disabled = true
-      await addDoc(collection(db, "testingAuth"), {
+      await addDoc(collection(db, "reviews"), {
         uniName,
         course,
         overall,
@@ -149,6 +150,9 @@ export default function AddSubmission({triggerEvent}) {
 
   return (
     <div className="container">
+      <div className='header'>
+        <h1 onClick={goBack} className="title">RateMy<span id="uniLogin">Uni</span><span id="conz">.co.nz</span></h1>
+      </div>
       <div id="submissionElements">
         <h2 id="titleSubmission">Rate Your University</h2>
         <br></br>
@@ -267,7 +271,7 @@ export default function AddSubmission({triggerEvent}) {
       </div>
       <footer>
         <div id="footer">
-          <h1 className="title">RateMy<span id="uniLogin">Uni</span><span id="conz">.co.nz</span></h1>
+          <h1 onClick={goBack} className="title">RateMy<span id="uniLogin">Uni</span><span id="conz">.co.nz</span></h1>
         </div>
         </footer>
     </div>

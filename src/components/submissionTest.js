@@ -58,7 +58,7 @@ export default function AddSubmission(props) {
 
   const checkEmailExists = async (email) => {
     try {
-      const q = query(collection(db, 'testingAuth'), where('email', '==', email));
+      const q = query(collection(db, 'reviews'), where('email', '==', email));
       const querySnapshot = await getDocs(q);
       if (querySnapshot.empty) {
         return false;
@@ -85,7 +85,7 @@ export default function AddSubmission(props) {
       window.location.replace("https://ratemyuni.co.nz/");
     }
     else if (uniName !== "" && course !== "" && overall !== "") {
-      await addDoc(collection(db, "testingAuth"), {
+      await addDoc(collection(db, "reviews"), {
         uniName,
         course,
         overall,

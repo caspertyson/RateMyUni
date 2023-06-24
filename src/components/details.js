@@ -26,7 +26,7 @@ const DetailComponent = ({ message, onRowClick, triggerEvent }) => {
     triggerEvent();
   };
   useEffect(() => {
-    const ref = collection(db, 'testingAuth');
+    const ref = collection(db, 'reviews');
     const q = query(ref, where('uniName', '==', message.uniName), where('approved', '==', true));
     
     getDocs(q)
@@ -51,13 +51,15 @@ const DetailComponent = ({ message, onRowClick, triggerEvent }) => {
       .catch((error) => {
         console.log('Error getting documents:', error);
       });
+      window.scrollTo(0, 0)
+
     },[]);
 
 
   return (
     <div className="container">
         <div className='header'>
-        <h1 className="title">RateMy<span id="uniLogin">Uni</span><span id="conz">.co.nz</span></h1>
+        <h1 onClick={handleRowClick} className="title">RateMy<span id="uniLogin">Uni</span><span id="conz">.co.nz</span></h1>
         <form className="login-form">
             <button type="button" className="review-button" onClick={handleClick}>
             <span className="button-text">Write a review </span>
@@ -78,89 +80,136 @@ const DetailComponent = ({ message, onRowClick, triggerEvent }) => {
                 <Rating name="size-large" size="large"
                   icon={<SchoolIcon style={{ fontSize: "50px" }}/>}
                   emptyIcon={<SchoolIcon style={{ fontSize: "50px" }}/>}
-                  // sx={{color: "#FFDF00"}}
                   value={parseFloat(message.averageOverallScore.toLocaleString("en-US"))} precision={0.1} readOnly/>            
               </div>
               <div id='averageScoreDetails'>
                 <h3>{message.uniName} Score Details</h3>
-                  
-                  <div className='averagesUni'>Course difficulty:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span className='ratingAverageDetailsStars'><Rating name="size-small" size="small"
+                  <table id="averagesReviewTable">
+                    <tr>
+                      <td id='leftColumn'>Course difficulty:</td>
+                      <td>
+                      <span className='ratingAverageDetailsStars'><Rating name="size-small" size="small"
                       icon={<SchoolIcon style={{ fontSize: "30px" }}/>}
                       emptyIcon={<SchoolIcon style={{ fontSize: "30px" }}/>}
-                      // sx={{color: "#FFDF00"}}
-                      value={parseFloat(average.difficulty)} precision={0.1} readOnly/></span></div>
-                  
-                  <div className='averagesUni'>Ease of meeting new people: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span className='ratingAverageDetailsStars'><Rating name="size-small" size="small"
+                      value={parseFloat(average.difficulty)} precision={0.1} readOnly/></span>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>Meeting people: </td>
+                      <td>
+                      <span className='ratingAverageDetailsStars'><Rating name="size-small" size="small"
                       icon={<SchoolIcon style={{ fontSize: "30px" }}/>}
                       emptyIcon={<SchoolIcon style={{ fontSize: "30px" }}/>}
-                      // sx={{color: "#FFDF00"}}
-                      value={parseFloat(average.friends)} precision={0.1} readOnly/></span></div>
-                  
-                  <div className='averagesUni'>Job chances with degree: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span className='ratingAverageDetailsStars'><Rating name="size-small" size="small"
+                      value={parseFloat(average.friends)} precision={0.1} readOnly/></span>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>Job chances: </td>
+                      <td>
+                      <span className='ratingAverageDetailsStars'><Rating name="size-small" size="small"
                       icon={<SchoolIcon style={{ fontSize: "30px" }}/>}
                       emptyIcon={<SchoolIcon style={{ fontSize: "30px" }}/>}
-                      // sx={{color: "#FFDF00"}}
-                      value={parseFloat(average.jobChances)} precision={0.1} readOnly/></span></div>
-                  
-                  <div className='averagesUni'>Lecture material quality: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<Rating name="size-small" size="small"
+                      value={parseFloat(average.jobChances)} precision={0.1} readOnly/></span>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>Lecture quality: </td>
+                      <td>
+                      <Rating name="size-small" size="small"
                       icon={<SchoolIcon style={{ fontSize: "30px" }}/>}
                       emptyIcon={<SchoolIcon style={{ fontSize: "30px" }}/>}
-                      // sx={{color: "#FFDF00"}}
-                      value={parseFloat(average.materialQuality)} precision={0.1} readOnly/></div>
+                      value={parseFloat(average.materialQuality)} precision={0.1} readOnly/>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>One on one time:</td>
+                      <td>
+                      <Rating name="size-small" size="small"
+                      icon={<SchoolIcon style={{ fontSize: "30px" }}/>}
+                      emptyIcon={<SchoolIcon style={{ fontSize: "30px" }}/>}
+                      value={parseFloat(average.oneOnOneTime)} precision={0.1} readOnly/>
+                      </td>
+                    </tr>
 
-                  <div className='averagesUni'>One on one time with lecturers/tutors: <Rating name="size-small" size="small"
-                      icon={<SchoolIcon style={{ fontSize: "30px" }}/>}
-                      emptyIcon={<SchoolIcon style={{ fontSize: "30px" }}/>}
-                      // sx={{color: "#FFDF00"}}
-                      value={parseFloat(average.oneOnOneTime)} precision={0.1} readOnly/></div>
+                  </table>
                   <button id="writeReview" type="button" onClick={handleClick}>Write a review</button>
-
               </div>
               <div id='browseRatings'>
                 <h3 >Student Reviews ({message.count})</h3>
                 <div>
                   {queryData.map((item, index) => (
-                    <div className="review" key={index}>
-                      <label>Today <span className='userIndividualRating'> 
-                      <Rating name="size-small" size="small"
-                        icon={<SchoolIcon fontSize="20px"/>}
-                        emptyIcon={<SchoolIcon fontSize="20px"/>}
-                        value={parseFloat(item.overall.toLocaleString("en-US"))} precision={0.1} readOnly/>
-                        </span></label>
-                        <div className='courseChoice'> {item.course}</div>
-
-                      <div className='notes'>{item.notes}</div>
-                      <div className='otherRatings'>Course difficulty: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span className='ratingsStars'><Rating name="size-small" size="small"
-                        icon={<SchoolIcon fontSize="20px"/>}
-                        emptyIcon={<SchoolIcon fontSize="20px"/>}
-                        // sx={{color: "#FFDF00"}}
-                        value={parseFloat(item.difficulty.toLocaleString("en-US"))} precision={0.1} readOnly/></span>
-                      </div>
-                      <div className='otherRatings'>Ease of meeting new people: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span className='ratingsStars'><Rating name="size-small" size="small"
-                        icon={<SchoolIcon fontSize="20px"/>}
-                        emptyIcon={<SchoolIcon fontSize="20px"/>}
-                        // sx={{color: "#FFDF00"}}
-                        value={parseFloat(item.friends.toLocaleString("en-US"))} precision={0.1} readOnly/></span>
-                      </div>
-                      <div className='otherRatings'>Job chances with degree: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span className='ratingsStars'><Rating name="size-small" size="small"
-                        icon={<SchoolIcon fontSize="20px"/>}
-                        emptyIcon={<SchoolIcon fontSize="20px"/>}
-                        // sx={{color: "#FFDF00"}}
-                        value={parseFloat(item.jobChances.toLocaleString("en-US"))} precision={0.1} readOnly/></span>
-                      </div>
-                      <div className='otherRatings'>Lecture material quality: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span className='ratingsStars'><Rating name="size-small" size="small"
-                        icon={<SchoolIcon fontSize="20px"/>}
-                        emptyIcon={<SchoolIcon fontSize="20px"/>}
-                        // sx={{color: "#FFDF00"}}
-                        value={parseFloat(item.materialQuality.toLocaleString("en-US"))} precision={0.1} readOnly/></span>
-                      </div>
-                      <div className='otherRatings'>One on one time with lecturers/tutors: <span className='ratingsStars'><Rating name="size-small" size="small"
-                        icon={<SchoolIcon fontSize="20px"/>}
-                        emptyIcon={<SchoolIcon fontSize="20px"/>}
-                        // sx={{color: "#FFDF00"}}
-                        value={parseFloat(item.oneOnOneTime.toLocaleString("en-US"))} precision={0.1} readOnly/></span>
-                      </div>
+                      <div className="review" key={index}>
+                        <label>Today <span className='userIndividualRating'> 
+                        <Rating name="size-small" size="small"
+                          icon={<SchoolIcon fontSize="20px"/>}
+                          emptyIcon={<SchoolIcon fontSize="20px"/>}
+                          value={parseFloat(item.overall.toLocaleString("en-US"))} precision={0.1} readOnly/>
+                          </span></label>
+                          <div className='courseChoice'> {item.course}</div>
+                        <div className='notes'>{item.notes}</div>
+                      <table id='reviewTable'>
+                        <tbody>
+                          <tr>
+                            <td id='leftColumn'>
+                            Course difficulty:
+                            </td>
+                            <td>
+                            <span className='ratingsStars'><Rating name="size-small" size="small"
+                              icon={<SchoolIcon fontSize="20px"/>}
+                              emptyIcon={<SchoolIcon fontSize="20px"/>}
+                              value={parseFloat(item.difficulty.toLocaleString("en-US"))} precision={0.1} readOnly/></span>
+                            </td>
+                          </tr>
+                          <tr>
+                            <td>
+                            Meeting people: 
+                            </td>
+                            <td>
+                            <span className='ratingsStars'><Rating name="size-small" size="small"
+                              icon={<SchoolIcon fontSize="20px"/>}
+                              emptyIcon={<SchoolIcon fontSize="20px"/>}
+                              value={parseFloat(item.friends.toLocaleString("en-US"))} precision={0.1} readOnly/>
+                              </span>
+                            </td>
+                          </tr>
+                          <tr>
+                            <td>
+                            Job chances: 
+                            </td>
+                            <td>
+                            <span className='ratingsStars'><Rating name="size-small" size="small"
+                              icon={<SchoolIcon fontSize="20px"/>}
+                              emptyIcon={<SchoolIcon fontSize="20px"/>}
+                              value={parseFloat(item.jobChances.toLocaleString("en-US"))} precision={0.1} readOnly/>
+                              </span>
+                            </td>
+                          </tr>
+                          <tr>
+                            <td>
+                            Lecture quality: 
+                            </td>
+                            <td>
+                            <span className='ratingsStars'><Rating name="size-small" size="small"
+                              icon={<SchoolIcon fontSize="20px"/>}
+                              emptyIcon={<SchoolIcon fontSize="20px"/>}
+                              value={parseFloat(item.materialQuality.toLocaleString("en-US"))} precision={0.1} readOnly/>
+                              </span>
+                            </td>
+                          </tr>
+                          <tr>
+                            <td>One on one time: </td>
+                            <td>
+                              <span className='ratingsStars'><Rating name="size-small" size="small"
+                                icon={<SchoolIcon fontSize="20px"/>}
+                                emptyIcon={<SchoolIcon fontSize="20px"/>}
+                                value={parseFloat(item.oneOnOneTime.toLocaleString("en-US"))} precision={0.1} readOnly/>
+                              </span>
+                            </td>
+                          </tr>
+                        </tbody>
+                      </table>
                     </div>
+
                   ))}
                 <div id='divButtonReturnToRankings'>
                   <button type="button" id="returnToRankings" onClick={handleRowClick}> Return to Rankings</button>
@@ -174,7 +223,7 @@ const DetailComponent = ({ message, onRowClick, triggerEvent }) => {
         </div>
         <footer>
         <div id="footer">
-          <h1 className="title">RateMy<span id="uniLogin">Uni</span><span id="conz">.co.nz</span></h1>
+          <h1 onClick={handleRowClick} className="title">RateMy<span id="uniLogin">Uni</span><span id="conz">.co.nz</span></h1>
         </div>
 
         </footer>

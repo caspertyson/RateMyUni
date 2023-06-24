@@ -12,6 +12,8 @@ import Otago from "../images/Otago.png"
 import Lincoln from "../images/lincoln.png"
 import AUT from "../images/aut.png"
 import Rating from '@mui/material/Rating';
+import Massey from "../images/massey.png"
+
 import SvgIcon from '@mui/material/SvgIcon';
 import Kiwi from "./svg"
 import SchoolIcon from '@mui/icons-material/School';
@@ -34,7 +36,7 @@ const LoginPage = ({login, triggerEvent, onRowClick}) => {
     }
 
     useEffect(() => {
-      const q = query(collection(db, 'testingAuth'), where('approved', '==', true));
+      const q = query(collection(db, 'reviews'), where('approved', '==', true));
       const unsubscribe = onSnapshot(q, (querySnapshot) => {
 
         const records = querySnapshot.docs.map((doc) => doc.data());
@@ -103,6 +105,7 @@ const LoginPage = ({login, triggerEvent, onRowClick}) => {
                   {item.uniName === "Otago" && <img className="emblem" src={Otago} alt="Uni1" />}
                   {item.uniName === "Lincoln" &&  <img className="emblem" src={Lincoln} alt="Uni1" />}
                   {item.uniName === "AUT" && <img className="emblem" src={AUT} alt="Uni1" />}
+                  {item.uniName === "Massey" && <img className="emblem" src={Massey} alt="Uni1" />}
                   <span id="uniName">{item.uniName}</span>
                 </td>
                 <td className="ratingContainer"><Rating name="size-medium" size="medium"

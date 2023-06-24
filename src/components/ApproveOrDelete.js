@@ -4,13 +4,15 @@ import { db } from '../firebase';
 import "../Login.css"
 import Rating from '@mui/material/Rating';
 import SchoolIcon from '@mui/icons-material/School';
+import { TableBar } from '@mui/icons-material';
 
 const ApproveOrDelete = ({trigger}) => {
     const [toApprove, setToApprove] = useState([])
     useEffect(() => {
+  
         const fetchDocument = async () => {
           try {
-            const ref = collection(db, 'testingAuth');
+            const ref = collection(db, 'reviews');
             const q = query(ref, where('approved', '==', false));
             getDocs(q)
             .then((querySnapshot) => {
@@ -28,10 +30,11 @@ const ApproveOrDelete = ({trigger}) => {
           }
         };
         fetchDocument();
+  
       }, []);
 
       const ApproveReview = async (id) => {
-        const ref = doc(db, "testingAuth", id)
+        const ref = doc(db, "reviews", id)
         await updateDoc(ref, {approved: true})
 
         console.log("approved doc")
@@ -41,7 +44,7 @@ const ApproveOrDelete = ({trigger}) => {
       }
 
       const DeleteReview = async (id) => {
-        const docRef = doc(db, "testingAuth", id);
+        const docRef = doc(db, "reviews", id);
         deleteDoc(docRef).then(() => {
             console.log("Entire Document has been deleted successfully.")
         })
@@ -55,7 +58,6 @@ const ApproveOrDelete = ({trigger}) => {
       const handleReturn = () => {
         trigger()
       }
-    
 
     return (
         <div id='emailContainer'>
@@ -66,7 +68,7 @@ const ApproveOrDelete = ({trigger}) => {
 
                 <div id='approveContainer'>
                     {toApprove.map((item,index) => (
-                        <div className="review" key={index}>
+                      <div className="review" key={index}>
                         <label>Today <span className='userIndividualRating'> 
                         <Rating name="size-small" size="small"
                           icon={<SchoolIcon fontSize="20px"/>}
@@ -74,38 +76,75 @@ const ApproveOrDelete = ({trigger}) => {
                           value={parseFloat(item.overall.toLocaleString("en-US"))} precision={0.1} readOnly/>
                           </span></label>
                           <div className='courseChoice'> {item.course}</div>
-  
                         <div className='notes'>{item.notes}</div>
-                        <div className='otherRatings'>Course difficulty: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span className='ratingsStars'><Rating name="size-small" size="small"
-                          icon={<SchoolIcon fontSize="20px"/>}
-                          emptyIcon={<SchoolIcon fontSize="20px"/>}
-                          value={parseFloat(item.difficulty.toLocaleString("en-US"))} precision={0.1} readOnly/></span>
-                        </div>
-                        <div className='otherRatings'>Ease of meeting new people: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span className='ratingsStars'><Rating name="size-small" size="small"
-                          icon={<SchoolIcon fontSize="20px"/>}
-                          emptyIcon={<SchoolIcon fontSize="20px"/>}
-                          value={parseFloat(item.friends.toLocaleString("en-US"))} precision={0.1} readOnly/></span>
-                        </div>
-                        <div className='otherRatings'>Job chances with degree: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span className='ratingsStars'><Rating name="size-small" size="small"
-                          icon={<SchoolIcon fontSize="20px"/>}
-                          emptyIcon={<SchoolIcon fontSize="20px"/>}
-                          value={parseFloat(item.jobChances.toLocaleString("en-US"))} precision={0.1} readOnly/></span>
-                        </div>
-                        <div className='otherRatings'>Lecture material quality: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span className='ratingsStars'><Rating name="size-small" size="small"
-                          icon={<SchoolIcon fontSize="20px"/>}
-                          emptyIcon={<SchoolIcon fontSize="20px"/>}
-                          value={parseFloat(item.materialQuality.toLocaleString("en-US"))} precision={0.1} readOnly/></span>
-                        </div>
-                        <div className='otherRatings'>One on one time with lecturers/tutors: <span className='ratingsStars'><Rating name="size-small" size="small"
-                          icon={<SchoolIcon fontSize="20px"/>}
-                          emptyIcon={<SchoolIcon fontSize="20px"/>}
-                          value={parseFloat(item.oneOnOneTime.toLocaleString("en-US"))} precision={0.1} readOnly/></span>
-                        </div>
-                        <div><b>Email: </b> {item.email}</div>
-                        <div><b>Uni: </b> {item.uniName}</div>
-                        <div><b>ID: </b> {item.id}</div>
-                        <button onClick={() => ApproveReview(item.id)}>Approve</button>
-                        <button onClick={() => DeleteReview(item.id)}>Delete</button>
+                      <table id='reviewTable'>
+                        <tbody>
+                          <tr>
+                            <td>
+                            Course difficulty:
+                            </td>
+                            <td>
+                            <span className='ratingsStars'><Rating name="size-small" size="small"
+                              icon={<SchoolIcon fontSize="20px"/>}
+                              emptyIcon={<SchoolIcon fontSize="20px"/>}
+                              value={parseFloat(item.difficulty.toLocaleString("en-US"))} precision={0.1} readOnly/></span>
+                            </td>
+                          </tr>
+                          <tr>
+                            <td>
+                            Meeting new people: 
+                            </td>
+                            <td>
+                            <span className='ratingsStars'><Rating name="size-small" size="small"
+                              icon={<SchoolIcon fontSize="20px"/>}
+                              emptyIcon={<SchoolIcon fontSize="20px"/>}
+                              value={parseFloat(item.friends.toLocaleString("en-US"))} precision={0.1} readOnly/>
+                              </span>
+                            </td>
+                          </tr>
+                          <tr>
+                            <td>
+                            Job chances: 
+                            </td>
+                            <td>
+                            <span className='ratingsStars'><Rating name="size-small" size="small"
+                              icon={<SchoolIcon fontSize="20px"/>}
+                              emptyIcon={<SchoolIcon fontSize="20px"/>}
+                              value={parseFloat(item.jobChances.toLocaleString("en-US"))} precision={0.1} readOnly/>
+                              </span>
+                            </td>
+                          </tr>
+                          <tr>
+                            <td>
+                            Lecture quality: 
+                            </td>
+                            <td>
+                            <span className='ratingsStars'><Rating name="size-small" size="small"
+                              icon={<SchoolIcon fontSize="20px"/>}
+                              emptyIcon={<SchoolIcon fontSize="20px"/>}
+                              value={parseFloat(item.materialQuality.toLocaleString("en-US"))} precision={0.1} readOnly/>
+                              </span>
+                            </td>
+                          </tr>
+                          <tr>
+                            <td>One on one time: </td>
+                            <td>
+                              <span className='ratingsStars'><Rating name="size-small" size="small"
+                                icon={<SchoolIcon fontSize="20px"/>}
+                                emptyIcon={<SchoolIcon fontSize="20px"/>}
+                                value={parseFloat(item.oneOnOneTime.toLocaleString("en-US"))} precision={0.1} readOnly/>
+                              </span>
+                            </td>
+                          </tr>
+                        </tbody>
+                      </table>
+                      <div><b>Email: </b> {item.email}</div>
+                      <div><b>Uni: </b> {item.uniName}</div>
+                      <div><b>ID: </b> {item.id}</div>
+
+                      <button onClick={() => ApproveReview(item.id)}>Approve</button>
+                      <button onClick={() => DeleteReview(item.id)}>Delete</button>
+
                       </div>
                       ))
                     }</div>

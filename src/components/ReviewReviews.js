@@ -13,8 +13,6 @@ const ReviewReviews = ({triggerEvent}) => {
     const [login, setLogin] = useState(false)
 
     const onLogin = () => { 
-        console.log("Email: " + email)
-        console.log("Password: " + password)
         const fetchPassword = async () => {
             try {
                 const q = query(collection(db, 'Admin'), where('Email', '==', email));
@@ -27,7 +25,6 @@ const ReviewReviews = ({triggerEvent}) => {
                 }else{
                     window.alert('Wrong Password Or Email');
                 }
-                console.log("Password: " + documentData.Password)
               } else {
                 window.alert('Wrong Password Or Email');
             }

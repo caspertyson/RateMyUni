@@ -26,7 +26,6 @@
   }
   #titleSubmission{
     color: #0077ffc8;
-    padding-top: 50px;
     font-size: 30px;
   }
   #conz{
@@ -94,6 +93,35 @@
     width: 400px;
     text-rendering: auto;
   }
+  #reviewTable{
+    margin-left: 0;
+    font-size: small;
+  }
+  #reviewTable td{
+    padding: 0px;
+    font-weight: bold;
+  }
+  #averagesReviewTable{
+    margin-left: 0px;
+    width: 100%;
+    float: left;
+  }
+  #averagesReviewTable td{
+    padding: 0px;
+  }
+  #averagesReviewTable tr:hover{
+    background-color: white;
+    box-shadow: 0 0 0 white; 
+
+  }
+  #reviewTable tr:hover{
+    background-color: rgb(237, 236, 236);
+    box-shadow: none; 
+  }
+  #leftColumn{
+    width: 200px;
+  }
+
 
   .emblem{
     width: 40px;
@@ -295,8 +323,8 @@
     margin-left: 20px;
   }
   .review{
-    background-color: rgb(237, 236, 236);
-    color: rgb(125, 124, 124);
+    background-color: rgb(233, 231, 231);
+    color: rgb(87, 87, 87);
     width: 80%;
     margin: auto;
     border-radius: 20px;
@@ -471,6 +499,10 @@
       padding-left: 0px;
       margin-left: 30px;
     }
+    #leftColumn{
+      width: 70%;
+    }
+  
   
   }
 
