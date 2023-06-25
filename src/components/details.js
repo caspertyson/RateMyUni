@@ -9,13 +9,49 @@ import Rating from '@mui/material/Rating';
 import SchoolIcon from '@mui/icons-material/School';
 import { useParams } from 'react-router-dom';
 import { BrowserRouter as Router, Switch, Route, Routes, useNavigate  } from 'react-router-dom';
+import Waikato from '../images/waikatouni.jpeg'
+import Auckland from '../images/aucklanduni.jpg'
+import AUT from '../images/autUni.jpg'
+import Christchurch from '../images/christchurchuni.png'
+import Wellington from '../images/victoria-university.jpg'
+import Otago from '../images/University.jpg'
+import Lincoln from '../images/lincolnUni.jpg'
+import Massey from '../images/masseyuni.jpg'
+
 
 const DetailComponent = ({ onRowClick, triggerEvent }) => {
   const {id} = useParams();
   const [queryData, setQueryData] = useState([]);
   const[average, setAverages] = useState([])
   const navigate = useNavigate();
-
+  let banner;
+  switch (id){
+    case "Waikato":
+      banner = <img id="uniImage" src={Waikato}></img>
+      break;
+    case "Auckland":
+      banner = <img id="uniImage" src={Auckland}></img>
+      break;
+    case "Massey":
+      banner = <img id="uniImage" src={Massey}></img>
+      break;
+    case "AUT":
+      banner = <img id="uniImage" src={AUT}></img>
+      break;
+    case "Canterbury":
+      banner = <img id="uniImage" src={Christchurch}></img>
+      break;
+    case "Wellington":
+      banner = <img id="uniImage" src={Wellington}></img>
+      break;
+    case "Otago":
+      banner = <img id="uniImage" src={Otago}></img>
+      break;
+    case "Lincoln":
+      banner = <img id="uniImage" src={Lincoln}></img>
+      break;
+                                                        
+  }
   const calculateAverage = (array, property) => {
     const values = array.map((item) => parseFloat(item[property]));
     const sum = values.reduce((acc, val) => acc + val, 0);
@@ -91,7 +127,8 @@ const DetailComponent = ({ onRowClick, triggerEvent }) => {
         </form>
         </div>
         <div id="banner">
-        <img id="uniImage" src={uniImage}></img>
+        {/* <img id="uniImage" src={uniImage}></img> */}
+        {banner}
         <div id="bannerText"><div id="NZ">{id}</div> <div>Reviews</div></div>
         </div>
         <div id="UniDetails">
