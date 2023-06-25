@@ -4,6 +4,8 @@ import { collection, addDoc, query, where, getDocs } from "firebase/firestore";
 import "../Submission.css"
 import SchoolIcon from '@mui/icons-material/School';
 import Rating from '@mui/material/Rating';
+import { BrowserRouter as Router, Switch, Route, Routes, useNavigate  } from 'react-router-dom';
+
 
 export default function AddSubmission({triggerEvent}) {
   const [uniName, setUniName] = useState("");
@@ -15,6 +17,7 @@ export default function AddSubmission({triggerEvent}) {
   const [oneOnOneTime, setOneOnOneTime] = useState(0);
   const [notes, setNotes] = useState("")
   const [isValidEmail, setIsValidEmail] = useState(true);
+  const navigate = useNavigate();
 
   const univercities = ["Auckland", "AUT", "Waikato", "Otago", "Lincoln", "Canterbury", "Wellington", "Massey"]
   const degrees = [
@@ -58,7 +61,8 @@ export default function AddSubmission({triggerEvent}) {
   const [email, setEmail] = useState("")
 
   const goBack = () => {
-    triggerEvent()
+    // window.location.href = `/`
+    navigate(`/`)
   }
 
   const handleChange = (e) => {
@@ -110,7 +114,8 @@ export default function AddSubmission({triggerEvent}) {
       if(emailExists){
         window.alert("Submission already received from this email");
         localStorage.setItem("emailForSignIn", "");
-        window.location.replace("https://ratemyuni.co.nz/");
+        // window.location.replace("/");
+        navigate(`/`)
         return;
       } 
     
@@ -142,7 +147,9 @@ export default function AddSubmission({triggerEvent}) {
 
       localStorage.setItem("emailForSignIn", "");
       window.alert("Thank you for your submission! You will be re-directed to the main page now.");
-      window.location.replace("https://ratemyuni.co.nz/");
+      // window.location.replace('/');
+      navigate(`/`)
+
     }else{
       window.alert("Please fill in the required fields");
     }

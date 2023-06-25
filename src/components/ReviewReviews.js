@@ -5,12 +5,14 @@ import unihat from '../images/uni_hat.png'
 import { db } from "../firebase";
 import { collection, addDoc, query, where, getDocs } from "firebase/firestore";
 import ApproveOrDelete from "./ApproveOrDelete"
+import { BrowserRouter as Router, Switch, Route, Routes, useNavigate  } from 'react-router-dom';
 
 
 const ReviewReviews = ({triggerEvent}) => {
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
     const [login, setLogin] = useState(false)
+    const navigate = useNavigate();
 
     const onLogin = () => { 
         const fetchPassword = async () => {
@@ -36,8 +38,9 @@ const ReviewReviews = ({triggerEvent}) => {
     }
 
     const onBack = () => {
-        setLogin(false);
-        triggerEvent()
+        // window.location.href = `/`
+        navigate(`/`)
+
     }
     const handleEmail = (e) => {
         setEmail(e.target.value);
@@ -54,7 +57,7 @@ const ReviewReviews = ({triggerEvent}) => {
         :
         <div>
             <div className='header'>
-            <h1 className="title">RateMy<span id="uniLogin">Uni</span><span id="conz">.co.nz</span></h1>
+            <h1 onClick={onBack} className="title">RateMy<span id="uniLogin">Uni</span><span id="conz">.co.nz</span></h1>
             </div>
             <div className='main'>
                 <h2 id='emailTitel'>Email</h2>

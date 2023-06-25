@@ -11,6 +11,9 @@ import TestKiwis from "./components/testKiwis"
 import Image from "./components/image"
 import ReviewReviews from "./components/ReviewReviews"
 import { getAuth, isSignInWithEmailLink, signInWithEmailLink } from "firebase/auth";
+import { BrowserRouter as Router, Switch, Route, Routes, useNavigate  } from 'react-router-dom';
+
+
 
 function App() {
   const [addSub, setAddSub] = React.useState(false);
@@ -18,6 +21,8 @@ function App() {
   const [selectedRow, setSelectedRow] = React.useState(null);
   const [showUni, setShowUni] = React.useState(false)
   const [login, setLogin] = React.useState(false)
+  const navigate = useNavigate();
+  const handleOnClick = (rowData) => navigate(`/detail/${rowData.uniName}`);
 
   React.useEffect(() => {
     const auth = getAuth();
@@ -49,24 +54,29 @@ function App() {
     if(rowData){
       setSelectedRow(rowData);
     }
-    setShowUni(!showUni)
+    // window.location.href = `/detail/${rowData.uniName}`;
+    handleOnClick(rowData)
   };
   const showLogin = () => {
     setLogin(!login)
   }
   
   return (
-    <div className="App">      
-      {/* {login ? <Email triggerEvent={loginEvent}/>:
-      userEmail ? <AddSubmission triggerEvent={addedSubmission}/>:
-      !showUni ? <Login triggerEvent={loginEvent} onRowClick={handleRowClick}/>
-      : <DetailComponent message={selectedRow} onRowClick={handleRowClick} triggerEvent={loginEvent}/>} */}
-      {/* <AddSubmission triggerEvent={addedSubmission}/> */}
-      {login? <ReviewReviews triggerEvent={showLogin}/>
-      :addSub ? <AddSubmission triggerEvent={triggerAddSub}/>:
-      !showUni ? <Login login={showLogin} triggerEvent={triggerAddSub} onRowClick={handleRowClick}/>
-      : <DetailComponent message={selectedRow} onRowClick={handleRowClick} triggerEvent={triggerAddSub}/>}
-    </div>
+      <div className="App">
+        <Routes>
+          <Route path="/" element={<Login login={showLogin} triggerEvent={triggerAddSub} onRowClick={handleRowClick}/>} />
+          <Route path="/detail/:id" element={<DetailComponent message={selectedRow} onRowClick={handleRowClick} triggerEvent={triggerAddSub}/>} />
+          <Route path="/add-submission" element={<AddSubmission />} />
+          <Route path="/review-reviews" element={<ReviewReviews />} />
+        </Routes>
+      </div>
+
+    // <div className="App">      
+    //   {login? <ReviewReviews triggerEvent={showLogin}/>
+    //   :addSub ? <AddSubmission triggerEvent={triggerAddSub}/>:
+    //   !showUni ? <Login login={showLogin} triggerEvent={triggerAddSub} onRowClick={handleRowClick}/>
+    //   : <DetailComponent message={selectedRow} onRowClick={handleRowClick} triggerEvent={triggerAddSub}/>}
+    // </div>
   );
 }
 export default App;

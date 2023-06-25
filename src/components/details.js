@@ -7,10 +7,14 @@ import uniImage from '../images/University.jpg'
 import "../Login.css"
 import Rating from '@mui/material/Rating';
 import SchoolIcon from '@mui/icons-material/School';
+import { useParams } from 'react-router-dom';
+import { BrowserRouter as Router, Switch, Route, Routes, useNavigate  } from 'react-router-dom';
 
-const DetailComponent = ({ message, onRowClick, triggerEvent }) => {
+const DetailComponent = ({ onRowClick, triggerEvent }) => {
+  const {id} = useParams();
   const [queryData, setQueryData] = useState([]);
   const[average, setAverages] = useState([])
+  const navigate = useNavigate();
 
   const calculateAverage = (array, property) => {
     const values = array.map((item) => parseFloat(item[property]));
@@ -18,16 +22,37 @@ const DetailComponent = ({ message, onRowClick, triggerEvent }) => {
     const average = sum / values.length;
     return average;
   };
-
+  const month = ["January","February","March","April","May","June","July","August","September","October","November","December"];
+  const nth = function(d) {
+    if (d > 3 && d < 21) return 'th';
+    switch (d % 10) {
+      case 1:  return "st";
+      case 2:  return "nd";
+      case 3:  return "rd";
+      default: return "th";
+    }
+  }
+  
+  function toDateTime(secs) {
+    var t = new Date(1970, 0, 1); // Epoch
+    t.setSeconds(secs);
+    
+    return t.getDate().toString() + nth(t.getDate().toString()) + " " + month[(t.getMonth() + 1).toString()]
+  }
+  
   const handleRowClick = () => {
-    onRowClick();
+    // window.location.href = '/'
+    navigate(`/`)
   };
+
   const handleClick = () => {
-    triggerEvent();
+    // triggerEvent();
+    // window.location.href = `/add-submission`
+    navigate(`/add-submission`)
   };
   useEffect(() => {
     const ref = collection(db, 'reviews');
-    const q = query(ref, where('uniName', '==', message.uniName), where('approved', '==', true));
+    const q = query(ref, where('uniName', '==', id), where('approved', '==', true));
     
     getDocs(q)
       .then((querySnapshot) => {
@@ -42,11 +67,11 @@ const DetailComponent = ({ message, onRowClick, triggerEvent }) => {
           jobChances: calculateAverage(data, 'jobChances'),
           materialQuality: calculateAverage(data, 'materialQuality'),
           oneOnOneTime: calculateAverage(data, 'oneOnOneTime'),
+          overallScore: calculateAverage(data, 'overall'),
         };
   
         setAverages(averages)
         setQueryData(data);
-  
       })
       .catch((error) => {
         console.log('Error getting documents:', error);
@@ -54,8 +79,7 @@ const DetailComponent = ({ message, onRowClick, triggerEvent }) => {
       window.scrollTo(0, 0)
 
     },[]);
-
-
+  
   return (
     <div className="container">
         <div className='header'>
@@ -68,22 +92,19 @@ const DetailComponent = ({ message, onRowClick, triggerEvent }) => {
         </div>
         <div id="banner">
         <img id="uniImage" src={uniImage}></img>
-        <div id="bannerText"><div id="NZ">{message.uniName}</div> <div>Reviews</div></div>
+        <div id="bannerText"><div id="NZ">{id}</div> <div>Reviews</div></div>
         </div>
         <div id="UniDetails">
-            <div id='divButtonReturnToRankings'>
-              <button type="button" id="returnToRankings" onClick={handleRowClick}> Return to Rankings</button>
-            </div>
             <div>
               <div id="overallAverageScore">
-                <h2>{message.uniName} Average Score </h2>
+                <h2>{id} Average Score </h2>
                 <Rating name="size-large" size="large"
                   icon={<SchoolIcon style={{ fontSize: "50px" }}/>}
                   emptyIcon={<SchoolIcon style={{ fontSize: "50px" }}/>}
-                  value={parseFloat(message.averageOverallScore.toLocaleString("en-US"))} precision={0.1} readOnly/>            
+                  value={parseFloat(average.overallScore)} precision={0.1} readOnly/>            
               </div>
               <div id='averageScoreDetails'>
-                <h3>{message.uniName} Score Details</h3>
+                <h3>{id} Score Details</h3>
                   <table id="averagesReviewTable">
                     <tr>
                       <td id='leftColumn'>Course difficulty:</td>
@@ -135,17 +156,17 @@ const DetailComponent = ({ message, onRowClick, triggerEvent }) => {
                   <button id="writeReview" type="button" onClick={handleClick}>Write a review</button>
               </div>
               <div id='browseRatings'>
-                <h3 >Student Reviews ({message.count})</h3>
+                <h3 >Student Reviews ({queryData.length})</h3>
                 <div>
                   {queryData.map((item, index) => (
                       <div className="review" key={index}>
-                        <label>Today <span className='userIndividualRating'> 
+                        <div className='userIndividualRating'> 
                         <Rating name="size-small" size="small"
-                          icon={<SchoolIcon fontSize="20px"/>}
-                          emptyIcon={<SchoolIcon fontSize="20px"/>}
+                          icon={<SchoolIcon style={{ fontSize: "25px" }}/>}
+                          emptyIcon={<SchoolIcon style={{ fontSize: "25px" }}/>}
                           value={parseFloat(item.overall.toLocaleString("en-US"))} precision={0.1} readOnly/>
-                          </span></label>
-                          <div className='courseChoice'> {item.course}</div>
+                          </div><label>{item.course } </label>
+                          <div className='dateReview'> {toDateTime(item.date.seconds)}</div>
                         <div className='notes'>{item.notes}</div>
                       <table id='reviewTable'>
                         <tbody>
@@ -209,16 +230,9 @@ const DetailComponent = ({ message, onRowClick, triggerEvent }) => {
                         </tbody>
                       </table>
                     </div>
-
                   ))}
-                <div id='divButtonReturnToRankings'>
-                  <button type="button" id="returnToRankings" onClick={handleRowClick}> Return to Rankings</button>
                 </div>
-
-                </div>
-
               </div>
-
             </div>
         </div>
         <footer>

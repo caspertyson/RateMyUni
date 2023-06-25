@@ -18,21 +18,26 @@ import SvgIcon from '@mui/material/SvgIcon';
 import Kiwi from "./svg"
 import SchoolIcon from '@mui/icons-material/School';
 import rightArrow from "../images/rightArrow.png"
+import { BrowserRouter as Router, Switch, Route, Routes, useNavigate  } from 'react-router-dom';
+
 
 const LoginPage = ({login, triggerEvent, onRowClick}) => {
     const [data, setData] = useState([]);
     const [numUsers, setNumUsers] = useState("");
     const [selectedRow, setSelectedRow] = useState(null);    
-
+    const navigate = useNavigate();
     const handleRowClick = (rowData) => {
       onRowClick(rowData);
     };
     
     const handleClick = () => {
-      triggerEvent();
+      // window.location.href = `/add-submission`
+      navigate(`/add-submission`)
     };
     const onLogin = () => {
-      login()
+      // window.location.href = `/review-reviews`
+      navigate(`/review-reviews`)
+
     }
 
     useEffect(() => {
@@ -96,7 +101,6 @@ const LoginPage = ({login, triggerEvent, onRowClick}) => {
           <tbody>
             {data.map((item, index) => (
               <tr key={item.uniName} onClick={() => handleRowClick(item)}>
-                <td id="index">{index + 1}</td>
                 <td id="uniRow">
                   {item.uniName === "Canterbury" && <img className="emblem" src={Canterbury} alt="Uni1" />}
                   {item.uniName === "Waikato" && <img className="emblem" src={Waikato} alt="Uni1" />}
