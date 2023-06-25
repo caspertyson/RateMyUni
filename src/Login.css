@@ -28,7 +28,7 @@
     margin-top: 50px;
   }
   #titleSubmission{
-    color: #0077ffc8;
+    color: rgba(227, 83, 50, 0.631);
     font-size: 30px;
   }
   #conz{
@@ -75,7 +75,10 @@
     font-size: larger;
     float: right;
     position: relative;
-    background-color: #0077ffc8;
+    background-color: rgba(227, 83, 50, 0.631);
+  }
+  .AddSubmissionButtons:hover{
+    background-color: rgba(169, 59, 35, 0.631);
   }
   #submissionSubmitButton{
     margin: left;
@@ -189,7 +192,7 @@
     align-items: center;
     justify-content: center;
     padding: 10px;
-    background-color: #0077ffc8;
+    background-color: rgba(227, 83, 50, 0.631);
     color: #fff;
     border-radius: 10px;
     cursor: pointer;
@@ -199,11 +202,11 @@
     margin-right: 50px;
   }
     .review-button:hover {
-    background-color: #075ec1c2;
+    background-color: rgba(169, 59, 35, 0.631);
   }
 
   #writeReview{
-    background-color: #0077ffc8;
+    background-color: rgba(227, 83, 50, 0.631);
     color: #fff;
     border-radius: 10px;
     cursor: pointer;
@@ -215,7 +218,7 @@
     font-size: larger;
   }
   #writeReview:hover{
-    background-color: #075ec1c2
+    background-color: rgba(169, 59, 35, 0.631)
   }
   
   #uniLogin{
