@@ -108,7 +108,7 @@ export default function AddSubmission({triggerEvent}) {
     const overall = Math.round(((difficulty + oneOnOneTime + jobChances + materialQuality + friends) / 5) * 10) /10;
     const approved = false;
 
-    if (uniName !== "" && course !== "" && overall !== "" && friends !== "" && difficulty !== "" && 
+    if (notes !== "" && uniName !== "" && course !== "" && overall !== "" && friends !== "" && difficulty !== "" && 
       materialQuality !== "" && jobChances !== "" && oneOnOneTime !== "" && email !== "" && date !== "") {
     
       if(emailExists){
@@ -167,7 +167,7 @@ export default function AddSubmission({triggerEvent}) {
           <label>
             1. What was the quality of lecture materials like?
           </label>
-          <Rating name="size-large" size="large"
+          <Rating id="rating" name="size-large" size="large"
                   icon={<SchoolIcon style={{ fontSize: "40px" }}/>}
                   emptyIcon={<SchoolIcon style={{ fontSize: "40px" }}/>}
                   value={materialQuality} 
@@ -179,7 +179,7 @@ export default function AddSubmission({triggerEvent}) {
             <label>
             2. How easy was it to meet new people at uni?
             </label>
-            <Rating name="size-large" size="large"
+            <Rating id="rating" name="size-large" size="large"
                     icon={<SchoolIcon style={{ fontSize: "40px" }}/>}
                     emptyIcon={<SchoolIcon style={{ fontSize: "40px" }}/>}
                     value={friends} 
@@ -191,7 +191,7 @@ export default function AddSubmission({triggerEvent}) {
               <label>
             3. What was the one on one time with tutors/lecturers like?
             </label>
-            <Rating name="size-large" size="large"
+            <Rating id="rating" name="size-large" size="large"
                     icon={<SchoolIcon style={{ fontSize: "40px" }}/>}
                     emptyIcon={<SchoolIcon style={{ fontSize: "40px" }}/>}
                     value={oneOnOneTime} 
@@ -203,7 +203,7 @@ export default function AddSubmission({triggerEvent}) {
               <label>
             4. What are the chances of you landing a job related to your studies?
             </label>
-            <Rating name="size-large" size="large"
+            <Rating id="rating" name="size-large" size="large"
                     icon={<SchoolIcon style={{ fontSize: "40px" }}/>}
                     emptyIcon={<SchoolIcon style={{ fontSize: "40px" }}/>}
                     value={jobChances} 
@@ -215,7 +215,7 @@ export default function AddSubmission({triggerEvent}) {
               <label>
             5. What was the difficulty of your studies like?
             </label>
-            <Rating name="size-large" size="large"
+            <Rating id="rating" name="size-large" size="large"
                     icon={<SchoolIcon style={{ fontSize: "40px" }}/>}
                     emptyIcon={<SchoolIcon style={{ fontSize: "40px" }}/>}
                     value={difficulty} 

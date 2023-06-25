@@ -30,6 +30,10 @@
   #titleSubmission{
     color: rgba(227, 83, 50, 0.631);
     font-size: 30px;
+    padding-bottom: 20px;
+  }
+  #rating{
+    padding-bottom: 10px;
   }
   #conz{
     font-size: large;
@@ -356,6 +360,27 @@
     padding-bottom: 10px;
     max-width: 500px;
   }
+  #aboutPanel{
+    background-color: white;
+    color: rgb(43, 43, 43);
+    width: 80%;
+    margin: auto;
+    border-radius: 20px;
+    padding: 20px;
+    margin-bottom: 20px;
+    text-align: left;
+    font-weight: 500;
+    border: 1px solid rgba(227, 83, 50, 0.631);
+    box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.4);
+  }
+  /* #UniDetails{
+    float: left;
+    max-width: 50%;
+  }
+  #aboutUni{
+    float: right;
+    max-width: 50%;
+  } */
   .dateReview{
     font-weight: bold;
     font-size: small;
@@ -446,6 +471,8 @@
   @media (max-width: 828px) {
     #submissionElements{
       width: 90%;
+      margin: auto;
+      text-align: center;
     }  
     #submissionElements select{
       width: 80vw;
