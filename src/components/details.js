@@ -116,6 +116,7 @@ const DetailComponent = ({ onRowClick, triggerEvent }) => {
     if(signInText == "Log Out"){
       signOut(auth).then(() => {
         console.log("user is signed out")
+        window.localStorage.setItem('emailForSignIn', "")
         setSignInText("Sign In")
       }).catch((error) => {
         // An error happened.
@@ -131,6 +132,7 @@ const DetailComponent = ({ onRowClick, triggerEvent }) => {
   const onSuccess = () => {
     setModal(!modal)
     setIsOpen(!isOpen);
+    window.scrollTo(0, 0)
     console.log("this happened")
   }
   const onAnimationEnd = () => {

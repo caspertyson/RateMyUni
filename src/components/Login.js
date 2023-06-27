@@ -59,6 +59,7 @@ const LoginPage = ({login, triggerEvent, onRowClick}) => {
       if(signInText == "Log Out"){
         signOut(auth).then(() => {
           console.log("user is signed out")
+          window.localStorage.setItem('emailForSignIn', "")
           setSignInText("Sign In")
         }).catch((error) => {
           // An error happened.
