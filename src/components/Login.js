@@ -13,12 +13,15 @@ import Lincoln from "../images/lincoln.png"
 import AUT from "../images/aut.png"
 import Rating from '@mui/material/Rating';
 import Massey from "../images/massey.png"
+import ModalLogin from "../components/ModalLogin"
 
 import SvgIcon from '@mui/material/SvgIcon';
 import Kiwi from "./svg"
 import SchoolIcon from '@mui/icons-material/School';
 import rightArrow from "../images/rightArrow.png"
 import { BrowserRouter as Router, Switch, Route, Routes, useNavigate  } from 'react-router-dom';
+import { getAuth, onAuthStateChanged, signOut } from "firebase/auth";
+
 
 
 const LoginPage = ({login, triggerEvent, onRowClick}) => {
@@ -26,21 +29,59 @@ const LoginPage = ({login, triggerEvent, onRowClick}) => {
     const [numUsers, setNumUsers] = useState("");
     const [selectedRow, setSelectedRow] = useState(null);    
     const navigate = useNavigate();
+    const [modal, setModal] = useState(false)
+    const [signInText, setSignInText] = useState("Sign In")
+    const [isLoggedIn, setIsLoggedIn] = useState(false);
+    const [isOpen, setIsOpen] = useState(false);
+
+    const auth = getAuth();
+
     const handleRowClick = (rowData) => {
       onRowClick(rowData);
     };
+    const onSuccess = () => {
+      setModal(!modal)
+      setIsOpen(!isOpen);
+      console.log("this happened")
+    }
+    const onAnimationEnd = () => {
+      if (!isOpen) {
+        setIsOpen(false);
+      }
+    };
+  
+  
+    const closePopDown = () => {
+      setIsOpen(false)
+    }
     
     const handleClick = () => {
-      // window.location.href = `/add-submission`
-      navigate(`/add-submission`)
+      if(signInText == "Log Out"){
+        signOut(auth).then(() => {
+          console.log("user is signed out")
+          setSignInText("Sign In")
+        }).catch((error) => {
+          // An error happened.
+        });
+      }else{
+        setModal(!modal)
+      }
     };
     const onLogin = () => {
-      // window.location.href = `/review-reviews`
       navigate(`/review-reviews`)
-
     }
-
+  
     useEffect(() => {
+      onAuthStateChanged(auth, (user) => {
+        if (user) {
+          setSignInText("Log Out")
+          setIsLoggedIn(true)
+          console.log("user is signed in")
+          console.log("user: " + user.email)
+        } else {
+        }
+      });
+
       const q = query(collection(db, 'reviews'), where('approved', '==', true));
       const unsubscribe = onSnapshot(q, (querySnapshot) => {
 
@@ -83,11 +124,18 @@ const LoginPage = ({login, triggerEvent, onRowClick}) => {
 
     return (
       <div className="container">
+      {isOpen && (
+      <div className={`pop-down ${isOpen ? "open" : ""}`} onAnimationEnd={onAnimationEnd}>
+        <h2 className="pop-down-title">Login Link Sent!</h2>
+        <p className="pop-down-text">Keep calm and check your spam folder</p>
+        <button id='closePopDown' onClick={closePopDown}>Close</button>
+        </div>
+      )}
       <div className='header'>
         <h1 className="title">RateMy<span id="uniLogin">Uni</span><span id="conz">.co.nz</span></h1>
         <form className="login-form">
           <button type="button" className="review-button" onClick={handleClick}>
-          <span className="button-text">Write a review </span>
+          <span className="button-text">{signInText} </span>
           </button>
         </form>
       </div>
@@ -130,6 +178,9 @@ const LoginPage = ({login, triggerEvent, onRowClick}) => {
         </div>
         </footer>
       </div>
+      {modal && (
+        <ModalLogin trigger={handleClick} successSubmit={onSuccess}/>
+      )}
     </div>
   );
 };

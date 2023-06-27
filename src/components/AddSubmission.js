@@ -107,7 +107,8 @@ export default function AddSubmission({triggerEvent}) {
     const emailExists = await checkEmailExists(email)
     const overall = Math.round(((difficulty + oneOnOneTime + jobChances + materialQuality + friends) / 5) * 10) /10;
     const approved = false;
-
+    const upvotes = []
+    const downvotes = []
     if (notes !== "" && uniName !== "" && course !== "" && overall !== "" && friends !== "" && difficulty !== "" && 
       materialQuality !== "" && jobChances !== "" && oneOnOneTime !== "" && email !== "" && date !== "") {
     
@@ -132,7 +133,9 @@ export default function AddSubmission({triggerEvent}) {
         notes,
         email,
         date,
-        approved
+        approved,
+        upvotes,
+        downvotes
       });
       console.log("happeneded")
       

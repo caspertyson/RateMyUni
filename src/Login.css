@@ -5,12 +5,116 @@
     text-align: center;
     background-color: #fff;
     border-radius: 5px;
+    position: relative;
   }
   body{
     font-family: Sans-serif, Verdana;
   }
-
-  #footer{
+  .pop-down {
+    z-index: 5;
+    position: relative;
+    background-color: #f0f0f0;
+    padding: 10px;
+    overflow: hidden;
+    max-height: 0;
+    animation: popDownAnimation 0.5s ease forwards;
+  }
+  
+  .pop-down.open {
+    animation-name: popUpAnimation;
+  }
+  
+  @keyframes popDownAnimation {
+    0% {
+      max-height: 200px; /* Adjust the height as desired */
+    }
+    100% {
+      max-height: 0;
+    }
+  }
+  
+  @keyframes popUpAnimation {
+    0% {
+      max-height: 0;
+    }
+    100% {
+      max-height: 200px; /* Adjust the height as desired */
+    }
+  }
+  .pop-down-title {
+    margin: 0;
+    padding: 5px;
+  }
+  
+  .pop-down-text {
+    margin: 0;
+  }
+  #closePopDown{
+    border-radius: 10px;
+    background-color: rgba(227, 83, 50, 0.631);
+  }
+        
+  #sortBy{
+    border-radius: 10px;
+    font-size: medium;
+    margin-top: 0px;
+    margin-bottom: 20px;
+  }
+  .modal {
+    position: fixed; /* Stay in place */
+    margin: auto;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    background-color: rgb(0,0,0); /* Fallback color */
+    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+    z-index: 9999;
+    text-align: left;
+  }
+  .modal-content {
+    position: absolute;
+    background-color: white;
+    border-radius: 10px;
+    padding: 20px;
+    z-index: 10000;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);  
+  }
+  .modal-content h3{
+    margin-top: 30px;
+  }
+  .modal-content input{
+    padding-right: 50px;
+    border-radius: 10px;
+  }
+  #sendEmail{
+    margin-left: 0px;
+    border-radius: 10px;
+  }
+  #x{
+    font-size: large;
+    position: inherit;
+    width: 20px;
+    text-align: right;
+    right: 0px;
+    margin-right: 10px;
+    margin-top: 0px;
+    padding-top: 0px;
+    padding-right: 25px;
+    background-color: white;
+    color: grey;
+  }
+  #userEmail{
+    width: 350px;
+  }
+  #emailError{
+    margin:0px;
+    padding-bottom: 5px;
+    font-size: small;
+  }
+    #footer{
+    position: relative;
     text-align: center;
     width: 50vw;
     padding: 0px;
@@ -155,14 +259,14 @@
     margin-bottom: 20px;
     margin-left: 50px;
   }
-  h5{
+  /* h5{
     background-color: rgba(255, 0, 0, 0.2); 
     padding-top: 10px;
     padding-bottom: 10px;
     width: 80%;
     margin: auto;
     margin-bottom: 40px;
-  }
+  } */
   .header{
     height: 80px;
     background-color: #fff;
@@ -279,7 +383,6 @@
   .query-results {
     padding-top: 20px;
     background-color: #f9f8f8f6;
-    height: 50vh;
     width: 100%;
   }
   #table {
@@ -308,6 +411,33 @@
     border-radius: 30px;
     font-size: larger;
     cursor: pointer;
+  }
+  .rating{
+    margin-top: 10px;
+    position: relative;
+  }
+  .thumb{
+    position: relative;
+    color: rgb(147, 146, 146);
+    font-size: 25px;
+    padding: 10px;
+  }
+  .thumb:hover{
+    color: rgb(129, 129, 129);
+    cursor: pointer;
+  }
+  .mythumb{
+    position: relative;
+    color: rgba(227, 83, 50, 0.631);
+    font-size: 25px;
+    padding: 10px;
+  }
+  .mythumb:hover{
+    color: rgba(143, 47, 26, 0.631);
+    cursor: pointer;
+  }
+  #numVotes{
+    font-size: small;
   }
 
   #returnToRankings{
@@ -373,7 +503,7 @@
     border: 1px solid rgba(227, 83, 50, 0.631);
     box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.4);
   }
-  /* #UniDetails{
+  /* #browseRatings{
     float: left;
     max-width: 50%;
   }
@@ -381,6 +511,7 @@
     float: right;
     max-width: 50%;
   } */
+  
   .dateReview{
     font-weight: bold;
     font-size: small;
@@ -548,7 +679,12 @@
     #leftColumn{
       width: 70%;
     }
-  
+    .modal-content {
+      width: 80%;
+    }
+    #userEmail{
+      width: 70%;
+    }
   
   }
 
