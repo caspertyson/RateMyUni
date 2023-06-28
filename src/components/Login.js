@@ -14,6 +14,8 @@ import AUT from "../images/aut.png"
 import Rating from '@mui/material/Rating';
 import Massey from "../images/massey.png"
 import ModalLogin from "../components/ModalLogin"
+import BusinessMan from "../images/business-man.png"
+import ReviewMan from "../images/review.png"
 
 import SvgIcon from '@mui/material/SvgIcon';
 import Kiwi from "./svg"
@@ -33,6 +35,7 @@ const LoginPage = ({login, triggerEvent, onRowClick}) => {
     const [signInText, setSignInText] = useState("Sign In")
     const [isLoggedIn, setIsLoggedIn] = useState(false);
     const [isOpen, setIsOpen] = useState(false);
+    const [sortBy, setSortBy] = useState("Sort By Number Of Reviews")
 
     const auth = getAuth();
 
@@ -42,6 +45,7 @@ const LoginPage = ({login, triggerEvent, onRowClick}) => {
     const onSuccess = () => {
       setModal(!modal)
       setIsOpen(!isOpen);
+      window.scrollTo(0, 0)
       console.log("this happened")
     }
     const onAnimationEnd = () => {
@@ -54,6 +58,9 @@ const LoginPage = ({login, triggerEvent, onRowClick}) => {
     const closePopDown = () => {
       setIsOpen(false)
     }
+    const reviewClick = () => {
+      navigate(`/add-submission`)
+    }  
     
     const handleClick = () => {
       if(signInText == "Log Out"){
@@ -71,7 +78,23 @@ const LoginPage = ({login, triggerEvent, onRowClick}) => {
     const onLogin = () => {
       navigate(`/review-reviews`)
     }
-  
+
+    useEffect(() => {
+      const sortedData = sortBy === "Sort By Highest Rating" ? sortedByScore(data) : sortedByNumReviews(data);
+      setData(sortedData);
+      console.log("sortby changed");
+      console.log(sortedData)
+    }, [sortBy]);
+    
+    const sortedByScore = (averages) => {
+      const sortedData = [...averages].sort((a, b) => b.averageOverallScore - a.averageOverallScore);
+      return sortedData
+    }
+    const sortedByNumReviews = (averages) => {
+      const sortedData = [...averages].sort((a, b) => b.count - a.count);
+      return sortedData
+    }
+
     useEffect(() => {
       onAuthStateChanged(auth, (user) => {
         if (user) {
@@ -85,6 +108,7 @@ const LoginPage = ({login, triggerEvent, onRowClick}) => {
 
       const q = query(collection(db, 'reviews'), where('approved', '==', true));
       const unsubscribe = onSnapshot(q, (querySnapshot) => {
+        console.log("query happened")
 
         const records = querySnapshot.docs.map((doc) => doc.data());
         const groupedData = records.reduce((acc, record) => {
@@ -106,18 +130,14 @@ const LoginPage = ({login, triggerEvent, onRowClick}) => {
           averageOverallScore: Math.round((group.overallScore / group.count) * 10) / 10,
           count: group.count
         }));
-  
-        const sortedAverages = averages.sort(
-          (a, b) => b.averageOverallScore - a.averageOverallScore
-        );
-  
-        setData(sortedAverages);
-
+        const sortedData = [...averages].sort((a, b) => b.count - a.count);
+        setData(sortedData);
         const numDocuments = querySnapshot.size;
         setNumUsers(numDocuments);
+        console.log("data: ")
+        console.log(data)
   
       });
-
       return () => {
         unsubscribe();
       };
@@ -144,8 +164,17 @@ const LoginPage = ({login, triggerEvent, onRowClick}) => {
         <img id="uniImage" src={uniImage}></img>
         <div id="bannerText"><span id="NZ">New Zealand</span> Universities</div>
       </div>
-      
+
       <div className="query-results">
+        <h1 id="subHeaderLanding">NZ Univeristy Rankings as decided by students</h1>
+        <p id="textLanding">Crowd source reviews to uncover all the nitty-gritty details that make your university unique. Tap into the collective wisdom of the crowd and get some insider knowledge. </p>
+      {/* <button type="button" id="review-uni-button" onClick={reviewClick}>Review Your Uni</button> */}
+        <select id="sortByLanding" value={sortBy} onChange={(e) => setSortBy(e.target.value)}>
+          <option value="Sort By Number Of Reviews">Sort By Number Of Reviews</option>
+          <option value="Sort By Highest Rating" >Sort By Highest Rating</option>
+        </select>
+
+
         <table id="table">
           <tbody>
             {data.map((item, index) => (
@@ -172,6 +201,30 @@ const LoginPage = ({login, triggerEvent, onRowClick}) => {
             ))}
           </tbody>
         </table>
+        <div id="writeReviewUniDiv">
+          <div id="textReviewUniBanner">
+            <p>Review Your University</p>
+          </div>
+          <div id="actionReviewUniBanner">
+            <p onClick={reviewClick} id="writeAReviewText">Write a review</p>
+            <Rating onClick={reviewClick} id="writeAReviewStars" name="size-medium" size="medium"
+                  icon={<SchoolIcon style={{ fontSize: "30px" }}/>}
+                  emptyIcon={<SchoolIcon style={{ fontSize: "30px" }}/>}
+                  value={0} precision={1} />
+          </div>
+        </div>
+        <div id="businessmanInfographs">
+              <div id="bussinessmanImageDiv">
+                <img id="businessmanImage" src={BusinessMan}></img>
+              </div>
+              <div id="businessmanText"><h2>Anonymous Forever</h2></div>
+        </div>
+        <div id="reviewManInfograph">
+              <div id="reviewManImageDiv">
+                <img id="reviewManImage" src={ReviewMan}></img>
+              </div>
+              <div id="reviewManText"><h2>See What Other Students Think</h2></div>
+        </div>
         <footer>
         <div id="footer">
           <h1 className="title">RateMy<span id="uniLogin">Uni</span><span id="conz">.co.nz</span></h1>
