@@ -137,7 +137,8 @@ const LoginPage = ({login, triggerEvent, onRowClick}) => {
         console.log("data: ")
         console.log(data)
   
-      });
+      });      
+      window.scrollTo(0, 0)
       return () => {
         unsubscribe();
       };
@@ -154,11 +155,15 @@ const LoginPage = ({login, triggerEvent, onRowClick}) => {
       )}
       <div className='header'>
         <h1 className="title">RateMy<span id="uniLogin">Uni</span><span id="conz">.co.nz</span></h1>
+        
         <form className="login-form">
-          <button type="button" className="review-button" onClick={handleClick}>
-          <span className="button-text">{signInText} </span>
+          <button type="button" className="review-button" onClick={reviewClick}>
+          <span className="button-text">Review Your Uni</span>
           </button>
         </form>
+        <button type="button" className="writeReview" onClick={handleClick}>{signInText}</button>
+
+
       </div>
       <div id="banner">
         <img id="uniImage" src={uniImage}></img>
@@ -206,7 +211,7 @@ const LoginPage = ({login, triggerEvent, onRowClick}) => {
             <p>Review Your University</p>
           </div>
           <div id="actionReviewUniBanner">
-            <p onClick={reviewClick} id="writeAReviewText">Write a review</p>
+            <p onClick={reviewClick} id="writeAReviewText">Review Your Uni</p>
             <Rating onClick={reviewClick} id="writeAReviewStars" name="size-medium" size="medium"
                   icon={<SchoolIcon style={{ fontSize: "30px" }}/>}
                   emptyIcon={<SchoolIcon style={{ fontSize: "30px" }}/>}

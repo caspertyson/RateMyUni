@@ -328,11 +328,14 @@ useEffect(() => {
       <div id="mainDetails">
         <div className='header'>
           <h1 onClick={handleRowClick} className="title">RateMy<span id="uniLogin">Uni</span><span id="conz">.co.nz</span></h1>
+          
           <form className="login-form">
-              <button type="button" className="review-button" onClick={handleClick}>
-              <span className="button-text">{signInText} </span>
-              </button>
-          </form>
+          <button type="button" className="review-button" onClick={reviewClick}>
+          <span className="button-text">Review Your Uni </span>
+          </button>
+        </form>
+        <button type="button" className="writeReview" onClick={handleClick}>{signInText}</button>
+
           </div>
           <div id="banner">
           {banner}
@@ -398,7 +401,7 @@ useEffect(() => {
                       </tr>
                       </tbody>
                     </table>
-                    <button id="writeReview" type="button" onClick={reviewClick}>Write a review</button>
+                    <button id="writeReview" type="button" onClick={reviewClick}>Review Your Uni</button>
                 </div>
                 <div id='browseRatings'>
                   <h3 >Student Reviews ({queryData.length})</h3>

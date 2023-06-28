@@ -168,7 +168,7 @@ export default function AddSubmission({triggerEvent}) {
         <div id='submissionForm'>
           <form onSubmit={handleSubmit}>
           <label>
-            1. What was the quality of lecture materials like?
+            Quality of lecture materials?
           </label>
           <Rating id="rating" name="size-large" size="large"
                   icon={<SchoolIcon style={{ fontSize: "40px" }}/>}
@@ -180,7 +180,7 @@ export default function AddSubmission({triggerEvent}) {
                   precision={1} />
             <br />
             <label>
-            2. How easy was it to meet new people at uni?
+            Ease of meeting new people?
             </label>
             <Rating id="rating" name="size-large" size="large"
                     icon={<SchoolIcon style={{ fontSize: "40px" }}/>}
@@ -192,7 +192,7 @@ export default function AddSubmission({triggerEvent}) {
                     precision={1} />
               <br />
               <label>
-            3. What was the one on one time with tutors/lecturers like?
+            One on one time with tutors/lecturers?
             </label>
             <Rating id="rating" name="size-large" size="large"
                     icon={<SchoolIcon style={{ fontSize: "40px" }}/>}
@@ -204,7 +204,7 @@ export default function AddSubmission({triggerEvent}) {
                     precision={1} />
               <br />
               <label>
-            4. What are the chances of you landing a job related to your studies?
+          Landing a job related to your studies?
             </label>
             <Rating id="rating" name="size-large" size="large"
                     icon={<SchoolIcon style={{ fontSize: "40px" }}/>}
@@ -216,7 +216,7 @@ export default function AddSubmission({triggerEvent}) {
                     precision={1} />
               <br />
               <label>
-            5. What was the difficulty of your studies like?
+            Difficulty of your studies?
             </label>
             <Rating id="rating" name="size-large" size="large"
                     icon={<SchoolIcon style={{ fontSize: "40px" }}/>}
@@ -228,13 +228,13 @@ export default function AddSubmission({triggerEvent}) {
                     precision={1} />
               <br />
               <label>
-            6. A few words for other students:
+            A few words for other students:
               </label>
               <textarea maxLength="500" id="lastNotes" value={notes} onChange={(e) => 
                 setNotes(e.target.value)}></textarea>
               <br></br>
               <label>
-            7. Name of Uni <br></br>
+            Name of Uni <br></br>
             <select id="selectUniDegree" value={uniName} onChange={(e) => setUniName(e.target.value)}>
               <option value="">Select a University</option>
               {univercities.map((item) => (
@@ -246,7 +246,7 @@ export default function AddSubmission({triggerEvent}) {
           </label>
             <br />
             <label>
-              8. Course you took<br></br>
+              Course you took<br></br>
               <select id="selectUniDegree" value={course} onChange={(e) => setCourse(e.target.value)}>
                 <option value="">Select a Degree</option>
                 {degrees.map((item) => (
@@ -258,9 +258,9 @@ export default function AddSubmission({triggerEvent}) {
             </label>
             <br />
               <label>
-            9. Your Email:
+            Your Email:
               </label>
-              <input id='emailInput'
+              <input id='emailSubInput'
                   autoCapitalize='none'
                   type="text"
                   placeholder="example@example.com"
