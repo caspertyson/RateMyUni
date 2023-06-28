@@ -3,7 +3,6 @@ import React, { useEffect, useState } from 'react';
 import { collection, query , where,onSnapshot} from 'firebase/firestore';
 import { db } from '../firebase'; 
 import unihat from '../images/uni_hat.png'
-import uniImage from '../images/University.jpg'
 import Canterbury from "../images/UC.png"
 import Waikato from "../images/Waikato.png"
 import Auckland from "../images/auckland.png"
@@ -16,6 +15,7 @@ import Massey from "../images/massey.png"
 import ModalLogin from "../components/ModalLogin"
 import BusinessMan from "../images/business-man.png"
 import ReviewMan from "../images/review.png"
+import AucklandUni from '../images/aucklanduni.jpg'
 
 import SvgIcon from '@mui/material/SvgIcon';
 import Kiwi from "./svg"
@@ -158,7 +158,7 @@ const LoginPage = ({login, triggerEvent, onRowClick}) => {
         
         <form className="login-form">
           <button type="button" className="review-button" onClick={reviewClick}>
-          <span className="button-text">Review Your Uni</span>
+          <span className="button-text">Rate Your Uni</span>
           </button>
         </form>
         <button type="button" className="writeReview" onClick={handleClick}>{signInText}</button>
@@ -166,13 +166,13 @@ const LoginPage = ({login, triggerEvent, onRowClick}) => {
 
       </div>
       <div id="banner">
-        <img id="uniImage" src={uniImage}></img>
+        <img id="uniImage" src={AucklandUni}></img>
         <div id="bannerText"><span id="NZ">New Zealand</span> Universities</div>
       </div>
 
       <div className="query-results">
         <h1 id="subHeaderLanding">NZ Univeristy Rankings as decided by students</h1>
-        <p id="textLanding">Crowd source reviews to uncover all the nitty-gritty details that make your university unique. Tap into the collective wisdom of the crowd and get some insider knowledge. </p>
+        <p id="textLanding">Crowd source reviews to uncover all the nitty-gritty details that make your university unique. Tap into the collective knowledge of the crowd and get some insider views. </p>
       {/* <button type="button" id="review-uni-button" onClick={reviewClick}>Review Your Uni</button> */}
         <select id="sortByLanding" value={sortBy} onChange={(e) => setSortBy(e.target.value)}>
           <option value="Sort By Number Of Reviews">Sort By Number Of Reviews</option>
@@ -183,7 +183,7 @@ const LoginPage = ({login, triggerEvent, onRowClick}) => {
         <table id="table">
           <tbody>
             {data.map((item, index) => (
-              <tr key={item.uniName} onClick={() => handleRowClick(item)}>
+              <tr id="landingPageTR" key={item.uniName} onClick={() => handleRowClick(item)}>
                 <td id="uniRow">
                   {item.uniName === "Canterbury" && <img className="emblem" src={Canterbury} alt="Uni1" />}
                   {item.uniName === "Waikato" && <img className="emblem" src={Waikato} alt="Uni1" />}
@@ -208,10 +208,11 @@ const LoginPage = ({login, triggerEvent, onRowClick}) => {
         </table>
         <div id="writeReviewUniDiv">
           <div id="textReviewUniBanner">
-            <p>Review Your University</p>
+            <p id="headingTextReview" >Review Your University</p>
+            <p id="subTextReview">Share Your Univeristy Experience And Rate!</p>
           </div>
           <div id="actionReviewUniBanner">
-            <p onClick={reviewClick} id="writeAReviewText">Review Your Uni</p>
+            <p onClick={reviewClick} id="writeAReviewText">Rate Your Uni</p>
             <Rating onClick={reviewClick} id="writeAReviewStars" name="size-medium" size="medium"
                   icon={<SchoolIcon style={{ fontSize: "30px" }}/>}
                   emptyIcon={<SchoolIcon style={{ fontSize: "30px" }}/>}
@@ -222,18 +223,22 @@ const LoginPage = ({login, triggerEvent, onRowClick}) => {
               <div id="bussinessmanImageDiv">
                 <img id="businessmanImage" src={BusinessMan}></img>
               </div>
-              <div id="businessmanText"><h2>Anonymous Forever</h2></div>
+              <div id="businessmanText"><h3>Anonymous Forever</h3>
+                <p>Leave a review for your university, anonymously</p>
+              </div>
         </div>
         <div id="reviewManInfograph">
               <div id="reviewManImageDiv">
                 <img id="reviewManImage" src={ReviewMan}></img>
               </div>
-              <div id="reviewManText"><h2>See What Other Students Think</h2></div>
+              <div id="reviewManText"><h3>Each Student is Unique</h3>
+                <p>Get real reviews from real students, about the things you care about</p>
+              </div>
         </div>
         <footer>
         <div id="footer">
           <h1 className="title">RateMy<span id="uniLogin">Uni</span><span id="conz">.co.nz</span></h1>
-          <a onClick={onLogin} id="LoginReviews">Admin</a>
+          <span onClick={reviewClick} id="LoginReviews">Review</span><span onClick={onLogin} id="LoginReviews">Student Ambassador</span><span onClick={onLogin} id="LoginReviews">Admin</span>
         </div>
         </footer>
       </div>

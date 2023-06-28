@@ -2,26 +2,18 @@ import React, { useEffect, useState } from 'react';
 import { collection, query , where, getDocs, doc, getDoc, updateDoc} from 'firebase/firestore';
 
 import unihat from '../images/uni_hat.png'
-import uniImage from '../images/University.jpg'
 import "../Login.css"
 import { db } from '../firebase'; 
 import Rating from '@mui/material/Rating';
 import SchoolIcon from '@mui/icons-material/School';
 import { useParams } from 'react-router-dom';
 import { BrowserRouter as Router, Switch, Route, Routes, useNavigate  } from 'react-router-dom';
-import Waikato from '../images/waikatouni.jpeg'
 import Auckland from '../images/aucklanduni.jpg'
-import AUT from '../images/autUni.jpg'
-import Christchurch from '../images/christchurchuni.png'
-import Wellington from '../images/victoria-university.jpg'
-import Otago from '../images/University.jpg'
-import Lincoln from '../images/lincolnUni.jpg'
-import Massey from '../images/masseyuni.jpg'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faThumbsUp, faThumbsDown } from '@fortawesome/free-solid-svg-icons';
 import ModalLogin from "../components/ModalLogin"
 import { getAuth, onAuthStateChanged, signOut } from "firebase/auth";
-
+import DetailsUni from "../images/detailsUni.jpg"
 
 
 const DetailComponent = ({ onRowClick, triggerEvent }) => {
@@ -51,38 +43,31 @@ const DetailComponent = ({ onRowClick, triggerEvent }) => {
   let banner;
   switch (id){
     case "Waikato":
-      banner = <img id="uniImage" src={Waikato}></img>
       aboutUni = aboutWaikato
       break;
     case "Auckland":
-      banner = <img id="uniImage" src={Auckland}></img>
       aboutUni = aboutAuckland
       break;
     case "Massey":
-      banner = <img id="uniImage" src={Massey}></img>
       aboutUni = aboutMassey
       break;
     case "AUT":
-      banner = <img id="uniImage" src={AUT}></img>
       aboutUni = aboutAUT
       break;
     case "Canterbury":
-      banner = <img id="uniImage" src={Christchurch}></img>
       aboutUni = aboutCanterbury
       break;
     case "Wellington":
-      banner = <img id="uniImage" src={Wellington}></img>
       aboutUni = aboutWellington
       break;
     case "Otago":
-      banner = <img id="uniImage" src={Otago}></img>
       aboutUni = aboutOtago
       break;
     case "Lincoln":
-      banner = <img id="uniImage" src={Lincoln}></img>
       aboutUni = aboutLincoln
       break;
   }
+  banner = <img id="uniImage" src={DetailsUni}></img>
   const calculateAverage = (array, property) => {
     const values = array.map((item) => parseFloat(item[property]));
     const sum = values.reduce((acc, val) => acc + val, 0);
@@ -331,7 +316,7 @@ useEffect(() => {
           
           <form className="login-form">
           <button type="button" className="review-button" onClick={reviewClick}>
-          <span className="button-text">Review Your Uni </span>
+          <span className="button-text">Rate Your Uni </span>
           </button>
         </form>
         <button type="button" className="writeReview" onClick={handleClick}>{signInText}</button>
@@ -346,8 +331,8 @@ useEffect(() => {
                 <div id="overallAverageScore">
                   <h2>{id} Average Score </h2>
                   <Rating name="size-large" size="large"
-                    icon={<SchoolIcon style={{ fontSize: "50px" }}/>}
-                    emptyIcon={<SchoolIcon style={{ fontSize: "50px" }}/>}
+                    icon={<SchoolIcon style={{ fontSize: "40px" }}/>}
+                    emptyIcon={<SchoolIcon style={{ fontSize: "40px" }}/>}
                     value={parseFloat(average.overallScore)} precision={0.1} readOnly/>            
                 </div>
                 <div id='averageScoreDetails'>
@@ -358,8 +343,8 @@ useEffect(() => {
                         <td id='leftColumn'>Course difficulty:</td>
                         <td>
                         <span className='ratingAverageDetailsStars'><Rating name="size-small" size="small"
-                        icon={<SchoolIcon style={{ fontSize: "30px" }}/>}
-                        emptyIcon={<SchoolIcon style={{ fontSize: "30px" }}/>}
+                        icon={<SchoolIcon style={{ fontSize: "25px" }}/>}
+                        emptyIcon={<SchoolIcon style={{ fontSize: "25px" }}/>}
                         value={parseFloat(average.difficulty)} precision={0.1} readOnly/></span>
                         </td>
                       </tr>
@@ -367,8 +352,8 @@ useEffect(() => {
                         <td>Meeting people: </td>
                         <td>
                         <span className='ratingAverageDetailsStars'><Rating name="size-small" size="small"
-                        icon={<SchoolIcon style={{ fontSize: "30px" }}/>}
-                        emptyIcon={<SchoolIcon style={{ fontSize: "30px" }}/>}
+                        icon={<SchoolIcon style={{ fontSize: "25px" }}/>}
+                        emptyIcon={<SchoolIcon style={{ fontSize: "25px" }}/>}
                         value={parseFloat(average.friends)} precision={0.1} readOnly/></span>
                         </td>
                       </tr>
@@ -376,8 +361,8 @@ useEffect(() => {
                         <td>Job chances: </td>
                         <td>
                         <span className='ratingAverageDetailsStars'><Rating name="size-small" size="small"
-                        icon={<SchoolIcon style={{ fontSize: "30px" }}/>}
-                        emptyIcon={<SchoolIcon style={{ fontSize: "30px" }}/>}
+                        icon={<SchoolIcon style={{ fontSize: "25px" }}/>}
+                        emptyIcon={<SchoolIcon style={{ fontSize: "25px" }}/>}
                         value={parseFloat(average.jobChances)} precision={0.1} readOnly/></span>
                         </td>
                       </tr>
@@ -385,8 +370,8 @@ useEffect(() => {
                         <td>Lecture quality: </td>
                         <td>
                         <Rating name="size-small" size="small"
-                        icon={<SchoolIcon style={{ fontSize: "30px" }}/>}
-                        emptyIcon={<SchoolIcon style={{ fontSize: "30px" }}/>}
+                        icon={<SchoolIcon style={{ fontSize: "25px" }}/>}
+                        emptyIcon={<SchoolIcon style={{ fontSize: "25px" }}/>}
                         value={parseFloat(average.materialQuality)} precision={0.1} readOnly/>
                         </td>
                       </tr>
@@ -394,14 +379,14 @@ useEffect(() => {
                         <td>One on one time:</td>
                         <td>
                         <Rating name="size-small" size="small"
-                        icon={<SchoolIcon style={{ fontSize: "30px" }}/>}
-                        emptyIcon={<SchoolIcon style={{ fontSize: "30px" }}/>}
+                        icon={<SchoolIcon style={{ fontSize: "25px" }}/>}
+                        emptyIcon={<SchoolIcon style={{ fontSize: "25px" }}/>}
                         value={parseFloat(average.oneOnOneTime)} precision={0.1} readOnly/>
                         </td>
                       </tr>
                       </tbody>
                     </table>
-                    <button id="writeReview" type="button" onClick={reviewClick}>Review Your Uni</button>
+                    <button id="writeReview" type="button" onClick={reviewClick}>Rate Your Uni</button>
                 </div>
                 <div id='browseRatings'>
                   <h3 >Student Reviews ({queryData.length})</h3>

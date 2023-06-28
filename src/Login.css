@@ -56,43 +56,53 @@
   #businessmanInfographs{
     width: 600px;
     margin: auto;
-    height: 350px;
-    margin-top: 100px;
+    height: 270px;
+    margin-top: 70px;
   }
   #businessmanImage{
-    width: 250px;
-    height: 250px;
+    width: 150px;
+    height: 150px;
     float: left;
   }
   #businessmanText{
     float: right;
     text-align: center;
-    margin-top: 15%;
+    margin-top: 5%;
     margin-left: 10px;
+    font-weight: 100;
+    max-width: 200px;
+
+  }
+  #businessmanText h3{
+    font-weight: 500;
   }
   #reviewManInfograph{
-    margin-top: 100px;
+    margin-top: 50px;
     width: 600px;
     margin: auto;
-    height: 400px;
+    height: 200px;
   }
   #reviewManImage{
-    width: 250px;
-    height: 250px;
+    width: 150px;
+    height: 150px;
     float: right;
   }
   #reviewManText{
     float: left;
     text-align: center;
-    margin-top: 15%;
+    margin-top: 2%;
     margin-left: 10px;
     max-width: 200px;
-
+    font-weight: 100;
+  }
+  #reviewManText h3{
+    font-weight: 500;
   }
 
   #sortByLanding{
     border-radius: 10px;
     font-size: medium;
+    font-weight: 100;
     display: block;
     margin: auto;
     margin-top: 20px;
@@ -105,6 +115,8 @@
   #textLanding{
     color: rgb(88, 88, 88);
     font-size: large;
+    font-weight: 100;
+    line-height:25px;
     padding-bottom: 20px;
     max-width: 600px;
     margin: auto;
@@ -115,14 +127,24 @@
     background-color: rgba(227, 83, 50, 0.631);
     border-top-left-radius: 10px;
     border-top-right-radius: 10px;
-    font-size: larger;
     padding: 10px;
     text-align: left;
+    height: 100px;
+
   }
-  #textReviewUniBanner p{
+  #headingTextReview{
     padding-left: 20px;
-    font-weight: bold;
+    font-weight: 500;
+    font-size: larger;
+
   }
+  #subTextReview{
+    font-size: medium;
+    font-weight: 100;
+    padding-left: 20px;
+
+  }
+
   #actionReviewUniBanner{
     padding: 10px;
     text-align: left;
@@ -134,6 +156,7 @@
     float: left;
     padding-left: 20px;
     text-decoration: underline;
+    font-weight: 100;
 
   }
   #writeAReviewText:hover{
@@ -144,8 +167,8 @@
     padding: 15px;
   }
   #writeReviewUniDiv{
-    max-width: 800px;
-    width: 60%;
+    width: 80%;
+    max-width: 1000px;
     margin: auto;
     border-radius: 10px;
     box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.4);
@@ -234,13 +257,18 @@
     #footer{
     position: relative;
     text-align: center;
+
     width: 50vw;
     padding: 0px;
     margin: auto;
     padding-top: 10px;
   }
   footer .title{
+
     float: none;
+    margin: auto;
+    margin-bottom: 20px;
+    margin-top: 20px;
   }
   footer{
     background-color: #e8ebebf6;
@@ -253,6 +281,7 @@
     color: rgba(227, 83, 50, 0.631);
     font-size: 30px;
     padding-bottom: 20px;
+    font-weight: 500;
   }
   #rating{
     padding-bottom: 10px;
@@ -266,8 +295,13 @@
     font-weight: bolder;
   }
   #LoginReviews{
-    font-style: italic;
+    padding: 10px;
+    position: relative;
     color: rgb(69, 69, 69);
+
+  }
+  #LoginReviews:hover{
+    cursor: pointer;
   }
   #submissionElements{
     width: 450px;
@@ -275,6 +309,7 @@
     text-align: left;
     font-family: verdana, sans-serif;
     font-weight: 100;
+    padding-left: 10px;
   }
   #submissionElements p, label{
     font-size: medium;
@@ -324,6 +359,7 @@
     height: 200px;
     width: 400px;
     text-rendering: auto;
+    margin-top: 10px;
   }
   #reviewTable{
     margin-left: 0;
@@ -334,9 +370,10 @@
     font-weight: bold;
   }
   #averagesReviewTable{
-    margin-left: 0px;
     width: 100%;
-    float: left;
+    font-weight: 100;
+    font-size: medium;
+    line-height: 20px;
   }
   #averagesReviewTable td{
     padding: 0px;
@@ -469,7 +506,7 @@
     height: 300px;
     width: 100%;
     object-fit: cover;
-    object-position: 50% 25%;
+    object-position: 50% 50%;
     z-index: 1;
     margin-top: 0px;
     padding-top: 0px;
@@ -515,6 +552,7 @@
   #table {
     width: 60%;
     border-collapse: collapse;
+    border-top: 1px solid rgb(206, 206, 206);
     padding: 0px;
     margin: auto;
     margin-top: 30px;
@@ -532,7 +570,7 @@
     font-weight: 300;
   }
   #table th {
-    border-bottom: 1px solid #e7e3e3f6;
+    border-bottom: 1px solid #ecebebf6;
     border-top: none;
     font-size: large;
   }
@@ -540,6 +578,10 @@
     border-radius: 30px;
     font-size: larger;
     cursor: pointer;
+  }
+  #landingPageTR{
+    border-bottom: 1px solid rgb(206, 206, 206);
+
   }
   .rating{
     margin-top: 10px;
@@ -597,9 +639,9 @@
     position: absolute;
     margin-top: 10px;
     margin-left: 20px;
-    font-weight: bold;
+    font-weight: 200;
     font-size: large;
-  }
+    border-bottom: 1px solid black  }
   .review{
     background-color: rgb(242, 241, 241);
     color: rgb(43, 43, 43);
@@ -619,6 +661,8 @@
   .review .notes{
     padding-top: 20px;
     padding-bottom: 20px;
+    font-weight: 100;
+    color: rgb(86, 86, 86);
   }
   #aboutPanel{
     background-color: white;
@@ -630,7 +674,7 @@
     padding: 20px;
     margin-bottom: 20px;
     text-align: left;
-    font-weight: 500;
+    font-weight: 100;
     border: 1px solid rgba(227, 83, 50, 0.631);
     box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.4);
   }
@@ -672,12 +716,12 @@
     width: 80%;
     max-width: 800px;
     margin: auto;
+
   }
   #averageScoreDetails{
-    padding-top: 20px;
     padding-bottom: 20px;
     text-align: left;
-    width: 90%;
+    width: 80%;
     max-width: 800px;
     margin: auto;
     line-height: 30px;
@@ -742,6 +786,9 @@
     #submissionElements select{
       width: 80vw;
     }  
+    #emailSubInput{
+      width: 80%;
+    }
 
     #lastNotes{
       width: 90%;
@@ -805,6 +852,7 @@
     
     #numRatings{
       padding-left: 5px;
+      font-weight: 100;
     }
     #rightArrow{
       padding-left: 0px;
@@ -831,11 +879,12 @@
     #businessmanText{
       float: none;
       margin: auto;
-      margin-top: 50px;
+      margin-top: 30px;
     }
     #businessmanInfographs{
       width: 90%;
-      height: 400px;
+      height: 330px;
+      margin-top: 50px;
     }
     #reviewManImage{
       float: none;
@@ -843,15 +892,21 @@
     #reviewManText{
       float: none;
       margin: auto;
-      margin-top: 50px;
+      margin-top: 30px;
     }
     #reviewManInfograph{
       width: 90%;
-      height: 400px;
+      height: 300px;
     }
     .writeReview{
       display: none;
     }
-  
+    #LoginReviews{
+      display: block;
+
+    }
+    footer{
+      height: 250px;
+    }
   }
 

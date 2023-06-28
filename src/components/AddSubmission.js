@@ -168,11 +168,11 @@ export default function AddSubmission({triggerEvent}) {
         <div id='submissionForm'>
           <form onSubmit={handleSubmit}>
           <label>
-            Quality of lecture materials?
+            Quality of lecture materials
           </label>
           <Rating id="rating" name="size-large" size="large"
-                  icon={<SchoolIcon style={{ fontSize: "40px" }}/>}
-                  emptyIcon={<SchoolIcon style={{ fontSize: "40px" }}/>}
+                  icon={<SchoolIcon style={{ fontSize: "32px" }}/>}
+                  emptyIcon={<SchoolIcon style={{ fontSize: "32px" }}/>}
                   value={materialQuality} 
                   onChange={(event, newValue) => {
                     setMaterialQuality(newValue);
@@ -180,11 +180,11 @@ export default function AddSubmission({triggerEvent}) {
                   precision={1} />
             <br />
             <label>
-            Ease of meeting new people?
+            Ease of meeting new people
             </label>
             <Rating id="rating" name="size-large" size="large"
-                    icon={<SchoolIcon style={{ fontSize: "40px" }}/>}
-                    emptyIcon={<SchoolIcon style={{ fontSize: "40px" }}/>}
+                    icon={<SchoolIcon style={{ fontSize: "32px" }}/>}
+                    emptyIcon={<SchoolIcon style={{ fontSize: "32px" }}/>}
                     value={friends} 
                     onChange={(event, newValue) => {
                       setFriends(newValue);
@@ -192,11 +192,11 @@ export default function AddSubmission({triggerEvent}) {
                     precision={1} />
               <br />
               <label>
-            One on one time with tutors/lecturers?
+            One on one time with tutors/lecturers
             </label>
             <Rating id="rating" name="size-large" size="large"
-                    icon={<SchoolIcon style={{ fontSize: "40px" }}/>}
-                    emptyIcon={<SchoolIcon style={{ fontSize: "40px" }}/>}
+                    icon={<SchoolIcon style={{ fontSize: "32px" }}/>}
+                    emptyIcon={<SchoolIcon style={{ fontSize: "32px" }}/>}
                     value={oneOnOneTime} 
                     onChange={(event, newValue) => {
                       setOneOnOneTime(newValue);
@@ -204,11 +204,11 @@ export default function AddSubmission({triggerEvent}) {
                     precision={1} />
               <br />
               <label>
-          Landing a job related to your studies?
+          Landing a job related to your studies
             </label>
             <Rating id="rating" name="size-large" size="large"
-                    icon={<SchoolIcon style={{ fontSize: "40px" }}/>}
-                    emptyIcon={<SchoolIcon style={{ fontSize: "40px" }}/>}
+                    icon={<SchoolIcon style={{ fontSize: "32px" }}/>}
+                    emptyIcon={<SchoolIcon style={{ fontSize: "32px" }}/>}
                     value={jobChances} 
                     onChange={(event, newValue) => {
                       setJobChances(newValue);
@@ -216,11 +216,11 @@ export default function AddSubmission({triggerEvent}) {
                     precision={1} />
               <br />
               <label>
-            Difficulty of your studies?
+            Difficulty of your studies
             </label>
             <Rating id="rating" name="size-large" size="large"
-                    icon={<SchoolIcon style={{ fontSize: "40px" }}/>}
-                    emptyIcon={<SchoolIcon style={{ fontSize: "40px" }}/>}
+                    icon={<SchoolIcon style={{ fontSize: "32px" }}/>}
+                    emptyIcon={<SchoolIcon style={{ fontSize: "32px" }}/>}
                     value={difficulty} 
                     onChange={(event, newValue) => {
                       setDifficulty(newValue);
@@ -228,7 +228,7 @@ export default function AddSubmission({triggerEvent}) {
                     precision={1} />
               <br />
               <label>
-            A few words for other students:
+            A few words for other students
               </label>
               <textarea maxLength="500" id="lastNotes" value={notes} onChange={(e) => 
                 setNotes(e.target.value)}></textarea>
