@@ -67,7 +67,7 @@
   #businessmanText{
     float: right;
     text-align: center;
-    margin-top: 5%;
+    margin-top: 5px;
     margin-left: 10px;
     font-weight: 100;
     max-width: 200px;
@@ -90,7 +90,7 @@
   #reviewManText{
     float: left;
     text-align: center;
-    margin-top: 2%;
+    margin-top: 30px;
     margin-left: 10px;
     max-width: 200px;
     font-weight: 100;
@@ -252,9 +252,9 @@
     font-size: medium;
     padding: 10px;
     width: 380px;
-    margin-top: 10px;
+    margin-top: 15px;
   }
-    #footer{
+  #footer{
     position: relative;
     text-align: center;
 
@@ -264,18 +264,17 @@
     padding-top: 10px;
   }
   footer .title{
-
     float: none;
     margin: auto;
     margin-bottom: 20px;
-    margin-top: 20px;
+    margin-top: 50px;
   }
   footer{
     background-color: #e8ebebf6;
     margin-bottom: 0px;
     padding-bottom: 0px;
-    height: 150px;
-    margin-top: 50px;
+    height: 200px;
+    margin-top: 100px;
   }
   #titleSubmission{
     color: rgba(227, 83, 50, 0.631);
@@ -296,6 +295,8 @@
   }
   #LoginReviews{
     padding: 10px;
+    padding-left: 15px;
+    padding-right: 15px;
     position: relative;
     color: rgb(69, 69, 69);
 
@@ -303,6 +304,10 @@
   #LoginReviews:hover{
     cursor: pointer;
   }
+  #submissionSpeil{
+    padding-bottom: 15px;
+  }
+
   #submissionElements{
     width: 450px;
     margin: auto;
@@ -312,12 +317,18 @@
     padding-left: 10px;
   }
   #submissionElements p, label{
-    font-size: medium;
+    font-size: 14px;
     line-height: 25px;
     font-weight: 100;
     text-align: left;
     margin: 0px;
-
+  }
+  #titleSubmission{
+    text-align: left;
+    margin: 0px;
+    margin-top: 10px;
+    border-bottom: 1px solid rgb(214, 214, 214);
+    margin-bottom: 20px;
   }
   #submissionForm form{
     margin-top: 20px;
@@ -344,7 +355,7 @@
     width: 80%;
   }
   #submissionElements select{
-    padding: 15px;
+    padding: 10px;
     border-radius: 7px;
     margin-top: 10px;
     width: 400px;
@@ -490,7 +501,7 @@
     font-size: larger;
   }
   #writeReview:hover{
-    background-color: rgba(169, 59, 35, 0.631)
+    background-color: rgba(169, 59, 35, 0.631);
   }
   
   #uniLogin{
@@ -537,6 +548,7 @@
     z-index: 3;
     font-size:40px;
     font-family: Sans-serif, Verdana;
+
   }
 
   #NZ{
@@ -662,7 +674,8 @@
     padding-top: 20px;
     padding-bottom: 20px;
     font-weight: 100;
-    color: rgb(86, 86, 86);
+    color: rgb(29, 29, 29);
+    line-height: 22px;
   }
   #aboutPanel{
     background-color: white;
@@ -775,6 +788,39 @@
   }
   #approveContainer{
     margin-top: 50px;
+  }
+  #ambassadorMain{
+    width: 80%;
+    margin: auto;
+    margin-top: 50px;
+  } 
+  #ambassadorMain h1{
+    padding-left: 0px;
+    margin-left: 0px;
+  }
+  #name{
+    display: block;
+    width: 200px;
+    border-radius: 10px;
+    padding: 10px;
+    font-size: medium;
+  }
+  #selectUniAmbassador{
+    display: block;
+    border-radius: 10px;
+    width: 218px;
+    padding: 7px;
+    font-size: medium;
+  }
+  #ambassadorButton{
+    display: block;
+    border-radius: 10px;
+    background-color: rgba(169, 59, 35, 0.631);
+    margin: 0px;
+    width: 218px;
+    padding: 15px;
+    font-size: medium;
+    font-weight: 300;
   }
   
   @media (max-width: 828px) {
@@ -906,7 +952,7 @@
 
     }
     footer{
-      height: 250px;
+      height: 300px;
     }
   }
 

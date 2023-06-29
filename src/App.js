@@ -10,6 +10,8 @@ import DetailComponent from "./components/details"
 import TestKiwis from "./components/testKiwis"
 import Image from "./components/image"
 import ReviewReviews from "./components/ReviewReviews"
+import StudentAmbassador from "./components/StudentAmbassador"
+
 import { getAuth, isSignInWithEmailLink, signInWithEmailLink } from "firebase/auth";
 import { BrowserRouter as Router, Switch, Route, Routes, useNavigate  } from 'react-router-dom';
 
@@ -68,6 +70,7 @@ function App() {
           <Route path="/detail/:id" element={<DetailComponent message={selectedRow} onRowClick={handleRowClick} triggerEvent={triggerAddSub}/>} />
           <Route path="/add-submission" element={<AddSubmission />} />
           <Route path="/review-reviews" element={<ReviewReviews />} />
+          <Route path="/ambassador" element={<StudentAmbassador />} />
         </Routes>
       </div>
 

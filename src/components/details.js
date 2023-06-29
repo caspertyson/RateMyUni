@@ -37,7 +37,6 @@ const DetailComponent = ({ onRowClick, triggerEvent }) => {
   const aboutLincoln = "Lincoln University, situated in picturesque Lincoln, New Zealand, is renowned for its academic excellence and agricultural expertise. Surrounded by the idyllic landscapes of Canterbury, studying at Lincoln University provides a unique experience. The university's focus on agriculture and environmental sciences aligns with the region's agricultural heritage. Embrace the beauty of the rural surroundings, immerse yourself in hands-on learning, and embark on a transformative journey at Lincoln University."
   const aboutAUT = "Auckland University of Technology (AUT) in vibrant Auckland, New Zealand, is renowned for its practical learning and industry engagement. With a focus on technological advancements, AUT prepares students for the modern world. The university's strong industry connections offer valuable internships and real-world experiences. Auckland's dynamic atmosphere adds to the AUT experience, with a vibrant arts scene, multicultural festivals, and a lively nightlife. AUT fosters an inclusive and diverse community, encouraging global perspectives. Embrace practical learning, industry connections, and the vibrant city life at AUT for a transformative journey."
   const aboutWaikato = "The University of Waikato in beautiful Waikato, New Zealand, is renowned for academic excellence and research innovation. Surrounded by stunning landscapes, studying here offers inspiration. Embrace the vibrant Māori culture and engage with the local community. The region's natural beauty invites outdoor adventures, from glowworm caves to scenic trails. The university's focus on experiential learning fosters practical skills and industry connections. Embrace academic excellence, cultural richness, and natural beauty at the University of Waikato for a transformative journey."
-
   
   let aboutUni;
   let banner;
@@ -88,7 +87,6 @@ const DetailComponent = ({ onRowClick, triggerEvent }) => {
   function toDateTime(secs) {
     var t = new Date(1970, 0, 1); // Epoch
     t.setSeconds(secs);
-    
     return t.getDate().toString() + nth(t.getDate().toString()) + " " + month[(t.getMonth() + 1).toString()]
   }
   
@@ -96,6 +94,14 @@ const DetailComponent = ({ onRowClick, triggerEvent }) => {
     // window.location.href = '/'
     navigate(`/`)
   };
+  const aboutClick = () => {
+    navigate(`/ambassador`)
+  }  
+  const onLogin = () => {
+    navigate(`/review-reviews`)
+  }
+
+
 
   const handleClick = () => {
     if(signInText == "Log Out"){
@@ -483,6 +489,7 @@ useEffect(() => {
         <footer>
           <div id="footer">
             <h1 onClick={handleRowClick} className="title">RateMy<span id="uniLogin">Uni</span><span id="conz">.co.nz</span></h1>
+            <span onClick={reviewClick} id="LoginReviews">Review</span><span onClick={aboutClick} id="LoginReviews">Student Ambassador</span><span onClick={onLogin} id="LoginReviews">Admin</span>
           </div>
         </footer>
         {modal && (

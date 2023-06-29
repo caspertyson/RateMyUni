@@ -18,6 +18,7 @@ export default function AddSubmission({triggerEvent}) {
   const [notes, setNotes] = useState("")
   const [isValidEmail, setIsValidEmail] = useState(true);
   const navigate = useNavigate();
+  const [isOpen, setIsOpen] = useState(false);
 
   const univercities = ["Auckland", "AUT", "Waikato", "Otago", "Lincoln", "Canterbury", "Wellington", "Massey"]
   const degrees = [
@@ -61,9 +62,23 @@ export default function AddSubmission({triggerEvent}) {
   const [email, setEmail] = useState("")
 
   const goBack = () => {
-    // window.location.href = `/`
     navigate(`/`)
   }
+  const onSuccess = () => {
+    setIsOpen(!isOpen);
+    window.scrollTo(0, 0)
+    console.log("this happened")
+  }
+  const onAnimationEnd = () => {
+    // if (!isOpen) {
+    //   setIsOpen(false);
+    // }
+  };
+  const closePopDown = () => {
+    setIsOpen(false)
+    navigate(`/`)
+  }
+
 
   const handleChange = (e) => {
     setEmail(e.target.value);
@@ -74,6 +89,16 @@ export default function AddSubmission({triggerEvent}) {
     const emailPattern = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
     return emailPattern.test(email);
   };
+  const aboutClick = () => {
+    navigate(`/ambassador`)
+  }  
+  const reviewClick = () => {
+      navigate(`/add-submission`)
+    }  
+    const onLogin = () => {
+      navigate(`/review-reviews`)
+    }
+
 
 
 
@@ -92,7 +117,6 @@ export default function AddSubmission({triggerEvent}) {
   };
   
   useEffect(() => {
-    //setEmail(localStorage.getItem("emailForSignIn").toLocaleLowerCase())
     window.scrollTo(0, 0)
   }, []);
 
@@ -149,10 +173,7 @@ export default function AddSubmission({triggerEvent}) {
       setNotes("");
 
       localStorage.setItem("emailForSignIn", "");
-      window.alert("Thank you for your submission! You will be re-directed to the main page now.");
-      // window.location.replace('/');
-      navigate(`/`)
-
+      onSuccess()
     }else{
       window.alert("Please fill in the required fields");
     }
@@ -160,11 +181,23 @@ export default function AddSubmission({triggerEvent}) {
 
   return (
     <div className="container">
+            {isOpen && (
+      <div className={`pop-down ${isOpen ? "open" : ""}`} onAnimationEnd={onAnimationEnd}>
+        <h2 className="pop-down-title">Thank You For Your Submission!</h2>
+        <button id='closePopDown' onClick={closePopDown}>Take Me Home</button>
+        </div>
+      )}
+
       <div className='header'>
         <h1 onClick={goBack} className="title">RateMy<span id="uniLogin">Uni</span><span id="conz">.co.nz</span></h1>
       </div>
       <div id="submissionElements">
-        <h2 id="titleSubmission">Rate Your University</h2>
+        <h2 id="titleSubmission">Write A Review</h2>
+        <div id="submissionSpeil">
+          <p>Share your thoughts about</p>
+          <p> - your experience</p>
+          <p> - why others will/will not enjoy your uni</p>
+        </div>
         <div id='submissionForm'>
           <form onSubmit={handleSubmit}>
           <label>
@@ -278,6 +311,7 @@ export default function AddSubmission({triggerEvent}) {
       <footer>
         <div id="footer">
           <h1 onClick={goBack} className="title">RateMy<span id="uniLogin">Uni</span><span id="conz">.co.nz</span></h1>
+          <span onClick={reviewClick} id="LoginReviews">Review</span><span onClick={aboutClick} id="LoginReviews">Student Ambassador</span><span onClick={onLogin} id="LoginReviews">Admin</span>
         </div>
         </footer>
     </div>

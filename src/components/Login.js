@@ -61,6 +61,13 @@ const LoginPage = ({login, triggerEvent, onRowClick}) => {
     const reviewClick = () => {
       navigate(`/add-submission`)
     }  
+    const aboutClick = () => {
+      navigate(`/ambassador`)
+    }  
+    const onLogin = () => {
+      navigate(`/review-reviews`)
+    }
+
     
     const handleClick = () => {
       if(signInText == "Log Out"){
@@ -75,9 +82,6 @@ const LoginPage = ({login, triggerEvent, onRowClick}) => {
         setModal(!modal)
       }
     };
-    const onLogin = () => {
-      navigate(`/review-reviews`)
-    }
 
     useEffect(() => {
       const sortedData = sortBy === "Sort By Highest Rating" ? sortedByScore(data) : sortedByNumReviews(data);
@@ -223,22 +227,24 @@ const LoginPage = ({login, triggerEvent, onRowClick}) => {
               <div id="bussinessmanImageDiv">
                 <img id="businessmanImage" src={BusinessMan}></img>
               </div>
-              <div id="businessmanText"><h3>Anonymous Forever</h3>
-                <p>Leave a review for your university, anonymously</p>
+              <div id="businessmanText"><h3>Each Student is Unique</h3>
+                <p>Get real reviews from real students, about the things you care about</p>
               </div>
+
         </div>
         <div id="reviewManInfograph">
               <div id="reviewManImageDiv">
                 <img id="reviewManImage" src={ReviewMan}></img>
               </div>
-              <div id="reviewManText"><h3>Each Student is Unique</h3>
-                <p>Get real reviews from real students, about the things you care about</p>
+              <div id="reviewManText"><h3>"It's A Great Site!"</h3>
+                <p> - trust me bro</p>
               </div>
+
         </div>
         <footer>
         <div id="footer">
           <h1 className="title">RateMy<span id="uniLogin">Uni</span><span id="conz">.co.nz</span></h1>
-          <span onClick={reviewClick} id="LoginReviews">Review</span><span onClick={onLogin} id="LoginReviews">Student Ambassador</span><span onClick={onLogin} id="LoginReviews">Admin</span>
+          <span onClick={reviewClick} id="LoginReviews">Review</span><span onClick={aboutClick} id="LoginReviews">Student Ambassador</span><span onClick={onLogin} id="LoginReviews">Admin</span>
         </div>
         </footer>
       </div>
