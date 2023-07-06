@@ -141,6 +141,8 @@ const ApproveOrDelete = ({trigger}) => {
                       <div><b>Email: </b> {item.email}</div>
                       <div><b>Uni: </b> {item.uniName}</div>
                       <div><b>ID: </b> {item.id}</div>
+                      <div><b>Verified Student: </b> {item.verifiedUniStudent && "True"}</div>
+                      <div><b>Referral Code: </b> {item.referralCode}</div>
 
                       <button onClick={() => ApproveReview(item.id)}>Approve</button>
                       <button onClick={() => DeleteReview(item.id)}>Delete</button>

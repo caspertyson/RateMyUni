@@ -74,9 +74,6 @@ export default function AddSubmission({triggerEvent}) {
     console.log("this happened")
   }
   const onAnimationEnd = () => {
-    // if (!isOpen) {
-    //   setIsOpen(false);
-    // }
   };
   const closePopDown = () => {
     setIsOpen(false)
@@ -133,7 +130,7 @@ export default function AddSubmission({triggerEvent}) {
   }, []);
 
   const actionCodeSettings = {
-    url: 'https://ratemyuni.co.nz/',
+    url: 'http://localhost:3000/',
     handleCodeInApp: true,
   };
 
@@ -166,7 +163,6 @@ export default function AddSubmission({triggerEvent}) {
       if(emailExists){
         window.alert("Submission already received from this email");
         localStorage.setItem("emailForSignIn", "");
-        // window.location.replace("/");
         navigate(`/`)
         return;
       } 
@@ -225,14 +221,13 @@ export default function AddSubmission({triggerEvent}) {
       {isOpen && !isReferral && (
       <div className={`pop-down ${isOpen ? "open" : ""}`} onAnimationEnd={onAnimationEnd}>
         <h2 className="pop-down-title">Thank You For Your Submission!</h2>
-        <button id='closePopDown' onClick={closePopDown}>Take Me Home</button>
+        <button id='closePopDown' onClick={closePopDown}>Browse Uni's</button>
         </div>
       )}
       {isOpen && isReferral && (
         <div className={`pop-down ${isOpen ? "open" : ""}`} onAnimationEnd={onAnimationEnd}>
           <h2 className="pop-down-title">Complete Your Review</h2>
-          <p className="pop-down-title">Complete your review by clicking the link in the email sent to you</p>
-          <button id='closePopDown' onClick={closePopDown}>Take Me Home</button>
+          <p className="pop-down-title">Complete your review by clicking the link in the email sent to you</p><br></br>
           </div>
         )}
       <div className='header'>
@@ -354,7 +349,7 @@ export default function AddSubmission({triggerEvent}) {
               <input id='emailSubInput'
                   autoCapitalize='none'
                   type="text"
-                  placeholder="example@youruni.ac.nz"
+                  placeholder="username@youruni.ac.nz"
                   value={email}
                   onChange={handleChange}
               />{!isReferral &&!isValidEmail && <p id='emailError'>Enter a valid email</p>}

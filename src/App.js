@@ -14,6 +14,8 @@ import StudentAmbassador from "./components/StudentAmbassador"
 
 import { getAuth, isSignInWithEmailLink, signInWithEmailLink } from "firebase/auth";
 import { BrowserRouter as Router, Switch, Route, Routes, useNavigate  } from 'react-router-dom';
+import { collection, query , where,getDocs, deleteDoc, doc, updateDoc} from 'firebase/firestore';
+import { db } from './firebase'; 
 
 function App() {
   const [addSub, setAddSub] = React.useState(false);
@@ -23,8 +25,27 @@ function App() {
   const [login, setLogin] = React.useState(false)
   const navigate = useNavigate();
   const handleOnClick = (rowData) => navigate(`/detail/${rowData.uniName}`);
+  const [isOpen, setIsOpen] = React.useState(false);
 
   React.useEffect(() => {
+    window.scrollTo(0, 0)
+    const fetchData = async (email) => {
+      try {
+        const reviewsRef = collection(db, 'reviews');
+        const q = query(reviewsRef, where('email', '==', email));
+        const querySnapshot = await getDocs(q);
+
+        const document = querySnapshot.docs[0];
+
+        await updateDoc(doc(db, 'reviews', document.id), {
+          verifiedUniStudent: true
+        });
+        console.log('verifiedUniStudent updated successfully!');
+      } catch (error) {
+        console.error('Error updating document:', error);
+      }
+    };
+
     const auth = getAuth();
     if (isSignInWithEmailLink(auth, window.location.href)) {
       let email = window.localStorage.getItem('emailForSignIn');
@@ -34,6 +55,9 @@ function App() {
       }
       signInWithEmailLink(auth, email, window.location.href)
         .then((result) => {
+          fetchData(email);
+          setIsOpen(true)
+          navigate('/')
           console.log("sign in with link from email success!")
           setUserEmail(true)
         })
@@ -60,9 +84,19 @@ function App() {
   const showLogin = () => {
     setLogin(!login)
   }
+  const closePopDown = () => {
+    setIsOpen(false)
+  }
+
   
   return (
       <div className="App">
+      {isOpen && (
+      <div className={`pop-down ${isOpen ? "open" : ""}`} >
+        <h2 className="pop-down-title">Thank You For Your Submission!</h2>
+        <button id='closePopDown' onClick={closePopDown}>Take Me Home</button>
+        </div>
+      )}
         <Routes>
           <Route path="/" element={<Login login={showLogin} triggerEvent={triggerAddSub} onRowClick={handleRowClick}/>} />
           <Route path="/detail/:id" element={<DetailComponent message={selectedRow} onRowClick={handleRowClick} triggerEvent={triggerAddSub}/>} />
