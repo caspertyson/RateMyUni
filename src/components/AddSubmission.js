@@ -5,6 +5,7 @@ import "../Submission.css"
 import SchoolIcon from '@mui/icons-material/School';
 import Rating from '@mui/material/Rating';
 import { BrowserRouter as Router, Switch, Route, Routes, useNavigate  } from 'react-router-dom';
+import { getAuth, sendSignInLinkToEmail } from "firebase/auth";
 
 
 export default function AddSubmission({triggerEvent}) {
@@ -19,6 +20,9 @@ export default function AddSubmission({triggerEvent}) {
   const [isValidEmail, setIsValidEmail] = useState(true);
   const navigate = useNavigate();
   const [isOpen, setIsOpen] = useState(false);
+  const [referralCode, setReferralCode] = useState("")
+  const [isReferral, setIsReferral] = useState(false)
+  const auth = getAuth();
 
   const univercities = ["Auckland", "AUT", "Waikato", "Otago", "Lincoln", "Canterbury", "Wellington", "Massey"]
   const degrees = [
@@ -79,7 +83,13 @@ export default function AddSubmission({triggerEvent}) {
     navigate(`/`)
   }
 
-
+  const handelReferral = (e) => {
+    setReferralCode(e.target.value)
+    setIsReferral(true)
+    if(e.target.value == ""){
+      setIsReferral(false)
+    }
+  }
   const handleChange = (e) => {
     setEmail(e.target.value);
     setIsValidEmail(true); // Reset validation on each change
@@ -89,6 +99,11 @@ export default function AddSubmission({triggerEvent}) {
     const emailPattern = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
     return emailPattern.test(email);
   };
+  const validateUniEmail = (email) => {
+    const emailPattern = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*\.ac\.nz$/;
+    return emailPattern.test(email);
+
+  }
   const aboutClick = () => {
     navigate(`/ambassador`)
   }  
@@ -98,9 +113,6 @@ export default function AddSubmission({triggerEvent}) {
     const onLogin = () => {
       navigate(`/review-reviews`)
     }
-
-
-
 
   const checkEmailExists = async (email) => {
     try {
@@ -120,22 +132,37 @@ export default function AddSubmission({triggerEvent}) {
     window.scrollTo(0, 0)
   }, []);
 
+  const actionCodeSettings = {
+    url: 'https://ratemyuni.co.nz/',
+    handleCodeInApp: true,
+  };
+
+
   const handleSubmit = async (e) => {
     const date = new Date()
     e.preventDefault();
-    if (!validateEmail(email)) {
-      setIsValidEmail(false);
-      return;
+    if(isReferral){
+      if (!validateUniEmail(email)) {
+        setIsValidEmail(false);
+        return;
+      }  
+    }else{
+      if (!validateEmail(email)) {
+        setIsValidEmail(false);
+        return;
+      }  
     }
 
     const emailExists = await checkEmailExists(email)
     const overall = Math.round(((difficulty + oneOnOneTime + jobChances + materialQuality + friends) / 5) * 10) /10;
     const approved = false;
+    const verifiedUniStudent = false;
     const upvotes = []
     const downvotes = []
+
     if (notes !== "" && uniName !== "" && course !== "" && overall !== "" && friends !== "" && difficulty !== "" && 
       materialQuality !== "" && jobChances !== "" && oneOnOneTime !== "" && email !== "" && date !== "") {
-    
+
       if(emailExists){
         window.alert("Submission already received from this email");
         localStorage.setItem("emailForSignIn", "");
@@ -159,9 +186,11 @@ export default function AddSubmission({triggerEvent}) {
         date,
         approved,
         upvotes,
-        downvotes
+        downvotes,
+        verifiedUniStudent,
+        referralCode,
       });
-      console.log("happeneded")
+      console.log("review submitted successfully")
       
       setUniName("");
       setCourse("");
@@ -171,8 +200,20 @@ export default function AddSubmission({triggerEvent}) {
       setJobChances(0);
       setOneOnOneTime(0);
       setNotes("");
-
+      setEmail("");
       localStorage.setItem("emailForSignIn", "");
+
+      // confirm uni email if they're using a referral code
+      if(isReferral){
+        sendSignInLinkToEmail(auth, email, actionCodeSettings)
+        .then(() => {
+            window.localStorage.setItem('emailForSignIn', email);
+            console.log("signed in ")
+        })
+        .catch((error) => {
+            console.log(error)
+        });
+      }
       onSuccess()
     }else{
       window.alert("Please fill in the required fields");
@@ -181,13 +222,19 @@ export default function AddSubmission({triggerEvent}) {
 
   return (
     <div className="container">
-            {isOpen && (
+      {isOpen && !isReferral && (
       <div className={`pop-down ${isOpen ? "open" : ""}`} onAnimationEnd={onAnimationEnd}>
         <h2 className="pop-down-title">Thank You For Your Submission!</h2>
         <button id='closePopDown' onClick={closePopDown}>Take Me Home</button>
         </div>
       )}
-
+      {isOpen && isReferral && (
+        <div className={`pop-down ${isOpen ? "open" : ""}`} onAnimationEnd={onAnimationEnd}>
+          <h2 className="pop-down-title">Complete Your Review</h2>
+          <p className="pop-down-title">Complete your review by clicking the link in the email sent to you</p>
+          <button id='closePopDown' onClick={closePopDown}>Take Me Home</button>
+          </div>
+        )}
       <div className='header'>
         <h1 onClick={goBack} className="title">RateMy<span id="uniLogin">Uni</span><span id="conz">.co.nz</span></h1>
       </div>
@@ -267,7 +314,7 @@ export default function AddSubmission({triggerEvent}) {
                 setNotes(e.target.value)}></textarea>
               <br></br>
               <label>
-            Name of Uni <br></br>
+            Name of uni <br></br>
             <select id="selectUniDegree" value={uniName} onChange={(e) => setUniName(e.target.value)}>
               <option value="">Select a University</option>
               {univercities.map((item) => (
@@ -291,16 +338,27 @@ export default function AddSubmission({triggerEvent}) {
             </label>
             <br />
               <label>
-            Your Email:
+            Referral code
               </label>
               <input id='emailSubInput'
                   autoCapitalize='none'
                   type="text"
-                  placeholder="example@example.com"
+                  placeholder="Referral Code"
+                  value={referralCode}
+                  onChange={handelReferral}
+              />
+            <br />
+              <label>
+            Your email (preferably university email)
+              </label>
+              <input id='emailSubInput'
+                  autoCapitalize='none'
+                  type="text"
+                  placeholder="example@youruni.ac.nz"
                   value={email}
                   onChange={handleChange}
-              />{!isValidEmail && <p id='emailError'>Please enter a valid email address.</p>}
-
+              />{!isReferral &&!isValidEmail && <p id='emailError'>Enter a valid email</p>}
+              {isReferral && !isValidEmail && <p id='emailError'>When using referrals enter a valid university email </p>}
             <div id="submissionSubmitButton">
               <button className="AddSubmissionButtons" type="submit">Done</button>
               <button className="BackButton" onClick={goBack} type="button">Back</button>

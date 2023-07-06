@@ -15,8 +15,6 @@ import StudentAmbassador from "./components/StudentAmbassador"
 import { getAuth, isSignInWithEmailLink, signInWithEmailLink } from "firebase/auth";
 import { BrowserRouter as Router, Switch, Route, Routes, useNavigate  } from 'react-router-dom';
 
-
-
 function App() {
   const [addSub, setAddSub] = React.useState(false);
   const [userEmail, setUserEmail] = React.useState(false)

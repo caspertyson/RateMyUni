@@ -16,7 +16,6 @@ import ModalLogin from "../components/ModalLogin"
 import BusinessMan from "../images/business-man.png"
 import ReviewMan from "../images/review.png"
 import AucklandUni from '../images/aucklanduni.jpg'
-
 import SvgIcon from '@mui/material/SvgIcon';
 import Kiwi from "./svg"
 import SchoolIcon from '@mui/icons-material/School';
@@ -175,7 +174,7 @@ const LoginPage = ({login, triggerEvent, onRowClick}) => {
       </div>
 
       <div className="query-results">
-        <h1 id="subHeaderLanding">NZ Univeristy Rankings as decided by students</h1>
+        <h1 id="subHeaderLanding">NZ University Rankings as decided by students</h1>
         <p id="textLanding">Crowd source reviews to uncover all the nitty-gritty details that make your university unique. Tap into the collective knowledge of the crowd and get some insider views. </p>
       {/* <button type="button" id="review-uni-button" onClick={reviewClick}>Review Your Uni</button> */}
         <select id="sortByLanding" value={sortBy} onChange={(e) => setSortBy(e.target.value)}>
@@ -213,7 +212,7 @@ const LoginPage = ({login, triggerEvent, onRowClick}) => {
         <div id="writeReviewUniDiv">
           <div id="textReviewUniBanner">
             <p id="headingTextReview" >Review Your University</p>
-            <p id="subTextReview">Share Your Univeristy Experience And Rate!</p>
+            <p id="subTextReview">Share Your University Experience And Rate!</p>
           </div>
           <div id="actionReviewUniBanner">
             <p onClick={reviewClick} id="writeAReviewText">Rate Your Uni</p>
