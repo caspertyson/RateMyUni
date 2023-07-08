@@ -59,7 +59,7 @@ const handleChange = (e) => {
           onChange={handleChange}
           placeholder="example@example.com"
         />{!isValidEmail && <p id='emailError'>Please enter a valid email address.</p>}
-        <button id='sendEmail' type='button' onClick={handleButtonClick}>Send Email</button>
+        <button id='sendEmail' type='button' onClick={handleButtonClick}>Send me sign in link</button>
       </div>
     </div>
   );

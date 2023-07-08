@@ -125,7 +125,7 @@ const StudentAmbassador = (props) => {
         
         <form className="login-form">
           <button type="button" className="review-button" onClick={reviewClick}>
-          <span className="button-text">Rate Your Uni</span>
+          <span className="button-text"><span id='write'>Write</span> Review </span>
           </button>
         </form>
         <button type="button" className="writeReview" onClick={handleClick}>{signInText}</button>
@@ -138,6 +138,7 @@ const StudentAmbassador = (props) => {
       <div id='ambassadorMain'>
        <h1>Become a brand ambassador</h1>
        <p>Help get reviews for this site and get paid for your efforts</p>
+       <p>Get $20 for every 10 reviews that use your referral code</p>
        <p>Enter your details below to get started</p>
        <input id='name' placeholder="First Name"                  
           type="text"

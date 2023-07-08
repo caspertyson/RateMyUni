@@ -23,8 +23,6 @@ import rightArrow from "../images/rightArrow.png"
 import { BrowserRouter as Router, Switch, Route, Routes, useNavigate  } from 'react-router-dom';
 import { getAuth, onAuthStateChanged, signOut } from "firebase/auth";
 
-
-
 const LoginPage = ({login, triggerEvent, onRowClick}) => {
     const [data, setData] = useState([]);
     const [numUsers, setNumUsers] = useState("");
@@ -34,7 +32,7 @@ const LoginPage = ({login, triggerEvent, onRowClick}) => {
     const [signInText, setSignInText] = useState("Sign In")
     const [isLoggedIn, setIsLoggedIn] = useState(false);
     const [isOpen, setIsOpen] = useState(false);
-    const [sortBy, setSortBy] = useState("Sort By Number Of Reviews")
+    const [sortBy, setSortBy] = useState("Sort By Highest Rating")
 
     const auth = getAuth();
 
@@ -52,8 +50,7 @@ const LoginPage = ({login, triggerEvent, onRowClick}) => {
         setIsOpen(false);
       }
     };
-  
-  
+    
     const closePopDown = () => {
       setIsOpen(false)
     }
@@ -67,7 +64,6 @@ const LoginPage = ({login, triggerEvent, onRowClick}) => {
       navigate(`/review-reviews`)
     }
 
-    
     const handleClick = () => {
       if(signInText == "Log Out"){
         signOut(auth).then(() => {
@@ -133,7 +129,7 @@ const LoginPage = ({login, triggerEvent, onRowClick}) => {
           averageOverallScore: Math.round((group.overallScore / group.count) * 10) / 10,
           count: group.count
         }));
-        const sortedData = [...averages].sort((a, b) => b.count - a.count);
+        const sortedData = [...averages].sort((a, b) => b.averageOverallScore - a.averageOverallScore);
         setData(sortedData);
         const numDocuments = querySnapshot.size;
         setNumUsers(numDocuments);
@@ -161,7 +157,7 @@ const LoginPage = ({login, triggerEvent, onRowClick}) => {
         
         <form className="login-form">
           <button type="button" className="review-button" onClick={reviewClick}>
-          <span className="button-text">Rate Your Uni</span>
+          <span className="button-text"><span id="write">Write </span>Review</span>
           </button>
         </form>
         <button type="button" className="writeReview" onClick={handleClick}>{signInText}</button>
@@ -170,16 +166,33 @@ const LoginPage = ({login, triggerEvent, onRowClick}) => {
       </div>
       <div id="banner">
         <img id="uniImage" src={AucklandUni}></img>
-        <div id="bannerText"><span id="NZ">New Zealand</span> Universities</div>
+        <div id="bannerText"><span id="NZ">  VERIFIED</span> REVIEWS</div>
       </div>
 
       <div className="query-results">
-        <h1 id="subHeaderLanding">NZ University Rankings as decided by students</h1>
-        <p id="textLanding">Crowd source reviews to uncover all the nitty-gritty details that make your university unique. Tap into the collective knowledge of the crowd and get some insider views. </p>
+        <h1 id="subHeaderLanding">NZ University Rankings as decided by students</h1><br></br>
+        {/* <p id="textLanding">Crowd source reviews to uncover all the nitty-gritty details that make your university unique. Tap into the collective knowledge of the crowd and get some insider views. </p> */}
+        <p id="textLanding">When it comes to universities, my parents and teachers think I'm smart (I'm not). It's because I researched my choice of universities on RateMyUni.co.nz (and they have no idea it exists).</p>
+        <div id="writeReviewUniDiv">
+          <div id="textReviewUniBanner">
+            <p id="headingTextReview" >Review Your University</p>
+            <p id="subTextReview">Share Your University Experience And Rate!</p>
+          </div>
+          <div id="actionReviewUniBanner">
+            <p onClick={reviewClick} id="writeAReviewText">Rate Your Uni</p>
+            <Rating onClick={reviewClick} id="writeAReviewStars" name="size-medium" size="medium"
+                  icon={<SchoolIcon style={{ fontSize: "30px" }}/>}
+                  emptyIcon={<SchoolIcon style={{ fontSize: "30px" }}/>}
+                  value={0} precision={1} />
+          </div>
+        </div>
+        <p id="textLanding">We understand that when it comes to finding real information about New Zealand Universities, 10 year old reddit forums and vauge world rankings just don't cut it. With RateMyUni.co.nz you can gain access to 100% authenticated reviews from real students, where you can sort by latest or most upvoted reviews, or by degree (coming soon...). <br></br>Stay away from all of the misinformation, and make your university choice based on real student reviews!</p>
+        <p id="textLanding"> </p>
+
       {/* <button type="button" id="review-uni-button" onClick={reviewClick}>Review Your Uni</button> */}
         <select id="sortByLanding" value={sortBy} onChange={(e) => setSortBy(e.target.value)}>
-          <option value="Sort By Number Of Reviews">Sort By Number Of Reviews</option>
-          <option value="Sort By Highest Rating" >Sort By Highest Rating</option>
+          <option value="Sort By Highest Rating" >Sort By: Highest Rating</option>
+          <option value="Sort By Number Of Reviews">Sort By: Number Of Reviews</option>
         </select>
 
 
@@ -209,19 +222,7 @@ const LoginPage = ({login, triggerEvent, onRowClick}) => {
             ))}
           </tbody>
         </table>
-        <div id="writeReviewUniDiv">
-          <div id="textReviewUniBanner">
-            <p id="headingTextReview" >Review Your University</p>
-            <p id="subTextReview">Share Your University Experience And Rate!</p>
-          </div>
-          <div id="actionReviewUniBanner">
-            <p onClick={reviewClick} id="writeAReviewText">Rate Your Uni</p>
-            <Rating onClick={reviewClick} id="writeAReviewStars" name="size-medium" size="medium"
-                  icon={<SchoolIcon style={{ fontSize: "30px" }}/>}
-                  emptyIcon={<SchoolIcon style={{ fontSize: "30px" }}/>}
-                  value={0} precision={1} />
-          </div>
-        </div>
+
         <div id="businessmanInfographs">
               <div id="bussinessmanImageDiv">
                 <img id="businessmanImage" src={BusinessMan}></img>
@@ -236,7 +237,7 @@ const LoginPage = ({login, triggerEvent, onRowClick}) => {
                 <img id="reviewManImage" src={ReviewMan}></img>
               </div>
               <div id="reviewManText"><h3>"It's A Great Site!"</h3>
-                <p> - trust me bro</p>
+                <p> - trust me bro this definitely wasn't made by a 4th year student who was procrastinating and should be spending more time on their honours project</p>
               </div>
 
         </div>

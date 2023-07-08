@@ -87,7 +87,7 @@ const DetailComponent = ({ onRowClick, triggerEvent }) => {
   function toDateTime(secs) {
     var t = new Date(1970, 0, 1); // Epoch
     t.setSeconds(secs);
-    return t.getDate().toString() + nth(t.getDate().toString()) + " " + month[(t.getMonth() + 1).toString()]
+    return t.getDate().toString() + nth(t.getDate().toString()) + " " + month[(t.getMonth()).toString()]
   }
   
   const handleRowClick = () => {
@@ -100,8 +100,6 @@ const DetailComponent = ({ onRowClick, triggerEvent }) => {
   const onLogin = () => {
     navigate(`/review-reviews`)
   }
-
-
 
   const handleClick = () => {
     if(signInText == "Log Out"){
@@ -322,7 +320,7 @@ useEffect(() => {
           
           <form className="login-form">
           <button type="button" className="review-button" onClick={reviewClick}>
-          <span className="button-text">Rate Your Uni </span>
+          <span className="button-text"><span id='write'>Write</span> Review </span>
           </button>
         </form>
         <button type="button" className="writeReview" onClick={handleClick}>{signInText}</button>
@@ -392,7 +390,7 @@ useEffect(() => {
                       </tr>
                       </tbody>
                     </table>
-                    <button id="writeReview" type="button" onClick={reviewClick}>Rate Your Uni</button>
+                    <button id="writeReview" type="button" onClick={reviewClick}>Write Review</button>
                 </div>
                 <div id='browseRatings'>
                   <h3 >Student Reviews ({queryData.length})</h3>

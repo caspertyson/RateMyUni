@@ -88,7 +88,7 @@ export default function AddSubmission({triggerEvent}) {
     }
   }
   const handleChange = (e) => {
-    setEmail(e.target.value);
+    setEmail(e.target.value.toLowerCase());
     setIsValidEmail(true); // Reset validation on each change
   };
   const validateEmail = (email) => {
@@ -99,7 +99,6 @@ export default function AddSubmission({triggerEvent}) {
   const validateUniEmail = (email) => {
     const emailPattern = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*\.ac\.nz$/;
     return emailPattern.test(email);
-
   }
   const aboutClick = () => {
     navigate(`/ambassador`)
@@ -130,25 +129,18 @@ export default function AddSubmission({triggerEvent}) {
   }, []);
 
   const actionCodeSettings = {
-    url: 'http://localhost:3000/',
+    url: 'https://ratemyuni.co.nz/',
     handleCodeInApp: true,
   };
-
 
   const handleSubmit = async (e) => {
     const date = new Date()
     e.preventDefault();
-    if(isReferral){
-      if (!validateUniEmail(email)) {
-        setIsValidEmail(false);
-        return;
-      }  
-    }else{
-      if (!validateEmail(email)) {
-        setIsValidEmail(false);
-        return;
-      }  
-    }
+
+    if (!validateUniEmail(email)) {
+      setIsValidEmail(false);
+      return;
+    }  
 
     const emailExists = await checkEmailExists(email)
     const overall = Math.round(((difficulty + oneOnOneTime + jobChances + materialQuality + friends) / 5) * 10) /10;
@@ -157,9 +149,9 @@ export default function AddSubmission({triggerEvent}) {
     const upvotes = []
     const downvotes = []
 
-    if (notes !== "" && uniName !== "" && course !== "" && overall !== "" && friends !== "" && difficulty !== "" && 
-      materialQuality !== "" && jobChances !== "" && oneOnOneTime !== "" && email !== "" && date !== "") {
-
+    if (notes.length > 49 && uniName !== "" && course !== "" && friends !== 0 && difficulty !== 0 && 
+      materialQuality !== 0 && jobChances !== 0 && oneOnOneTime !== 0 && email !== "") {
+      
       if(emailExists){
         window.alert("Submission already received from this email");
         localStorage.setItem("emailForSignIn", "");
@@ -199,17 +191,15 @@ export default function AddSubmission({triggerEvent}) {
       setEmail("");
       localStorage.setItem("emailForSignIn", "");
 
-      // confirm uni email if they're using a referral code
-      if(isReferral){
-        sendSignInLinkToEmail(auth, email, actionCodeSettings)
-        .then(() => {
-            window.localStorage.setItem('emailForSignIn', email);
-            console.log("signed in ")
-        })
-        .catch((error) => {
-            console.log(error)
-        });
-      }
+      sendSignInLinkToEmail(auth, email, actionCodeSettings)
+      .then(() => {
+          window.localStorage.setItem('emailForSignIn', email);
+          console.log("signed in ")
+      })
+      .catch((error) => {
+          console.log(error)
+      });
+      
       onSuccess()
     }else{
       window.alert("Please fill in the required fields");
@@ -218,16 +208,10 @@ export default function AddSubmission({triggerEvent}) {
 
   return (
     <div className="container">
-      {isOpen && !isReferral && (
-      <div className={`pop-down ${isOpen ? "open" : ""}`} onAnimationEnd={onAnimationEnd}>
-        <h2 className="pop-down-title">Thank You For Your Submission!</h2>
-        <button id='closePopDown' onClick={closePopDown}>Browse Uni's</button>
-        </div>
-      )}
-      {isOpen && isReferral && (
+      {isOpen && (
         <div className={`pop-down ${isOpen ? "open" : ""}`} onAnimationEnd={onAnimationEnd}>
-          <h2 className="pop-down-title">Complete Your Review</h2>
-          <p className="pop-down-title">Complete your review by clicking the link in the email sent to you</p><br></br>
+          <h2 className="pop-down-title">Waiting for email verification... </h2>
+          <p className="pop-down-title">To complete your review, click the link in the email sent to you</p><br></br>
           </div>
         )}
       <div className='header'>
@@ -303,13 +287,7 @@ export default function AddSubmission({triggerEvent}) {
                     precision={1} />
               <br />
               <label>
-            A few words for other students
-              </label>
-              <textarea maxLength="500" id="lastNotes" value={notes} onChange={(e) => 
-                setNotes(e.target.value)}></textarea>
-              <br></br>
-              <label>
-            Name of uni <br></br>
+            Name of University <br></br>
             <select id="selectUniDegree" value={uniName} onChange={(e) => setUniName(e.target.value)}>
               <option value="">Select a University</option>
               {univercities.map((item) => (
@@ -321,7 +299,7 @@ export default function AddSubmission({triggerEvent}) {
           </label>
             <br />
             <label>
-              Course you took<br></br>
+              Degree you took<br></br>
               <select id="selectUniDegree" value={course} onChange={(e) => setCourse(e.target.value)}>
                 <option value="">Select a Degree</option>
                 {degrees.map((item) => (
@@ -343,8 +321,16 @@ export default function AddSubmission({triggerEvent}) {
                   onChange={handelReferral}
               />
             <br />
+            <label>
+            A few words for other students (min. 50 characters)
+              </label>
+              <textarea maxLength="500" id="lastNotes" value={notes} onChange={(e) => 
+                setNotes(e.target.value)}></textarea>
+                <p>Characters: {notes.length}</p>
+              <br></br>
+
               <label>
-            Your email (preferably university email)
+            Your University email
               </label>
               <input id='emailSubInput'
                   autoCapitalize='none'
@@ -352,8 +338,7 @@ export default function AddSubmission({triggerEvent}) {
                   placeholder="username@youruni.ac.nz"
                   value={email}
                   onChange={handleChange}
-              />{!isReferral &&!isValidEmail && <p id='emailError'>Enter a valid email</p>}
-              {isReferral && !isValidEmail && <p id='emailError'>When using referrals enter a valid university email </p>}
+              />{!isValidEmail && <p id='emailError'>Enter a valid university email</p>}
             <div id="submissionSubmitButton">
               <button className="AddSubmissionButtons" type="submit">Done</button>
               <button className="BackButton" onClick={goBack} type="button">Back</button>

@@ -11,6 +11,7 @@ import TestKiwis from "./components/testKiwis"
 import Image from "./components/image"
 import ReviewReviews from "./components/ReviewReviews"
 import StudentAmbassador from "./components/StudentAmbassador"
+import VerifyEmail from "./components/VerifyEmail"
 
 import { getAuth, isSignInWithEmailLink, signInWithEmailLink } from "firebase/auth";
 import { BrowserRouter as Router, Switch, Route, Routes, useNavigate  } from 'react-router-dom';
@@ -27,9 +28,14 @@ function App() {
   const handleOnClick = (rowData) => navigate(`/detail/${rowData.uniName}`);
   const [isOpen, setIsOpen] = React.useState(false);
 
+  const validateUniEmail = (email) => {
+    const emailPattern = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*\.ac\.nz$/;
+    return emailPattern.test(email);
+  }
+
   React.useEffect(() => {
     window.scrollTo(0, 0)
-    const fetchData = async (email) => {
+    const verifyReview = async (email) => {
       try {
         const reviewsRef = collection(db, 'reviews');
         const q = query(reviewsRef, where('email', '==', email));
@@ -42,29 +48,34 @@ function App() {
         });
         console.log('verifiedUniStudent updated successfully!');
       } catch (error) {
-        console.error('Error updating document:', error);
+        window.alert('Error updating document: ' + error + " Email: " + email + " Document: "  + document);
       }
     };
 
     const auth = getAuth();
     if (isSignInWithEmailLink(auth, window.location.href)) {
       let email = window.localStorage.getItem('emailForSignIn');
-      if (!email) {
-        email = window.prompt('Please type in your email for confirmation');
+      
+      if (!validateUniEmail(email)) {
+        email = window.prompt('Looks like you changed browsers! Please type in your email for confirmation');
         window.localStorage.setItem('emailForSignIn', email)
       }
       signInWithEmailLink(auth, email, window.location.href)
         .then((result) => {
-          fetchData(email);
-          setIsOpen(true)
-          navigate('/')
+          if(validateUniEmail(email)){
+            email = email.toLowerCase();
+            verifyReview(email);
+            setIsOpen(true)
+          }
           console.log("sign in with link from email success!")
           setUserEmail(true)
+          navigate('/')
         })
         .catch((error) => {
-          window.alert("Link is not valid, try again")
+          window.alert("You may have typed the wrong email, please click the link in your email again. " + error)
           console.log(error)
         });
+        window.localStorage.setItem('emailForSignIn', "")
     }
   }, []);
 
@@ -78,7 +89,6 @@ function App() {
     if(rowData){
       setSelectedRow(rowData);
     }
-    // window.location.href = `/detail/${rowData.uniName}`;
     handleOnClick(rowData)
   };
   const showLogin = () => {
@@ -103,6 +113,7 @@ function App() {
           <Route path="/add-submission" element={<AddSubmission />} />
           <Route path="/review-reviews" element={<ReviewReviews />} />
           <Route path="/ambassador" element={<StudentAmbassador />} />
+          {/* <Route path="/" element={<VerifyEmail />} /> */}
         </Routes>
       </div>
 

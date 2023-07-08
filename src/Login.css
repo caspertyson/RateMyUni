@@ -90,7 +90,7 @@
   #reviewManText{
     float: left;
     text-align: center;
-    margin-top: 30px;
+    margin-top: 0px;
     margin-left: 10px;
     max-width: 200px;
     font-weight: 100;
@@ -111,17 +111,17 @@
     padding: 10px;
     padding-bottom: 20px;
     margin: auto;
+    max-width: 80%;
   }
   #textLanding{
     color: rgb(88, 88, 88);
     font-size: large;
     font-weight: 100;
     line-height:25px;
-    padding-bottom: 20px;
-    max-width: 600px;
+    width: 80%;
+    max-width: 1000px;
     margin: auto;
-    padding-left: 20px;
-    padding-right: 20px;
+    text-align: left;
   }
   #textReviewUniBanner{
     background-color: rgba(227, 83, 50, 0.631);
@@ -224,6 +224,7 @@
     margin-left: 0px;
     border-radius: 10px;
     background-color: rgb(227, 83, 50, 0.631);
+    width: fit-content;
   }
   #x{
     font-size: large;
@@ -824,6 +825,12 @@
   }
   
   @media (max-width: 828px) {
+      #subHeaderLanding{
+        max-width: 90%;
+      }
+    #textLanding{
+      width: 95%;
+    }
     #submissionElements{
       width: 90%;
       margin: auto;
@@ -953,6 +960,64 @@
     }
     footer{
       height: 300px;
+    }
+  }
+  @media (max-width: 400px){
+    .title{
+      font-size: 25px;
+      margin-right: 0px;
+      padding-right: 0px;
+      padding-top: 5px;
+    }
+    .button-text{
+      font-size: small;
+    }
+    .review-button{
+      width: fit-content;
+      margin-right: 10px;
+    }
+    .login-form{
+      width: fit-content;
+      padding: 0px;
+      margin: 0px;
+    }
+    #write{
+      display: none;
+    }
+    .emblem{
+      margin-right: 5px;
+      padding-left: 20px;
+    }
+    #uniName{
+      margin-left: 5px;
+      font-size: medium;
+    }
+    #table .ratingContainer{
+      padding-left: 50px;
+      text-align: center;
+    }
+    #rightArrow{
+      display: none;
+    }
+    #table td{
+      padding-left: 0px;
+    }
+    #uniRow{
+      margin-left: 0px;
+      padding-left: 0px;
+    }
+    #writeAReviewStars{
+      display: none;
+    }
+    #averagesReviewTable{
+      font-size: 13px;
+    }
+    #reviewTable{
+      font-size: 12px;
+      width: 90%;
+    }
+    .BackButton{
+      display: none;
     }
   }
 
