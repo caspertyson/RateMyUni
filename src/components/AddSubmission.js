@@ -24,45 +24,58 @@ export default function AddSubmission({triggerEvent}) {
   const [isReferral, setIsReferral] = useState(false)
   const auth = getAuth();
 
+  
+
   const univercities = ["Auckland", "AUT", "Waikato", "Otago", "Lincoln", "Canterbury", "Wellington", "Massey"]
   const degrees = [
-    "Bachelor of Arts (BA)",
-    "Bachelor of Science (BSc)",
-    "Bachelor of Commerce (BCom)",
-    "Bachelor of Engineering (BE)",
-    "Bachelor of Education (BEd)",
-    "Bachelor of Fine Arts (BFA)",
-    "Bachelor of Nursing (BN)",
+    "Bachelor of Accountancy",
+    "Bachelor of Agribusiness",
+    "Bachelor of Agricultural Science",
+    "Bachelor of Animal Science",
     "Bachelor of Architecture (BArch)",
+    "Bachelor of Arts (BA)",
+    "Bachelor of Aviation",
+    "Bachelor of Aviation Management",
+    "Bachelor of Business",
+    "Bachelor of Commerce (BCom)",
+    "Bachelor of Commercial Music",
+    "Bachelor of Communication",
+    "Bachelor of Construction",
+    "Bachelor of Criminal Justice",
+    "Bachelor of Data Science",
+    "Bachelor of Dental Surgery (BDS)",
+    "Bachelor of Digital Screen with Honours",
+    "Bachelor of Education (BEd)",
+    "Bachelor of Engineering (BE)",
+    "Bachelor of Environmental Science with Honours",
+    "Bachelor of Fine Arts (BFA)",
+    "Bachelor of Forestry Science",
+    "Bachelor of Health Sciences",
+    "Bachelor of Horticultural Science",
+    "Bachelor of Information Sciences",
     "Bachelor of Information Technology (BIT)",
     "Bachelor of Laws (LLB)",
+    "Bachelor of Māori Innovation",
+    "Bachelor of Māori Visual Arts",
     "Bachelor of Medicine, Bachelor of Surgery (MBChB)",
-    "Bachelor of Dental Surgery (BDS)",
-    "Bachelor of Pharmacy (BPharm)",
-    "Bachelor of Veterinary Science (BVSc)",
-    "Bachelor of Physiotherapy (BPT)",
+    "Bachelor of Music",
+    "Bachelor of Nursing (BN)",
     "Bachelor of Occupational Therapy (BOT)",
+    "Bachelor of Pharmacy (BPharm)",
+    "Bachelor of Physiotherapy (BPT)",
+    "Bachelor of Product Design",
+    "Bachelor of Resource and Environmental Planning",
+    "Bachelor of Science (BSc)",
+    "Bachelor of Social and Environmental Sustainability",
     "Bachelor of Social Work (BSW)",
     "Bachelor of Speech and Language Therapy (BSLT)",
-    "Master of Arts (MA)",
-    "Master of Science (MSc)",
-    "Master of Business Administration (MBA)",
-    "Master of Engineering (ME)",
-    "Master of Education (MEd)",
-    "Master of Fine Arts (MFA)",
-    "Master of Nursing (MN)",
-    "Master of Architecture (MArch)",
-    "Master of Information Technology (MIT)",
-    "Doctor of Philosophy (PhD)",
-    "Doctor of Education (EdD)",
-    "Doctor of Business Administration (DBA)",
-    "Doctor of Engineering (DEng)",
-    "Doctor of Clinical Psychology (DClinPsych)",
-    "Doctor of Medicine (MD)",
-    "Doctor of Veterinary Medicine (DVM)",
-    "Doctor of Musical Arts (DMA)",
-    "Doctor of Information Technology (DIT)"
-]
+    "Bachelor of Sport and Exercise",
+    "Bachelor of Sport Coaching",
+    "Bachelor of Teaching and Learning Kura Kaupapa Māori (Te Aho Tātairangi)",
+    "Bachelor of Veterinary Science",
+    "Bachelor of Veterinary Science Pre-Selection",
+  ];  
+
   const [email, setEmail] = useState("")
 
   const goBack = () => {
@@ -148,8 +161,11 @@ export default function AddSubmission({triggerEvent}) {
     const verifiedUniStudent = false;
     const upvotes = []
     const downvotes = []
-
-    if (notes.length > 49 && uniName !== "" && course !== "" && friends !== 0 && difficulty !== 0 && 
+    
+    if(notes.length < 50){
+      document.getElementById("lastNotes").focus();
+    }
+    else if (uniName !== "" && course !== "" && friends !== 0 && difficulty !== 0 && 
       materialQuality !== 0 && jobChances !== 0 && oneOnOneTime !== 0 && email !== "") {
       
       if(emailExists){
@@ -299,7 +315,7 @@ export default function AddSubmission({triggerEvent}) {
           </label>
             <br />
             <label>
-              Degree you took<br></br>
+              Degree you took <br></br>(choose the closest or write in the notes what it was)<br></br>
               <select id="selectUniDegree" value={course} onChange={(e) => setCourse(e.target.value)}>
                 <option value="">Select a Degree</option>
                 {degrees.map((item) => (

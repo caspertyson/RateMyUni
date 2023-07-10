@@ -138,7 +138,7 @@ const StudentAmbassador = (props) => {
       <div id='ambassadorMain'>
        <h1>Become a brand ambassador</h1>
        <p>Help get reviews for this site and get paid for your efforts</p>
-       <p>Get $20 for every 10 reviews that use your referral code</p>
+       <p>Get $10 for every 5 reviews that use your referral code</p>
        <p>Enter your details below to get started</p>
        <input id='name' placeholder="First Name"                  
           type="text"

@@ -166,35 +166,17 @@ const LoginPage = ({login, triggerEvent, onRowClick}) => {
       </div>
       <div id="banner">
         <img id="uniImage" src={AucklandUni}></img>
-        <div id="bannerText"><span id="NZ">  VERIFIED</span> REVIEWS</div>
+        <div id="bannerText">100% <span id="NZ">  AUTHENTICATED</span> </div>
       </div>
 
       <div className="query-results">
-        <h1 id="subHeaderLanding">NZ University Rankings as decided by students</h1><br></br>
-        {/* <p id="textLanding">Crowd source reviews to uncover all the nitty-gritty details that make your university unique. Tap into the collective knowledge of the crowd and get some insider views. </p> */}
-        <p id="textLanding">When it comes to universities, my parents and teachers think I'm smart (I'm not). It's because I researched my choice of universities on RateMyUni.co.nz (and they have no idea it exists).</p>
-        <div id="writeReviewUniDiv">
-          <div id="textReviewUniBanner">
-            <p id="headingTextReview" >Review Your University</p>
-            <p id="subTextReview">Share Your University Experience And Rate!</p>
-          </div>
-          <div id="actionReviewUniBanner">
-            <p onClick={reviewClick} id="writeAReviewText">Rate Your Uni</p>
-            <Rating onClick={reviewClick} id="writeAReviewStars" name="size-medium" size="medium"
-                  icon={<SchoolIcon style={{ fontSize: "30px" }}/>}
-                  emptyIcon={<SchoolIcon style={{ fontSize: "30px" }}/>}
-                  value={0} precision={1} />
-          </div>
-        </div>
-        <p id="textLanding">We understand that when it comes to finding real information about New Zealand Universities, 10 year old reddit forums and vauge world rankings just don't cut it. With RateMyUni.co.nz you can gain access to 100% authenticated reviews from real students, where you can sort by latest or most upvoted reviews, or by degree (coming soon...). <br></br>Stay away from all of the misinformation, and make your university choice based on real student reviews!</p>
-        <p id="textLanding"> </p>
+        <h1 id="subHeaderLanding">NZ University Rankings as decided by students</h1>
+        <p id="textLanding">We understand that when it comes to finding real information about New Zealand Universities, 10 year old reddit forums and vauge world rankings just don't cut it. With RateMyUni.co.nz you can gain access to 100% authenticated reviews from real students. Make your university choice based on real student reviews!</p>
 
-      {/* <button type="button" id="review-uni-button" onClick={reviewClick}>Review Your Uni</button> */}
         <select id="sortByLanding" value={sortBy} onChange={(e) => setSortBy(e.target.value)}>
           <option value="Sort By Highest Rating" >Sort By: Highest Rating</option>
           <option value="Sort By Number Of Reviews">Sort By: Number Of Reviews</option>
         </select>
-
 
         <table id="table">
           <tbody>
@@ -223,12 +205,27 @@ const LoginPage = ({login, triggerEvent, onRowClick}) => {
           </tbody>
         </table>
 
+        <div id="writeReviewUniDiv">
+          <div id="textReviewUniBanner">
+            <p id="headingTextReview" >Review Your University</p>
+            <p id="subTextReview">Share Your University Experience And Rate!</p>
+          </div>
+          <div id="actionReviewUniBanner">
+            <p onClick={reviewClick} id="writeAReviewText">Rate Your Uni</p>
+            <Rating onClick={reviewClick} id="writeAReviewStars" name="size-medium" size="medium"
+                  icon={<SchoolIcon style={{ fontSize: "30px" }}/>}
+                  emptyIcon={<SchoolIcon style={{ fontSize: "30px" }}/>}
+                  value={0} precision={1} />
+          </div>
+        </div>
+        {/* <p id="textLanding">When it comes to universities, my parents and teachers think I'm smart (I'm not). It's because I researched my choice of universities on RateMyUni.co.nz (and they have no idea it exists).</p> */}
+
         <div id="businessmanInfographs">
               <div id="bussinessmanImageDiv">
                 <img id="businessmanImage" src={BusinessMan}></img>
               </div>
-              <div id="businessmanText"><h3>Each Student is Unique</h3>
-                <p>Get real reviews from real students, about the things you care about</p>
+              <div id="businessmanText"><h3>100% Authenticated</h3>
+                <p> Each review must be made with a verified ".ac.nz" email, and each email can only be used once</p>
               </div>
 
         </div>
@@ -236,8 +233,8 @@ const LoginPage = ({login, triggerEvent, onRowClick}) => {
               <div id="reviewManImageDiv">
                 <img id="reviewManImage" src={ReviewMan}></img>
               </div>
-              <div id="reviewManText"><h3>"It's A Great Site!"</h3>
-                <p> - trust me bro this definitely wasn't made by a 4th year student who was procrastinating and should be spending more time on their honours project</p>
+              <div id="reviewManText"><h3>Each Student is Unique</h3>
+                <p>Get real reviews from real students, about the things you care about</p>
               </div>
 
         </div>
