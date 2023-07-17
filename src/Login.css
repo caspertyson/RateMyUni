@@ -574,6 +574,10 @@
     text-align: center;
     max-width: 800px;
   }
+  a{
+    text-decoration: none;
+    color: inherit;
+  }
   th,
   #table td {
     padding: 7px;

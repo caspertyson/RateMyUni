@@ -89,7 +89,7 @@ const DetailComponent = ({ onRowClick, triggerEvent }) => {
       aboutUni = aboutLincoln
       break;
   }
-  banner = <img id="uniImage" src={DetailsUni}></img>
+  banner = <img id="uniImage" src={DetailsUni} alt='University Library'></img>
   const calculateAverage = (array, property) => {
     const values = array.map((item) => parseFloat(item[property]));
     const sum = values.reduce((acc, val) => acc + val, 0);

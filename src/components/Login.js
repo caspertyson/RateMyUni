@@ -16,6 +16,7 @@ import ModalLogin from "../components/ModalLogin"
 import BusinessMan from "../images/business-man.png"
 import ReviewMan from "../images/review.png"
 import AucklandUni from '../images/aucklanduni.jpg'
+import MobileBanner from '../images/aucklanduniMobile.jpg'
 import SvgIcon from '@mui/material/SvgIcon';
 import Kiwi from "./svg"
 import SchoolIcon from '@mui/icons-material/School';
@@ -33,6 +34,7 @@ const LoginPage = ({login, triggerEvent, onRowClick}) => {
     const [isLoggedIn, setIsLoggedIn] = useState(false);
     const [isOpen, setIsOpen] = useState(false);
     const [sortBy, setSortBy] = useState("Sort By Highest Rating")
+    const [isMobile, setIsMobile] = useState(false);
 
     const auth = getAuth();
 
@@ -63,6 +65,7 @@ const LoginPage = ({login, triggerEvent, onRowClick}) => {
     const onLogin = () => {
       navigate(`/review-reviews`)
     }
+  
 
     const handleClick = () => {
       if(signInText == "Log Out"){
@@ -93,8 +96,14 @@ const LoginPage = ({login, triggerEvent, onRowClick}) => {
       const sortedData = [...averages].sort((a, b) => b.count - a.count);
       return sortedData
     }
-
+    const getImageSource = () => {
+      if (isMobile) {
+        return MobileBanner;
+      }
+      return AucklandUni;
+    };
     useEffect(() => {
+      setIsMobile(/Android|webOS|iPhone|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent))
       onAuthStateChanged(auth, (user) => {
         if (user) {
           setSignInText("Log Out")
@@ -143,6 +152,11 @@ const LoginPage = ({login, triggerEvent, onRowClick}) => {
       };
     }, []);  
 
+    useEffect(() => {
+      const image = new Image();
+      image.src = getImageSource();
+    }, []);
+
     return (
       <div className="container">
       {isOpen && (
@@ -162,10 +176,9 @@ const LoginPage = ({login, triggerEvent, onRowClick}) => {
         </form>
         <button type="button" className="writeReview" onClick={handleClick}>{signInText}</button>
 
-
       </div>
       <div id="banner">
-        <img id="uniImage" src={AucklandUni}></img>
+        <img id="uniImage" src={getImageSource()} alt="People At A University" />
         <div id="bannerText">100% <span id="NZ">  AUTHENTICATED</span> </div>
       </div>
 
@@ -182,23 +195,23 @@ const LoginPage = ({login, triggerEvent, onRowClick}) => {
           <tbody>
             {data.map((item, index) => (
               <tr id="landingPageTR" key={item.uniName} onClick={() => handleRowClick(item)}>
-                <td id="uniRow">
-                  {item.uniName === "Canterbury" && <img className="emblem" src={Canterbury} alt="Uni1" />}
-                  {item.uniName === "Waikato" && <img className="emblem" src={Waikato} alt="Uni1" />}
-                  {item.uniName === "Auckland" && <img className="emblem" src={Auckland} alt="Uni1" />}
-                  {item.uniName === "Wellington" && <img className="emblem" src={Wellington} alt="Uni1" />}
-                  {item.uniName === "Otago" && <img className="emblem" src={Otago} alt="Uni1" />}
-                  {item.uniName === "Lincoln" &&  <img className="emblem" src={Lincoln} alt="Uni1" />}
-                  {item.uniName === "AUT" && <img className="emblem" src={AUT} alt="Uni1" />}
-                  {item.uniName === "Massey" && <img className="emblem" src={Massey} alt="Uni1" />}
-                  <span id="uniName">{item.uniName}</span>
+              <td id="uniRow">
+                  {item.uniName === "Canterbury" && <img className="emblem" src={Canterbury} alt="Uni Emblem" />}
+                  {item.uniName === "Waikato" && <img className="emblem" src={Waikato} alt="Uni Emblem" />}
+                  {item.uniName === "Auckland" && <img className="emblem" src={Auckland} alt="Uni Emblem" />}
+                  {item.uniName === "Wellington" && <img className="emblem" src={Wellington} alt="Uni Emblem" />}
+                  {item.uniName === "Otago" && <img className="emblem" src={Otago} alt="Uni Emblem" />}
+                  {item.uniName === "Lincoln" &&  <img className="emblem" src={Lincoln} alt="Uni Emblem" />}
+                  {item.uniName === "AUT" && <img className="emblem" src={AUT} alt="Uni Emblem" />}
+                  {item.uniName === "Massey" && <img className="emblem" src={Massey} alt="Uni Emblem" />}
+                  <a href={"https://ratemyuni.co.nz/detail/" + item.uniName} id="uniName">{item.uniName}</a>
                 </td>
                 <td className="ratingContainer"><Rating name="size-medium" size="medium"
                   icon={<SchoolIcon fontSize="5px"/>}
                   emptyIcon={<SchoolIcon fontSize="5px"/>}
                   // sx={{color: "#FFDF00"}}
                   value={parseFloat(item.averageOverallScore.toLocaleString("en-US"))} precision={0.1} readOnly/>
-                  <span id="numRatings">{"(" + item.count + ")"}</span><span><img id="rightArrow" src={rightArrow}></img></span>
+                  <span id="numRatings">{"(" + item.count + ")"}</span><span><img id="rightArrow" src={rightArrow} alt="right arrow"></img></span>
                 </td>
               </tr>
             ))}
@@ -222,7 +235,7 @@ const LoginPage = ({login, triggerEvent, onRowClick}) => {
 
         <div id="businessmanInfographs">
               <div id="bussinessmanImageDiv">
-                <img id="businessmanImage" src={BusinessMan}></img>
+                <img id="businessmanImage" src={BusinessMan} alt="business man"></img>
               </div>
               <div id="businessmanText"><h3>100% Authenticated</h3>
                 <p> Each review must be made with a verified ".ac.nz" email, and each email can only be used once</p>
@@ -231,17 +244,17 @@ const LoginPage = ({login, triggerEvent, onRowClick}) => {
         </div>
         <div id="reviewManInfograph">
               <div id="reviewManImageDiv">
-                <img id="reviewManImage" src={ReviewMan}></img>
+                <img id="reviewManImage" src={ReviewMan} alt="review man"></img>
               </div>
-              <div id="reviewManText"><h3>Each Student is Unique</h3>
-                <p>Get real reviews from real students, about the things you care about</p>
+              <div id="reviewManText"><h3>Anonymous</h3>
+                <p>Every review will always be displayed anonymously</p>
               </div>
 
         </div>
         <footer>
         <div id="footer">
           <h1 className="title">RateMy<span id="uniLogin">Uni</span><span id="conz">.co.nz</span></h1>
-          <span onClick={reviewClick} id="LoginReviews">Review</span><span onClick={aboutClick} id="LoginReviews">Student Ambassador</span><span onClick={onLogin} id="LoginReviews">Admin</span>
+          <a href="https://ratemyuni.co.nz/add-submission" id="LoginReviews">Review</a><a href="https://ratemyuni.co.nz/ambassador" id="LoginReviews">Student Ambassador</a><a href="https://ratemyuni.co.nz/review-reviews" id="LoginReviews">Admin</a>
         </div>
         </footer>
       </div>
